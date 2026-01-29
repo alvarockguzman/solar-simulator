@@ -1,0 +1,29 @@
+Tipo,Nombre del Perfil,,Superficie Necesaria (m2),Potencia Instalada (kwp),Rendimiento produccion annual (kwh/kwp),Energía Producida (kwh),Costo CAPEX (USD/kwp),CAPEX (USD),Mantenimiento OPEX (USD/kwp),OPEX (USD),Tarifa Factura Eléctrica (USD/mwh),Ahorro Anual (USD),FCF (USD),Recupero inversión (Años)
+Tipo A,Instalación Grande - Techo Plano,,1100, 150 ," 1,459 "," 218,910.00 ", 750 ," 112,500 ", 11 ," 1,650 ", 0.117 ," 25,628 "," 23,978 ", 4.7 
+Tipo B,Instalación Mediana - Techo Plano,,450, 60 ," 1,459 "," 87,564.00 ", 850 ," 51,000 ", 14 , 840 , 0.117 ," 10,251 "," 9,411 ", 5.4 
+Tipo C,Instalación Mediana - Techo Serrucho,,510, 60 ," 1,407 "," 84,420.00 ", 900 ," 54,000 ", 16 , 960 , 0.117 ," 9,883 "," 8,923 ", 6.1 
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,-
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
