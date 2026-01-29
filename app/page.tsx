@@ -107,6 +107,91 @@ function EconomicsBlock({ economics, profileName }: { economics: Economics; prof
   );
 }
 
+const FAQ_ITEMS = [
+  {
+    title: "1. ¿Qué son los perfiles de instalación?",
+    content:
+      "Seleccionamos tres perfiles representativos basados en los proyectos solares más comunes en Argentina, combinando instalaciones medianas y grandes y distintos tipos de techo. La geometría del techo, plano o serrucho, influye en el rendimiento del sistema y por eso se modelan como escenarios distintos.",
+  },
+  {
+    title: "2. ¿Cómo se calcula el ahorro anual?",
+    content:
+      "El ahorro refleja la energía que tu empresa deja de comprar a la distribuidora gracias a la generación solar y, en caso de excedentes, la energía que podría inyectarse a la red. El cálculo utiliza una tarifa eléctrica promedio para grandes usuarios como referencia.",
+  },
+  {
+    title: "3. ¿Qué significa potencia instalada?",
+    content:
+      "La potencia instalada es la capacidad total del sistema solar fotovoltaico. Indica cuántos paneles se instalan y cuánta energía puede generar el sistema en condiciones estándar.",
+  },
+  {
+    title: "4. ¿Qué es el recupero de la inversión?",
+    content:
+      "Es una estimación del tiempo necesario para recuperar la inversión realizada, comparando el ahorro anual generado por el sistema con el costo de la instalación. Se expresa en años y tiene carácter orientativo.",
+  },
+  {
+    title: "5. ¿Qué representa la energía producida?",
+    content:
+      "Es la cantidad de energía que el sistema solar genera en un año. Esta energía puede utilizarse directamente en tus instalaciones o entregarse a la red pública, y se calcula en base a rendimientos promedio del mercado.",
+  },
+] as const;
+
+function FaqCard({ title, content }: { title: string; content: string }) {
+  const [flipped, setFlipped] = useState(false);
+  return (
+    <div
+      className="group h-[140px] w-full cursor-pointer [perspective:800px]"
+      onClick={() => setFlipped((f) => !f)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setFlipped((f) => !f)}
+      aria-label={title}
+    >
+      <div
+        className={`relative h-full w-full transition-transform duration-300 [transform-style:preserve-3d] ${flipped ? "[transform:rotateY(180deg)]" : "group-hover:[transform:rotateY(180deg)]"}`}
+      >
+        {/* Front: título + icono */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-xl border border-stone-200 bg-stone-50/80 px-4 py-3 [backface-visibility:hidden]">
+          <svg
+            className="h-8 w-8 shrink-0 text-stone-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 2h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <h3 className="line-clamp-3 text-center text-sm font-medium text-stone-600">
+            {title}
+          </h3>
+        </div>
+        {/* Back: contenido */}
+        <div className="absolute inset-0 rounded-xl border border-stone-200 bg-white px-4 py-3 [backface-visibility:hidden] [transform:rotateY(180deg)]">
+          <p className="h-full overflow-y-auto text-xs text-stone-600 leading-relaxed">
+            {content}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CtaButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="rounded-xl bg-amber-500 px-6 py-3 font-semibold text-white shadow-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+    >
+      Quiero recibir más información
+    </button>
+  );
+}
+
 function LeadForm({
   onClose,
   onSubmit,
@@ -282,27 +367,128 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen">
-      <header className="border-b border-stone-200 bg-white/90 py-4 backdrop-blur sm:py-6">
-        <div className="mx-auto max-w-4xl px-4">
-          <h1 className="text-2xl font-bold text-stone-900 sm:text-3xl">
-            Simulador Solar
-          </h1>
-          <p className="mt-1 text-stone-600">
-            Beneficio económico de paneles solares para tu empresa
-          </p>
-        </div>
-      </header>
+    <div className="min-h-screen bg-white">
+      <main className="mx-auto max-w-6xl px-4 py-8 sm:py-12 lg:py-16">
+        {/* Hero: ilustración izquierda, texto + CTA derecha */}
+        <section className="relative mb-16 overflow-hidden rounded-2xl bg-white sm:mb-20">
+          <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
+            {/* Izquierda: ilustración isométrica paneles solares */}
+            <div className="relative flex min-h-[220px] items-center justify-center sm:min-h-[280px] lg:min-h-[320px]">
+              {/* Formas de fondo sutiles (estilo referencia) */}
+              <div className="absolute inset-0 overflow-hidden rounded-xl">
+                <div className="absolute -left-4 top-1/2 h-32 w-32 -translate-y-1/2 rounded-full bg-sky-100/60 blur-2xl" />
+                <div className="absolute bottom-0 right-1/4 h-24 w-24 rounded-full bg-amber-100/50 blur-xl" />
+                <svg className="absolute inset-0 h-full w-full text-sky-200/40" aria-hidden>
+                  <defs>
+                    <pattern id="hero-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+                      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#hero-grid)" />
+                </svg>
+              </div>
+              {/* SVG isométrico: grid 3x4 paneles solares + líneas de conexión */}
+              <svg
+                className="relative z-10 w-full max-w-sm sm:max-w-md"
+                viewBox="0 0 360 220"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden
+              >
+                <defs>
+                  <linearGradient id="panel-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#38bdf8" />
+                    <stop offset="100%" stopColor="#0ea5e9" />
+                  </linearGradient>
+                  <filter id="line-glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                  <pattern id="cell-grid" width="6" height="6" patternUnits="userSpaceOnUse">
+                    <path d="M 6 0 L 0 0 0 6" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="0.35" />
+                  </pattern>
+                </defs>
+                {/* Líneas de conexión entre paneles (glow) */}
+                <g stroke="#7dd3fc" strokeWidth="3" strokeLinecap="round" opacity="0.9" filter="url(#line-glow)">
+                  {/* horizontales */}
+                  <line x1="72" y1="58" x2="108" y2="72" />
+                  <line x1="142" y1="72" x2="178" y2="86" />
+                  <line x1="212" y1="86" x2="248" y2="100" />
+                  <line x1="72" y1="98" x2="108" y2="112" />
+                  <line x1="142" y1="112" x2="178" y2="126" />
+                  <line x1="212" y1="126" x2="248" y2="140" />
+                  <line x1="72" y1="138" x2="108" y2="152" />
+                  <line x1="142" y1="152" x2="178" y2="166" />
+                  <line x1="212" y1="166" x2="248" y2="180" />
+                  {/* verticales */}
+                  <line x1="108" y1="72" x2="72" y2="98" />
+                  <line x1="178" y1="86" x2="142" y2="112" />
+                  <line x1="248" y1="100" x2="212" y2="126" />
+                  <line x1="108" y1="112" x2="72" y2="138" />
+                  <line x1="178" y1="126" x2="142" y2="152" />
+                  <line x1="248" y1="140" x2="212" y2="166" />
+                </g>
+                {/* Puntos de conexión (glow) */}
+                <g fill="#bae6fd" filter="url(#line-glow)">
+                  {[
+                    [72, 58], [108, 72], [142, 72], [178, 86], [212, 86], [248, 100],
+                    [72, 98], [108, 112], [142, 112], [178, 126], [212, 126], [248, 140],
+                    [72, 138], [108, 152], [142, 152], [178, 166], [212, 166], [248, 180],
+                  ].map(([cx, cy], i) => (
+                    <circle key={i} cx={cx} cy={cy} r="3.5" />
+                  ))}
+                </g>
+                {/* 12 paneles: 4 columnas x 3 filas (paralelogramos isométricos) */}
+                {[
+                  [30, 35], [100, 48], [170, 61], [240, 74],
+                  [30, 75], [100, 88], [170, 101], [240, 114],
+                  [30, 115], [100, 128], [170, 141], [240, 154],
+                ].map(([px, py], i) => (
+                  <g key={i}>
+                    <path
+                      d={`M ${px} ${py} L ${px + 58} ${py + 29} L ${px + 58} ${py + 72} L ${px} ${py + 43} Z`}
+                      fill="url(#panel-blue)"
+                      stroke="#e0f2fe"
+                      strokeWidth="2"
+                    />
+                    <path
+                      d={`M ${px + 4} ${py + 5} L ${px + 54} ${py + 34} L ${px + 54} ${py + 67} L ${px + 4} ${py + 38} Z`}
+                      fill="url(#panel-blue)"
+                      fillOpacity="0.95"
+                      stroke="none"
+                    />
+                    <path
+                      d={`M ${px + 4} ${py + 5} L ${px + 54} ${py + 34} L ${px + 54} ${py + 67} L ${px + 4} ${py + 38} Z`}
+                      fill="url(#cell-grid)"
+                      opacity="0.5"
+                    />
+                  </g>
+                ))}
+              </svg>
+            </div>
 
-      <main className="mx-auto max-w-4xl px-4 py-8 sm:py-12">
-        {/* 1. Intro */}
-        <section className="mb-12">
-          <h2 className="mb-3 text-xl font-semibold text-stone-900">
-            Cómo funciona la calculadora
-          </h2>
-          <p className="text-stone-700 leading-relaxed">
-            Elegí uno de los tres perfiles de instalación solar según el tipo de techo y el tamaño de tu proyecto. La calculadora te mostrará de inmediato los economics estimados: energía producida al año, ahorro en USD, años para recuperar la inversión y potencia instalada. Si querés más información o una propuesta a medida, completá el formulario y te contactamos.
-          </p>
+            {/* Derecha: título, explicación, CTA */}
+            <div className="flex flex-col justify-center lg:py-4">
+              <h1 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
+                Calculadora Solar
+              </h1>
+              <p className="mt-4 max-w-lg text-base leading-relaxed text-stone-600 sm:text-lg">
+                Elegí entre tres perfiles de instalación solar y accedé a una estimación del ahorro económico, la energía producida y el plazo de recupero, utilizando parámetros típicos del mercado industrial.
+              </p>
+              <div className="mt-8">
+                <button
+                  type="button"
+                  onClick={() => setShowLeadForm(true)}
+                  className="rounded-lg bg-stone-800 px-6 py-3.5 text-base font-semibold text-white shadow-md transition-colors hover:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2"
+                >
+                  Quiero recibir más información
+                </button>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* 2. Perfiles */}
@@ -322,25 +508,42 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 3. Economics */}
-        {selectedProfile && economics && selectedProfileData && (
+        {/* CTA: debajo de perfiles cuando no hay economics */}
+        {!selectedProfile && (
           <section className="mb-12">
-            <EconomicsBlock
-              economics={economics}
-              profileName={selectedProfileData.shortName}
-            />
+            <CtaButton onClick={() => setShowLeadForm(true)} />
           </section>
         )}
 
-        {/* 4. Lead */}
+        {/* 3. Economics */}
+        {selectedProfile && economics && selectedProfileData && (
+          <>
+            <section className="mb-12">
+              <EconomicsBlock
+                economics={economics}
+                profileName={selectedProfileData.shortName}
+              />
+            </section>
+            {/* CTA: debajo de economics cuando aparecen */}
+            <section className="mb-12">
+              <p className="mb-4 text-stone-600">
+                Dejanos tus datos para que un representante se contacte contigo para hacer un presupuesto a medida.
+              </p>
+              <CtaButton onClick={() => setShowLeadForm(true)} />
+            </section>
+          </>
+        )}
+
+        {/* 4. FAQs – más discretas, flip al hover */}
         <section className="mb-12">
-          <button
-            type="button"
-            onClick={() => setShowLeadForm(true)}
-            className="rounded-xl bg-amber-500 px-6 py-3 font-semibold text-white shadow-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-          >
-            Quiero recibir más información
-          </button>
+          <h2 className="mb-4 text-lg font-medium text-stone-600">
+            FAQs – Preguntas Frecuentes
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {FAQ_ITEMS.map((item) => (
+              <FaqCard key={item.title} title={item.title} content={item.content} />
+            ))}
+          </div>
         </section>
       </main>
 
