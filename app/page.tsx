@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   PROFILES,
   ECONOMICS_BY_PROFILE,
@@ -222,8 +222,11 @@ function LeadForm({
       await onSubmit({ nombre, apellido, empresa, mail, telefono });
       setSent(true);
     } catch (err) {
+      const rawMessage = err instanceof Error ? err.message : "";
       const message =
-        err instanceof Error ? err.message : "No se pudo enviar. Revisa los datos o intenta más tarde.";
+        rawMessage === "Failed to fetch"
+          ? "No se pudo conectar con el servidor. Revisá que estés corriendo la app en local (npm run dev) y que en .env.local tengas LEAD_FORM_URL con la URL de tu Google Apps Script."
+          : rawMessage || "No se pudo enviar. Revisá los datos o intentá más tarde.";
       setError(message);
     } finally {
       setSending(false);
@@ -342,11 +345,20 @@ function LeadForm({
 export default function Home() {
   const [selectedProfile, setSelectedProfile] = useState<ProfileId | null>(null);
   const [showLeadForm, setShowLeadForm] = useState(false);
+  const profilesSectionRef = useRef<HTMLElement>(null);
+  const economicsSectionRef = useRef<HTMLElement>(null);
 
   const selectedProfileData = selectedProfile
     ? PROFILES.find((p) => p.id === selectedProfile)
     : null;
   const economics = selectedProfile ? ECONOMICS_BY_PROFILE[selectedProfile] : null;
+
+  // Scroll suave a Economics cuando el usuario selecciona un perfil
+  useEffect(() => {
+    if (selectedProfile && economicsSectionRef.current) {
+      economicsSectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [selectedProfile]);
 
   const handleLeadSubmit = async (data: {
     nombre: string;
@@ -481,10 +493,10 @@ export default function Home() {
               <div className="mt-8">
                 <button
                   type="button"
-                  onClick={() => setShowLeadForm(true)}
+                  onClick={() => profilesSectionRef.current?.scrollIntoView({ behavior: "smooth" })}
                   className="rounded-lg bg-stone-800 px-6 py-3.5 text-base font-semibold text-white shadow-md transition-colors hover:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2"
                 >
-                  Quiero recibir más información
+                  Ver perfiles de instalación
                 </button>
               </div>
             </div>
@@ -492,9 +504,9 @@ export default function Home() {
         </section>
 
         {/* 2. Perfiles */}
-        <section className="mb-12">
+        <section ref={profilesSectionRef} className="mb-12" id="perfiles">
           <h2 className="mb-6 text-xl font-semibold text-stone-900">
-            Perfiles de instalación
+            Seleccioná el perfil indicado para tu empresa
           </h2>
           <div className="grid gap-6 sm:grid-cols-3">
             {PROFILES.map((profile) => (
@@ -518,7 +530,10 @@ export default function Home() {
         {/* 3. Economics */}
         {selectedProfile && economics && selectedProfileData && (
           <>
-            <section className="mb-12">
+            <section ref={economicsSectionRef} className="mb-12" id="economics">
+              <h2 className="mb-4 text-xl font-semibold text-stone-900">
+                Comprobá los resultados
+              </h2>
               <EconomicsBlock
                 economics={economics}
                 profileName={selectedProfileData.shortName}
@@ -537,7 +552,7 @@ export default function Home() {
         {/* 4. FAQs – más discretas, flip al hover */}
         <section className="mb-12">
           <h2 className="mb-4 text-lg font-medium text-stone-600">
-            FAQs – Preguntas Frecuentes
+            FAQs – Aclaraciones rápidas
           </h2>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {FAQ_ITEMS.map((item) => (
