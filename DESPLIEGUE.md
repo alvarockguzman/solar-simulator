@@ -57,8 +57,45 @@
    - Vercel te mostrará qué registros DNS configurar (normalmente un CNAME o A). Entra a la web donde gestionas tu dominio y crea ese registro con el valor que indica Vercel.
    - Cuando el DNS se actualice (puede tardar unos minutos), tu sitio estará en tu dominio con HTTPS.
 
+## 5. Subdominio para la Calculadora Avanzada (advanced.renovatio.lat)
+
+Si querés que la calculadora avanzada tenga su propio link (por ejemplo `https://advanced.renovatio.lat`), hacé lo siguiente.
+
+### En Vercel
+
+1. Entrá a tu **proyecto** en [Vercel](https://vercel.com).
+2. **Settings** → **Domains**.
+3. Clic en **Add** y escribí el subdominio: `advanced.renovatio.lat`.
+4. Vercel te va a indicar qué registro DNS crear:
+   - Si usa **CNAME**: el nombre suele ser `advanced` y el valor algo como `cname.vercel-dns.com` (o el dominio que te muestre Vercel).
+   - Si usa **A**: te dará una IP; creá un registro A con nombre `advanced` apuntando a esa IP.
+5. Guardá el dominio. Vercel validará el DNS; puede tardar unos minutos (o hasta 48 h en casos raros).
+6. Cuando el dominio figure como **Valid**, las visitas a `https://advanced.renovatio.lat` irán al **mismo deploy** del proyecto y, por la configuración en `next.config.js`, se mostrará la calculadora avanzada (ruta `/advanced`).
+
+### En el proveedor de DNS (donde tenés renovatio.lat)
+
+1. Entrá al panel donde gestionás el dominio `renovatio.lat`.
+2. Buscá la sección de **DNS** (registros CNAME, A, etc.).
+3. Creá el registro que Vercel te indicó:
+   - **Tipo:** CNAME (o A si Vercel lo pide).
+   - **Nombre / Host:** `advanced` (así el subdominio queda `advanced.renovatio.lat`).
+   - **Valor / Apunta a:** el que te dé Vercel (ej. `cname.vercel-dns.com` para CNAME).
+4. Guardá los cambios y esperá a que Vercel marque el dominio como válido.
+
+### Cómo funciona
+
+En `next.config.js` hay un **rewrite** que dice: “Si la petición llega con el host `advanced.renovatio.lat`, serví el contenido de `/advanced`”. Por eso:
+
+- `https://renovatio.lat` → calculadora básica (y `/advanced` sigue siendo `https://renovatio.lat/advanced`).
+- `https://advanced.renovatio.lat` → mismo proyecto, pero se muestra directamente la calculadora avanzada.
+
+No hace falta otro proyecto ni otro repo; es el mismo deploy con dos formas de entrar.
+
+---
+
 ## Resumen
 
 - **Leads:** Se guardan en tu Google Sheet; puedes verlos y exportar a Excel/CSV cuando quieras.
 - **Variables:** Solo necesitas `LEAD_FORM_URL` en `.env.local` en local y en Vercel como variable de entorno.
 - **Dominio:** Se configura en Vercel → Domains y en los DNS de tu proveedor de dominio.
+- **Subdominio avanzada:** Agregar `advanced.renovatio.lat` en Vercel → Domains y crear el CNAME (o A) en tu DNS; el rewrite en `next.config.js` hace el resto.

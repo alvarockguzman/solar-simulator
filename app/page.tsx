@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import {
   PROFILES,
   ECONOMICS_BY_PROFILE,
@@ -490,7 +491,7 @@ export default function Home() {
               <p className="mt-4 max-w-lg text-base leading-relaxed text-stone-600 sm:text-lg">
                 Elegí entre tres perfiles de instalación solar y accedé a una estimación del ahorro económico, la energía producida y el plazo de recupero, utilizando parámetros típicos del mercado industrial.
               </p>
-              <div className="mt-8">
+              <div className="mt-8 flex flex-wrap gap-4">
                 <button
                   type="button"
                   onClick={() => profilesSectionRef.current?.scrollIntoView({ behavior: "smooth" })}
@@ -498,6 +499,12 @@ export default function Home() {
                 >
                   Ver perfiles de instalación
                 </button>
+                <Link
+                  href="/advanced"
+                  className="rounded-lg border-2 border-amber-500 bg-white px-6 py-3.5 text-base font-semibold text-amber-600 shadow-md transition-colors hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                >
+                  Calculadora avanzada (4 pasos)
+                </Link>
               </div>
             </div>
           </div>
