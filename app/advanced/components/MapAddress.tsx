@@ -35,7 +35,7 @@ function FlyToMarker({ marker }: { marker: { lat: number; lng: number } | null }
   const map = useMap();
   useEffect(() => {
     if (marker) {
-      map.flyTo([marker.lat, marker.lng], 19, { duration: 0.5 });
+      map.flyTo([marker.lat, marker.lng], 17, { duration: 0.5 });
     }
   }, [map, marker?.lat, marker?.lng]);
   return null;
@@ -51,7 +51,7 @@ export function MapAddress({ center, marker, onMarkerChange, className = "" }: M
     <div className={`relative z-0 map-interactive ${className}`}>
       <MapContainer
         center={mapCenter}
-        zoom={marker ? 19 : 17}
+        zoom={17}
         className="h-full w-full rounded-r-xl"
         scrollWheelZoom={true}
       >

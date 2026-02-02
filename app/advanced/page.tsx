@@ -83,10 +83,7 @@ export default function AdvancedPage() {
       </main>
 
       {showLeadForm && (
-        <LeadFormAdvanced
-          onClose={() => setShowLeadForm(false)}
-          results={results ?? undefined}
-        />
+        <LeadFormAdvanced onClose={() => setShowLeadForm(false)} />
       )}
     </>
   );

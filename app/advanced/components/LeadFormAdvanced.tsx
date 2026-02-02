@@ -1,31 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { useWizard } from "../context/WizardContext";
-import type { CalculationResult } from "../lib/calculations";
 
 interface LeadFormAdvancedProps {
   onClose: () => void;
-  results?: CalculationResult;
 }
 
 interface FormData {
   nombre: string;
   apellido: string;
   empresa: string;
-  cuit: string;
-  email: string;
+  mail: string;
   telefono: string;
 }
 
-export function LeadFormAdvanced({ onClose, results }: LeadFormAdvancedProps) {
-  const wizard = useWizard();
+export function LeadFormAdvanced({ onClose }: LeadFormAdvancedProps) {
   const [form, setForm] = useState<FormData>({
     nombre: "",
     apellido: "",
     empresa: "",
-    cuit: "",
-    email: "",
+    mail: "",
     telefono: "",
   });
   const [sending, setSending] = useState(false);
@@ -37,35 +31,15 @@ export function LeadFormAdvanced({ onClose, results }: LeadFormAdvancedProps) {
     setError("");
     setSending(true);
     try {
-      const res = await fetch("/api/lead/advanced", {
+      const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          source: "advanced",
-          contact: {
-            nombre: form.nombre,
-            apellido: form.apellido,
-            empresa: form.empresa,
-            cuit: form.cuit,
-            mail: form.email,
-            telefono: form.telefono,
-          },
-          wizard: {
-            address: wizard.address,
-            coordinates: wizard.coordinates,
-            surfaceM2: wizard.surfaceM2,
-            tariff: wizard.tariff,
-            consumptionKwhPerYear: wizard.consumptionKwhPerYear,
-          },
-          results: results
-            ? {
-                powerKwp: results.powerKwp,
-                energyKwhPerYear: results.energyKwhPerYear,
-                savingsUsdPerYear: results.savingsUsdPerYear,
-                paybackYears: results.paybackYears,
-                investmentUsd: results.investmentUsd,
-              }
-            : null,
+          nombre: form.nombre,
+          apellido: form.apellido,
+          empresa: form.empresa,
+          mail: form.mail,
+          telefono: form.telefono || "",
         }),
       });
       if (!res.ok) {
@@ -74,7 +48,12 @@ export function LeadFormAdvanced({ onClose, results }: LeadFormAdvancedProps) {
       }
       setSent(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "No se pudo enviar.");
+      const rawMessage = err instanceof Error ? err.message : "";
+      const message =
+        rawMessage === "Failed to fetch"
+          ? "No se pudo conectar con el servidor. Revisá que estés corriendo la app en local (npm run dev) y que en .env.local tengas LEAD_FORM_URL con la URL de tu Google Apps Script."
+          : rawMessage || "No se pudo enviar. Revisá los datos o intentá más tarde.";
+      setError(message);
     } finally {
       setSending(false);
     }
@@ -84,13 +63,13 @@ export function LeadFormAdvanced({ onClose, results }: LeadFormAdvancedProps) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
         <div className="rounded-2xl bg-white p-8 shadow-xl max-w-md">
-          <p className="text-lg font-medium text-stone-800 mb-4">
-            Gracias. Te vamos a contactar y enviarte un presupuesto.
+          <p className="mb-4 text-lg font-medium text-stone-800">
+            Gracias. Recibirás más información a la brevedad.
           </p>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-xl bg-amber-500 px-4 py-2 font-medium text-white hover:bg-amber-600"
+            className="rounded-lg bg-amber-500 px-4 py-2 font-medium text-white hover:bg-amber-600"
           >
             Cerrar
           </button>
@@ -112,7 +91,7 @@ export function LeadFormAdvanced({ onClose, results }: LeadFormAdvancedProps) {
           className="rounded-2xl bg-white p-6 shadow-xl sm:p-8"
         >
           <h3 id="lead-form-title" className="mb-4 text-xl font-semibold text-stone-900">
-            Solicitar presupuesto
+            Quiero recibir más información
           </h3>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
@@ -156,28 +135,15 @@ export function LeadFormAdvanced({ onClose, results }: LeadFormAdvancedProps) {
             />
           </div>
           <div className="mt-4">
-            <label htmlFor="cuit" className="mb-1 block text-sm font-medium text-stone-700">
-              CUIT *
+            <label htmlFor="mail" className="mb-1 block text-sm font-medium text-stone-700">
+              Mail *
             </label>
             <input
-              id="cuit"
-              type="text"
-              required
-              value={form.cuit}
-              onChange={(e) => setForm((f) => ({ ...f, cuit: e.target.value }))}
-              className="w-full rounded-lg border border-stone-300 px-3 py-2 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
-            />
-          </div>
-          <div className="mt-4">
-            <label htmlFor="email" className="mb-1 block text-sm font-medium text-stone-700">
-              Email *
-            </label>
-            <input
-              id="email"
+              id="mail"
               type="email"
               required
-              value={form.email}
-              onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+              value={form.mail}
+              onChange={(e) => setForm((f) => ({ ...f, mail: e.target.value }))}
               className="w-full rounded-lg border border-stone-300 px-3 py-2 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
             />
           </div>
