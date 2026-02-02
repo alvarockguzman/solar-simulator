@@ -1,8 +1,11 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import dynamic from "next/dynamic";
+import { polygon as turfPolygon } from "@turf/helpers";
+import area from "@turf/area";
 import { useWizard } from "../context/WizardContext";
-import { WizardNav } from "./WizardNav";
+import type { SurfacePoint } from "./MapSurface";
 
 const MapSurface = dynamic(
   () => import("./MapSurface").then((m) => m.MapSurface),
@@ -27,10 +30,28 @@ interface StepSurfaceProps {
 export function StepSurface({ stepIndex, onBack, onNext }: StepSurfaceProps) {
   const { surfaceM2, setSurfaceM2, coordinates } = useWizard();
   const center = coordinates ?? DEFAULT_CENTER;
+  const [points, setPoints] = useState<SurfacePoint[]>([]);
+  const [closed, setClosed] = useState(false);
 
-  const handleAreaComplete = (areaM2: number) => {
+  const handleAddPoint = useCallback((lat: number, lng: number) => {
+    setPoints((prev) => [...prev, [lat, lng]]);
+  }, []);
+
+  const handleConfirmArea = useCallback(() => {
+    if (points.length < 3) return;
+    const ring = [...points, points[0]];
+    const coords = ring.map(([lat, lng]) => [lng, lat] as [number, number]);
+    const poly = turfPolygon([coords]);
+    const areaM2 = area(poly);
     setSurfaceM2(areaM2);
-  };
+    setClosed(true);
+  }, [points, setSurfaceM2]);
+
+  const handleReset = useCallback(() => {
+    setPoints([]);
+    setClosed(false);
+    setSurfaceM2(0);
+  }, [setSurfaceM2]);
 
   const canNext = surfaceM2 > 0;
 
@@ -58,12 +79,55 @@ export function StepSurface({ stepIndex, onBack, onNext }: StepSurfaceProps) {
               Superficie estimada: {Math.round(surfaceM2)} m²
             </p>
           )}
-          <WizardNav onBack={onBack} onNext={onNext} canGoNext={canNext} />
+          <p className="text-sm text-stone-600 mb-4">
+            {!closed
+              ? points.length < 3
+                ? "Hacé click en el mapa para marcar los vértices del área."
+                : `${points.length} puntos. Confirmá el área cuando termines.`
+              : "Área confirmada. Podés dibujar de nuevo o continuar."}
+          </p>
+          <div className="flex items-center justify-center gap-4 mt-6 flex-wrap">
+            <button
+              type="button"
+              onClick={onBack}
+              className="rounded-xl border-2 border-amber-600 px-6 py-3 font-semibold text-amber-700 bg-white hover:bg-amber-50 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+            >
+              Atrás
+            </button>
+            {!closed ? (
+              <button
+                type="button"
+                onClick={handleConfirmArea}
+                disabled={points.length < 3}
+                className="rounded-xl bg-amber-500 px-6 py-3 font-semibold text-white shadow-md hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+              >
+                Confirmar área
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handleReset}
+                className="rounded-xl border-2 border-amber-600 px-6 py-3 font-semibold text-amber-700 bg-white hover:bg-amber-50 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+              >
+                Dibujar de nuevo
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={onNext}
+              disabled={!canNext}
+              className="rounded-xl bg-amber-500 px-6 py-3 font-semibold text-white shadow-md hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+            >
+              Siguiente
+            </button>
+          </div>
         </div>
         <div className="flex-1 min-h-[280px] lg:min-h-0 lg:min-w-0">
           <MapSurface
             center={center}
-            onAreaComplete={handleAreaComplete}
+            points={points}
+            closed={closed}
+            onAddPoint={handleAddPoint}
             className="h-full min-h-[280px] lg:min-h-0"
           />
         </div>

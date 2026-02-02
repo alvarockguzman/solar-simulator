@@ -1,16 +1,15 @@
 import type { TariffId } from "./constants";
 
-// Constants (plan)
+// Constantes obligatorias
 const KWP_PER_M2 = 0.2;
-const CAPEX_USD_PER_KWP = 820;
-const OPEX_USD_PER_KWP_YEAR = 13;
-const KWH_PER_KWP_YEAR = 1459;
+const CAPEX_USD_PER_KWP = 1100;
+const OPEX_USD_PER_KWP_YEAR = 18;
+const KWH_PER_KWP_YEAR = 1550;
 
 const TARIFF_USD_PER_KWH: Record<TariffId, number> = {
-  T1: 0.08, // 0.080 USD/kWh
-  T2: 0.049,
-  T3_BT: 0.046,
-  T3_MT: 0.046,
+  T1: 0.12,
+  T2: 0.09,
+  T3: 0.08,
 };
 
 export interface CalculationInput {
@@ -22,24 +21,36 @@ export interface CalculationInput {
 export interface CalculationResult {
   powerKwp: number;
   energyKwhPerYear: number;
-  energyUsedForSavingsKwh: number;
   tariffUsdPerKwh: number;
   savingsUsdPerYear: number;
   investmentUsd: number;
   opexUsdPerYear: number;
   netFlowUsdPerYear: number;
-  paybackYears: number | null; // null when "No aplica"
+  paybackYears: number | null;
 }
 
 export function calculate(input: CalculationInput): CalculationResult {
-  const { surfaceM2, tariff, consumptionKwhPerYear } = input;
-  const powerKwp = KWP_PER_M2 * surfaceM2;
+  const { surfaceM2, tariff } = input;
+
+  if (surfaceM2 <= 0) {
+    return {
+      powerKwp: 0,
+      energyKwhPerYear: 0,
+      tariffUsdPerKwh: TARIFF_USD_PER_KWH[tariff],
+      savingsUsdPerYear: 0,
+      investmentUsd: 0,
+      opexUsdPerYear: 0,
+      netFlowUsdPerYear: 0,
+      paybackYears: null,
+    };
+  }
+
+  const powerKwp = surfaceM2 * KWP_PER_M2;
   const energyKwhPerYear = powerKwp * KWH_PER_KWP_YEAR;
   const tariffUsdPerKwh = TARIFF_USD_PER_KWH[tariff];
-  const energyUsedForSavingsKwh = Math.min(energyKwhPerYear, consumptionKwhPerYear);
-  const savingsUsdPerYear = energyUsedForSavingsKwh * tariffUsdPerKwh;
-  const investmentUsd = CAPEX_USD_PER_KWP * powerKwp;
-  const opexUsdPerYear = OPEX_USD_PER_KWP_YEAR * powerKwp;
+  const savingsUsdPerYear = energyKwhPerYear * tariffUsdPerKwh;
+  const investmentUsd = powerKwp * CAPEX_USD_PER_KWP;
+  const opexUsdPerYear = powerKwp * OPEX_USD_PER_KWP_YEAR;
   const netFlowUsdPerYear = savingsUsdPerYear - opexUsdPerYear;
 
   let paybackYears: number | null = null;
@@ -50,7 +61,6 @@ export function calculate(input: CalculationInput): CalculationResult {
   return {
     powerKwp,
     energyKwhPerYear,
-    energyUsedForSavingsKwh,
     tariffUsdPerKwh,
     savingsUsdPerYear,
     investmentUsd,

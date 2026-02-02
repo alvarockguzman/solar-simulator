@@ -1,73 +1,64 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { MapContainer, TileLayer, Polygon, useMapEvents } from "react-leaflet";
-import { polygon as turfPolygon } from "@turf/helpers";
-import area from "@turf/area";
+import { MapContainer, TileLayer, Polygon, CircleMarker, useMapEvents } from "react-leaflet";
 
 import "leaflet/dist/leaflet.css";
 
+export type SurfacePoint = [number, number];
+
 interface MapSurfaceProps {
   center: { lat: number; lng: number };
-  onAreaComplete: (areaM2: number) => void;
+  points: SurfacePoint[];
+  closed: boolean;
+  onAddPoint: (lat: number, lng: number) => void;
   className?: string;
 }
 
 function MapClickHandler({
-  points,
+  disabled,
   onAddPoint,
 }: {
-  points: [number, number][];
+  disabled: boolean;
   onAddPoint: (lat: number, lng: number) => void;
 }) {
   useMapEvents({
     click: (e) => {
-      onAddPoint(e.latlng.lat, e.latlng.lng);
+      if (!disabled) onAddPoint(e.latlng.lat, e.latlng.lng);
     },
   });
   return null;
 }
 
-export function MapSurface({ center, onAreaComplete, className = "" }: MapSurfaceProps) {
-  const [points, setPoints] = useState<[number, number][]>([]);
-  const [closed, setClosed] = useState(false);
-
-  const addPoint = useCallback((lat: number, lng: number) => {
-    if (closed) return;
-    setPoints((prev) => [...prev, [lat, lng]]);
-  }, [closed]);
-
-  const closePolygon = useCallback(() => {
-    if (points.length < 3) return;
-    const ring = [...points, points[0]];
-    const coords = ring.map(([lat, lng]) => [lng, lat] as [number, number]);
-    const poly = turfPolygon([coords]);
-    const areaM2 = area(poly);
-    setClosed(true);
-    onAreaComplete(areaM2);
-  }, [points, onAreaComplete]);
-
-  const reset = useCallback(() => {
-    setPoints([]);
-    setClosed(false);
-  }, []);
-
-  const latLngs: [number, number][] = closed && points.length >= 3
-    ? [...points, points[0]]
-    : points;
+export function MapSurface({ center, points, closed, onAddPoint, className = "" }: MapSurfaceProps) {
+  const latLngs: [number, number][] =
+    closed && points.length >= 3 ? [...points, points[0]] : points;
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative map-interactive ${className}`}>
       <MapContainer
         center={[center.lat, center.lng]}
-        zoom={17}
+        zoom={18}
         className="h-full w-full rounded-r-xl"
         scrollWheelZoom={true}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.esri.com/">Esri</a>'
+          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         />
+        {points.length > 0 &&
+          points.map(([lat, lng], i) => (
+            <CircleMarker
+              key={i}
+              center={[lat, lng]}
+              radius={6}
+              pathOptions={{
+                fillColor: "#ea580c",
+                color: "#fff",
+                weight: 2,
+                fillOpacity: 1,
+              }}
+            />
+          ))}
         {latLngs.length >= 2 && (
           <Polygon
             positions={latLngs}
@@ -79,35 +70,8 @@ export function MapSurface({ center, onAreaComplete, className = "" }: MapSurfac
             }}
           />
         )}
-        <MapClickHandler points={points} onAddPoint={addPoint} />
+        <MapClickHandler disabled={closed} onAddPoint={onAddPoint} />
       </MapContainer>
-      <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 z-[1000]">
-        {!closed ? (
-          <>
-            <button
-              type="button"
-              onClick={closePolygon}
-              disabled={points.length < 3}
-              className="rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white shadow hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Cerrar polígono
-            </button>
-            <span className="self-center text-sm text-stone-600">
-              {points.length < 3
-                ? "Hacé click en el mapa para marcar los vértices del área."
-                : `${points.length} puntos. Cerrar polígono para calcular el área.`}
-            </span>
-          </>
-        ) : (
-          <button
-            type="button"
-            onClick={reset}
-            className="rounded-lg border-2 border-amber-600 px-4 py-2 text-sm font-medium text-amber-700 bg-white hover:bg-amber-50"
-          >
-            Dibujar de nuevo
-          </button>
-        )}
-      </div>
     </div>
   );
 }

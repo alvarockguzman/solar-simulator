@@ -35,7 +35,7 @@ function FlyToMarker({ marker }: { marker: { lat: number; lng: number } | null }
   const map = useMap();
   useEffect(() => {
     if (marker) {
-      map.flyTo([marker.lat, marker.lng], 17, { duration: 0.5 });
+      map.flyTo([marker.lat, marker.lng], 19, { duration: 0.5 });
     }
   }, [map, marker?.lat, marker?.lng]);
   return null;
@@ -48,16 +48,16 @@ export function MapAddress({ center, marker, onMarkerChange, className = "" }: M
     : [center.lat, center.lng];
 
   return (
-    <div className={`relative z-0 ${className}`}>
+    <div className={`relative z-0 map-interactive ${className}`}>
       <MapContainer
         center={mapCenter}
-        zoom={marker ? 17 : 13}
+        zoom={marker ? 19 : 17}
         className="h-full w-full rounded-r-xl"
         scrollWheelZoom={true}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.esri.com/">Esri</a>'
+          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         />
         {marker && (
           <Marker
