@@ -21,7 +21,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { nombre, apellido, empresa, cuit, mail, telefono } = contact || {};
+    const { nombre, apellido, empresa, mail, telefono } = contact || {};
     if (!nombre || !apellido || !empresa || !mail) {
       return NextResponse.json(
         { error: "Faltan campos obligatorios de contacto" },
@@ -29,30 +29,31 @@ export async function POST(request: Request) {
       );
     }
 
-    const payload = {
-      source: "advanced",
+    const payload: Record<string, unknown> = {
       nombre,
       apellido,
       empresa,
-      cuit: cuit || "",
       mail,
       telefono: telefono || "",
-      ...(wizard && {
-        address: wizard.address,
-        lat: wizard.coordinates?.lat,
-        lng: wizard.coordinates?.lng,
-        surfaceM2: wizard.surfaceM2,
-        tariff: wizard.tariff,
-        consumptionKwhPerYear: wizard.consumptionKwhPerYear,
-      }),
-      ...(results && {
-        powerKwp: results.powerKwp,
-        energyKwhPerYear: results.energyKwhPerYear,
-        savingsUsdPerYear: results.savingsUsdPerYear,
-        paybackYears: results.paybackYears,
-        investmentUsd: results.investmentUsd,
-      }),
+      origen: "avanzada",
     };
+
+    if (wizard) {
+      payload.direccion = wizard.address ?? "";
+      payload.lat = wizard.coordinates?.lat ?? "";
+      payload.lng = wizard.coordinates?.lng ?? "";
+      payload.superficie_m2 = wizard.surfaceM2 ?? "";
+      payload.tarifa = wizard.tariff ?? "";
+      payload.consumo_kwh_año = wizard.consumptionKwhPerYear ?? "";
+    }
+
+    if (results) {
+      payload.potencia_kwp = results.powerKwp ?? "";
+      payload.energia_kwh_año = results.energyKwhPerYear ?? "";
+      payload.ahorro_usd_año = results.savingsUsdPerYear ?? "";
+      payload.repago_años = results.paybackYears ?? "";
+      payload.inversion_usd = results.investmentUsd ?? "";
+    }
 
     const res = await fetch(LEAD_FORM_URL, {
       method: "POST",

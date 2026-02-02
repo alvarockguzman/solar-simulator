@@ -1,31 +1,70 @@
 /**
- * Web App que recibe los datos del formulario de leads y los escribe en la primera hoja
- * del spreadsheet vinculado.
+ * Web App que recibe los datos del formulario de leads (calculadora básica y avanzada)
+ * y los escribe en la primera hoja del spreadsheet vinculado.
  *
- * Cómo usar:
- * 1. Crea un Google Sheet nuevo.
- * 2. En la primera fila pon los encabezados: Nombre | Apellido | Empresa | Mail | Teléfono | Fecha
- * 3. En el Sheet: Extensiones → Apps Script. Pega este código.
- * 4. Guarda el proyecto (Ctrl+S). Ejecuta doPost una vez (no hará nada sin POST, pero así se crea la versión).
- * 5. Implementar → Nueva implementación → Tipo: Aplicación web.
- *    - Descripción: "Recibir leads"
- *    - Ejecutar como: Yo
- *    - Quién tiene acceso: Cualquier persona
- * 6. Copia la URL de la implementación. Esa URL la pones en .env.local como LEAD_FORM_URL en tu proyecto Next.js.
+ * Origen del lead:
+ * - "básica": calculadora básica (solo contacto).
+ * - "avanzada": calculadora avanzada (contacto + datos del wizard + resultados).
+ *
+ * Ver CONECTAR_GOOGLE_SHEETS.md en el proyecto para el paso a paso completo.
  */
 
 function doPost(e) {
   try {
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
     const body = e.postData ? JSON.parse(e.postData.contents) : {};
-    const nombre = body.nombre || '';
-    const apellido = body.apellido || '';
-    const empresa = body.empresa || '';
-    const mail = body.mail || '';
-    const telefono = body.telefono || '';
-    const fecha = new Date();
 
-    sheet.appendRow([nombre, apellido, empresa, mail, telefono, fecha]);
+    var nombre = body.nombre || '';
+    var apellido = body.apellido || '';
+    var empresa = body.empresa || '';
+    var mail = body.mail || '';
+    var telefono = body.telefono || '';
+    var fecha = new Date();
+    var origen = body.origen || 'básica';
+
+    if (origen === 'avanzada') {
+      sheet.appendRow([
+        nombre,
+        apellido,
+        empresa,
+        mail,
+        telefono,
+        fecha,
+        origen,
+        body.direccion || '',
+        body.lat !== undefined && body.lat !== '' ? body.lat : '',
+        body.lng !== undefined && body.lng !== '' ? body.lng : '',
+        body.superficie_m2 !== undefined && body.superficie_m2 !== '' ? body.superficie_m2 : '',
+        body.tarifa || '',
+        body.consumo_kwh_año !== undefined && body.consumo_kwh_año !== '' ? body.consumo_kwh_año : '',
+        body.potencia_kwp !== undefined && body.potencia_kwp !== '' ? body.potencia_kwp : '',
+        body.energia_kwh_año !== undefined && body.energia_kwh_año !== '' ? body.energia_kwh_año : '',
+        body.ahorro_usd_año !== undefined && body.ahorro_usd_año !== '' ? body.ahorro_usd_año : '',
+        body.repago_años !== undefined && body.repago_años !== null && body.repago_años !== '' ? body.repago_años : '',
+        body.inversion_usd !== undefined && body.inversion_usd !== '' ? body.inversion_usd : ''
+      ]);
+    } else {
+      sheet.appendRow([
+        nombre,
+        apellido,
+        empresa,
+        mail,
+        telefono,
+        fecha,
+        origen,
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        ''
+      ]);
+    }
 
     return ContentService
       .createTextOutput(JSON.stringify({ ok: true }))

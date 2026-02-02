@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useWizard } from "../context/WizardContext";
+import type { CalculationResult } from "../lib/calculations";
 
 interface LeadFormAdvancedProps {
   onClose: () => void;
+  results?: CalculationResult | null;
 }
 
 interface FormData {
@@ -14,7 +17,8 @@ interface FormData {
   telefono: string;
 }
 
-export function LeadFormAdvanced({ onClose }: LeadFormAdvancedProps) {
+export function LeadFormAdvanced({ onClose, results }: LeadFormAdvancedProps) {
+  const wizard = useWizard();
   const [form, setForm] = useState<FormData>({
     nombre: "",
     apellido: "",
@@ -31,15 +35,34 @@ export function LeadFormAdvanced({ onClose }: LeadFormAdvancedProps) {
     setError("");
     setSending(true);
     try {
-      const res = await fetch("/api/lead", {
+      const res = await fetch("/api/lead/advanced", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          nombre: form.nombre,
-          apellido: form.apellido,
-          empresa: form.empresa,
-          mail: form.mail,
-          telefono: form.telefono || "",
+          source: "advanced",
+          contact: {
+            nombre: form.nombre,
+            apellido: form.apellido,
+            empresa: form.empresa,
+            mail: form.mail,
+            telefono: form.telefono || "",
+          },
+          wizard: {
+            address: wizard.address,
+            coordinates: wizard.coordinates,
+            surfaceM2: wizard.surfaceM2,
+            tariff: wizard.tariff,
+            consumptionKwhPerYear: wizard.consumptionKwhPerYear,
+          },
+          results: results
+            ? {
+                powerKwp: results.powerKwp,
+                energyKwhPerYear: results.energyKwhPerYear,
+                savingsUsdPerYear: results.savingsUsdPerYear,
+                paybackYears: results.paybackYears,
+                investmentUsd: results.investmentUsd,
+              }
+            : null,
         }),
       });
       if (!res.ok) {

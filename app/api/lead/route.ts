@@ -30,6 +30,7 @@ export async function POST(request: Request) {
         empresa,
         mail,
         telefono: telefono || "",
+        origen: "básica",
       }),
     });
 
