@@ -1,11 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "leaflet/dist/leaflet.css";
 import { RelevamientoProvider } from "./context/RelevamientoContext";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "SolarCheck | Renovatio",
   description:
     "Relevamiento técnico para tu instalación solar. Capturá los datos con tu móvil y nuestros ingenieros diseñarán el sistema para tu techo.",
+};
+
+export const viewport: Viewport = {
+  viewportFit: "cover",
 };
 
 export default function RelevamientoLayout({

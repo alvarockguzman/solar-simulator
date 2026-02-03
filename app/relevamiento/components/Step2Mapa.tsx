@@ -131,7 +131,7 @@ export function Step2Mapa({ onBack, onNext }: Step2MapaProps) {
         </div>
       </div>
 
-      <div className="shrink-0 p-4 border-t border-stone-200 bg-white flex flex-wrap gap-3 justify-center">
+      <div className="relevamiento-nav-bar shrink-0 px-4 pt-4 border-t border-stone-200 bg-white flex flex-wrap gap-3 justify-center">
         <button
           type="button"
           onClick={onBack}

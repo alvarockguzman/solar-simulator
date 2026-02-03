@@ -93,6 +93,44 @@ No hace falta otro proyecto ni otro repo; es el mismo deploy con dos formas de e
 
 ---
 
+## 6. Si /relevamiento da 404 en Vercel pero en local funciona
+
+Cuando la ruta **/relevamiento** (SolarCheck) funciona en `localhost` pero en el sitio desplegado sale **404**, suele ser por una de estas causas:
+
+### A. El deploy no tiene la última versión
+
+1. En **Vercel** → tu proyecto → pestaña **Deployments**.
+2. Revisa el **commit** del último deployment (el que está en “Production”). ¿Incluye la carpeta `app/relevamiento/`?
+3. En tu PC, asegúrate de tener todo subido al branch que Vercel usa (normalmente `main`):
+   - `git status`
+   - `git add .`
+   - `git commit -m "Incluir ruta /relevamiento"`
+   - `git push origin main`
+4. Vercel redeploya solo al hacer push. Si el último push no tenía `app/relevamiento`, haz un **Redeploy** del último commit que sí la tenga, o un nuevo push.
+
+### B. Directorio raíz del proyecto en Vercel
+
+1. En Vercel → **Settings** → **General**.
+2. Revisa **Root Directory**. Debe estar **vacío** (o `.`). Si apunta a una subcarpeta que no contiene `app/relevamiento`, esa ruta no existirá en el build.
+
+### C. Build fallando
+
+Si el build **falla** en Vercel, a veces se sigue sirviendo el deploy anterior (sin /relevamiento).
+
+1. En **Deployments**, abre el último deployment y revisa si el estado es **Ready** o **Error**.
+2. Si hay **Error**, entra en **Building** y revisa el log. Corrige el error (por ejemplo dependencias o variables de entorno) y haz un nuevo deploy.
+
+### D. Comprobar que la ruta existe en el build
+
+En el **log del build** de Vercel, Next.js suele listar las rutas generadas. Después de un deploy correcto, deberías poder abrir:
+
+- `https://tu-dominio.vercel.app/relevamiento`
+- o `https://www.renovatio.lat/relevamiento`
+
+Si tras un push con `app/relevamiento` y un build en verde la ruta sigue en 404, revisa que el dominio de producción en Vercel (Settings → Domains) sea el que estás usando (por ejemplo `www.renovatio.lat`).
+
+---
+
 ## Resumen
 
 - **Leads:** Se guardan en tu Google Sheet; puedes verlos y exportar a Excel/CSV cuando quieras.

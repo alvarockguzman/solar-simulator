@@ -27,6 +27,11 @@ body {
   cursor: inherit;
 }
 
+/* Barra de botones del wizard: visible en móvil por encima del UI del navegador */
+.relevamiento-nav-bar {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+}
+
 /* Pantalla éxito relevamiento: icono check animado */
 @keyframes relevamiento-check-in {
   from {

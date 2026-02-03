@@ -90,7 +90,7 @@ export function Step5Contacto({ onBack, onSuccess }: Step5ContactoProps) {
           </div>
         </div>
         {error && <p className="mt-3 text-red-600 text-sm">{error}</p>}
-        <div className="mt-6 flex flex-wrap gap-3 justify-center">
+        <div className="relevamiento-nav-bar mt-6 pt-4 flex flex-wrap gap-3 justify-center border-t border-stone-200 bg-white -mx-4 px-4">
           <button type="button" onClick={onBack} className="rounded-xl border-2 border-amber-600 px-6 py-3 font-semibold text-amber-700 bg-white hover:bg-amber-50">
             Atrás
           </button>

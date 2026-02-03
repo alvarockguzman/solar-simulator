@@ -75,7 +75,7 @@ export default function RelevamientoWizardPage() {
       {currentStep === 6 && <Step6Contacto onBack={goBack} onNext={goNext} onSuccess={() => setSubmitted(true)} />}
 
       {showSharedNav && (
-        <div className="shrink-0 p-4 border-t border-stone-200 bg-white flex flex-wrap gap-3 justify-center">
+        <div className="relevamiento-nav-bar shrink-0 px-4 pt-4 border-t border-stone-200 bg-white flex flex-wrap gap-3 justify-center">
           <button
             type="button"
             onClick={goBack}
