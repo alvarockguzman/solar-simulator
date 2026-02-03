@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { useWizard } from "../context/WizardContext";
 import {
   formatKwp,
@@ -15,6 +16,42 @@ interface StepResultsProps {
   onBack: () => void;
   onRequestQuote: () => void;
 }
+
+const RESULT_ITEMS: Array<{
+  key: string;
+  label: string;
+  tooltip: string;
+  getValue: (r: CalculationResult) => string;
+}> = [
+  {
+    key: "power",
+    label: "Potencia estimada (kWp)",
+    tooltip:
+      "Es la capacidad instalada del sistema solar y define el tamaño del proyecto.",
+    getValue: (r) => formatKwp(r.powerKwp),
+  },
+  {
+    key: "energy",
+    label: "Energía producida por año (kWh/año)",
+    tooltip:
+      "Es la cantidad de electricidad generada por el sistema solar en un año promedio. Puede utilizarse para consumo propio o, si existe un excedente, inyectarse a la red.",
+    getValue: (r) => formatKwhPerYear(r.energyKwhPerYear),
+  },
+  {
+    key: "savings",
+    label: "Ahorro anual estimado (USD/año)",
+    tooltip:
+      "Es el ahorro estimado en tu factura eléctrica gracias a la energía solar generada, usando una tarifa promedio como referencia.",
+    getValue: (r) => `${formatUsd(r.savingsUsdPerYear)}/año`,
+  },
+  {
+    key: "payback",
+    label: "Repago estimado (años)",
+    tooltip:
+      "Es el tiempo estimado para recuperar la inversión inicial, considerando el ahorro anual generado por la instalación.",
+    getValue: (r) => formatPayback(r.paybackYears),
+  },
+];
 
 export function StepResults({ results, stepIndex, onBack, onRequestQuote }: StepResultsProps) {
   return (
@@ -36,24 +73,19 @@ export function StepResults({ results, stepIndex, onBack, onRequestQuote }: Step
         </h3>
         <div className="rounded-2xl border-2 border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-6 shadow-sm max-w-xl">
           <div className="grid gap-4 sm:grid-cols-2">
-            <ResultItem
-              label="Potencia estimada"
-              value={formatKwp(results.powerKwp)}
-            />
-            <ResultItem
-              label="Energía producida por año"
-              value={formatKwhPerYear(results.energyKwhPerYear)}
-            />
-            <ResultItem
-              label="Ahorro anual estimado"
-              value={`${formatUsd(results.savingsUsdPerYear)}/año`}
-            />
-            <ResultItem
-              label="Repago estimado"
-              value={formatPayback(results.paybackYears)}
-            />
+            {RESULT_ITEMS.map((item) => (
+              <ResultItem
+                key={item.key}
+                label={item.label}
+                value={item.getValue(results)}
+                tooltipText={item.tooltip}
+              />
+            ))}
           </div>
         </div>
+        <p className="mt-4 text-sm text-stone-500 max-w-xl">
+          Todos los valores son estimaciones orientativas y pueden ajustarse en un presupuesto personalizado.
+        </p>
         <div className="mt-6 flex flex-wrap gap-4">
           <button
             type="button"
@@ -75,11 +107,57 @@ export function StepResults({ results, stepIndex, onBack, onRequestQuote }: Step
   );
 }
 
-function ResultItem({ label, value }: { label: string; value: string }) {
+function ResultItem({
+  label,
+  value,
+  tooltipText,
+}: {
+  label: string;
+  value: string;
+  tooltipText?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function handleClickOutside(event: MouseEvent) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
+
   return (
-    <div className="rounded-xl bg-white/80 p-4 shadow-sm">
-      <p className="text-xs font-medium text-stone-500">{label}</p>
-      <p className="font-semibold text-stone-900">{value}</p>
+    <div ref={ref} className="rounded-xl bg-white/80 p-4 shadow-sm relative">
+      <p className="text-xs font-medium text-stone-500 flex items-center gap-1.5 flex-wrap">
+        {label}
+        {tooltipText && (
+          <span className="relative inline-flex">
+            <button
+              type="button"
+              onClick={() => setOpen((prev) => !prev)}
+              onMouseEnter={() => setOpen(true)}
+              onMouseLeave={() => setOpen(false)}
+              className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-stone-300 bg-stone-100 text-stone-500 hover:bg-stone-200 hover:text-stone-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1 text-[10px] font-normal leading-none"
+              aria-label="Más información"
+            >
+              ⓘ
+            </button>
+            {open && (
+              <span
+                role="tooltip"
+                className="absolute left-0 bottom-full z-10 mb-1.5 w-56 rounded-lg border border-stone-200 bg-white px-3 py-2 text-left text-xs font-normal text-stone-700 shadow-lg sm:left-1/2 sm:-translate-x-1/2 sm:w-64"
+              >
+                {tooltipText}
+              </span>
+            )}
+          </span>
+        )}
+      </p>
+      <p className="font-semibold text-stone-900 mt-0.5">{value}</p>
     </div>
   );
 }
