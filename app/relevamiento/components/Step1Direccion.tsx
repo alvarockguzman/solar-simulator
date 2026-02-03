@@ -177,13 +177,6 @@ export function Step1Direccion({ onBack, onNext }: Step1DireccionProps) {
 
         {reverseLoading && <p className="text-sm text-amber-600">Obteniendo dirección…</p>}
 
-        {address && (
-          <div className="rounded-xl border border-stone-200 bg-amber-50/80 px-3 py-2">
-            <p className="text-xs font-medium text-stone-500">Dirección seleccionada</p>
-            <p className="text-stone-800 font-medium break-words">{address}</p>
-          </div>
-        )}
-
         <div className="w-full h-[280px] rounded-xl overflow-hidden border border-stone-200">
           <MapaDireccion
             center={mapCenter}
