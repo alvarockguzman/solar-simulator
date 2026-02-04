@@ -8,14 +8,20 @@ import { StepTariff } from "./components/StepTariff";
 import { StepConsumption } from "./components/StepConsumption";
 import { StepResults } from "./components/StepResults";
 import { LeadFormAdvanced } from "./components/LeadFormAdvanced";
+import { LoadingOverlay } from "../components/LoadingOverlay";
 import { useWizard } from "./context/WizardContext";
 
 const STEPS = ["intro", "address", "surface", "tariff", "consumption", "results"] as const;
 type StepId = (typeof STEPS)[number];
 
+function randomBetween(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export default function AdvancedPage() {
   const [currentStep, setCurrentStep] = useState<StepId>("intro");
   const [showLeadForm, setShowLeadForm] = useState(false);
+  const [isCalculating, setIsCalculating] = useState(false);
   const { getResults } = useWizard();
 
   const stepIndex = STEPS.indexOf(currentStep);
@@ -23,11 +29,19 @@ export default function AdvancedPage() {
   const isResults = currentStep === "results";
 
   const goNext = useCallback(() => {
+    if (currentStep === "consumption") {
+      setIsCalculating(true);
+      const delay = randomBetween(800, 1500);
+      setTimeout(() => {
+        setCurrentStep("results");
+        setIsCalculating(false);
+      }, delay);
+      return;
+    }
     if (currentStep === "intro") setCurrentStep("address");
     else if (currentStep === "address") setCurrentStep("surface");
     else if (currentStep === "surface") setCurrentStep("tariff");
     else if (currentStep === "tariff") setCurrentStep("consumption");
-    else if (currentStep === "consumption") setCurrentStep("results");
   }, [currentStep]);
 
   const goBack = useCallback(() => {
@@ -70,6 +84,9 @@ export default function AdvancedPage() {
             stepIndex={4}
             onBack={goBack}
             onNext={goNext}
+            isLoading={isCalculating}
+            nextLabel="Calcular"
+            loadingLabel="Calculando…"
           />
         )}
         {currentStep === "results" && results && (
@@ -81,6 +98,12 @@ export default function AdvancedPage() {
           />
         )}
       </main>
+
+      <LoadingOverlay
+        visible={isCalculating}
+        message="Calculando…"
+        aria-label="Procesando datos"
+      />
 
       {showLeadForm && (
         <LeadFormAdvanced

@@ -8,9 +8,12 @@ interface StepConsumptionProps {
   stepIndex: number;
   onBack: () => void;
   onNext: () => void;
+  isLoading?: boolean;
+  nextLabel?: string;
+  loadingLabel?: string;
 }
 
-export function StepConsumption({ stepIndex, onBack, onNext }: StepConsumptionProps) {
+export function StepConsumption({ stepIndex, onBack, onNext, isLoading = false, nextLabel = "Siguiente", loadingLabel = "..." }: StepConsumptionProps) {
   const { consumptionKwhPerYear, setConsumptionKwhPerYear } = useWizard();
   const [localValue, setLocalValue] = useState(
     consumptionKwhPerYear > 0 ? String(consumptionKwhPerYear) : ""
@@ -59,7 +62,7 @@ export function StepConsumption({ stepIndex, onBack, onNext }: StepConsumptionPr
         <p className="mt-3 text-sm text-stone-600 max-w-md">
           Si no lo sabés, podés ingresar un número orientativo para obtener una estimación.
         </p>
-        <WizardNav onBack={onBack} onNext={handleNext} canGoNext={canNext} />
+        <WizardNav onBack={onBack} onNext={handleNext} canGoNext={canNext} isLoading={isLoading} nextLabel={nextLabel} loadingLabel={loadingLabel} />
       </div>
     </div>
   );

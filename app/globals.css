@@ -32,6 +32,55 @@ body {
   padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
 }
 
+/* Spinner overlay (respeta prefers-reduced-motion) */
+.renovatio-spinner {
+  animation: renovatio-spin 0.8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .renovatio-spinner {
+    animation-duration: 1.5s;
+  }
+}
+@keyframes renovatio-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Transición salida landing (respeta reduced-motion) */
+.renovatio-landing-content {
+  transition: opacity 0.28s ease-out, transform 0.28s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .renovatio-landing-content {
+    transition-duration: 0.12s;
+  }
+}
+.renovatio-landing-content.renovatio-page-exit {
+  opacity: 0;
+  transform: scale(0.98) translateY(6px);
+}
+
+/* Entrada suave resultados (Advanced) */
+.renovatio-results-enter {
+  animation: renovatio-results-in 0.4s ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .renovatio-results-enter {
+    animation: renovatio-results-in 0.15s ease-out forwards;
+  }
+}
+@keyframes renovatio-results-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Pantalla éxito relevamiento: icono check animado */
 @keyframes relevamiento-check-in {
   from {

@@ -45,9 +45,7 @@ export function RelevamientoSuccess() {
         </a>
 
         <a
-          href="https://www.renovatio.lat"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/"
           className="mt-6 text-sm text-stone-500 hover:text-stone-700 hover:underline"
         >
           Volver al inicio de la web

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Simulador Solar | Beneficio económico de paneles solares",
+  title: "Renovatio - Cuidando tu energía",
   description:
-    "Calcula el beneficio económico de instalar paneles solares en tu empresa. Elige tu perfil y conoce ahorro, recupero de inversión y más.",
+    "Renovatio. Calculadoras solares, relevamiento técnico y soluciones para tu energía.",
 };
 
 export default function RootLayout({

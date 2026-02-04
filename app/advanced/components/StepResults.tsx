@@ -55,7 +55,7 @@ const RESULT_ITEMS: Array<{
 
 export function StepResults({ results, stepIndex, onBack, onRequestQuote }: StepResultsProps) {
   return (
-    <div className="flex flex-1 flex-col lg:flex-row min-h-0">
+    <div className="renovatio-results-enter flex flex-1 flex-col lg:flex-row min-h-0" aria-busy="false">
       <div className="flex flex-col justify-center bg-gradient-to-br from-amber-500 to-orange-600 px-8 py-8 lg:w-2/5 lg:min-h-0">
         <h2 className="text-2xl font-bold text-white">Tu instalación a medida</h2>
         <p className="mt-2 text-amber-100 text-sm">
