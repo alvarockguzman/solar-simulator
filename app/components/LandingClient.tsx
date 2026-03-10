@@ -52,7 +52,9 @@ export function LandingClient() {
           >
             <HomeFlipCard
               title="Calculadora Avanzada"
-              description="Analiza el ahorro económico de tu empresa con una instalación solar a medida."
+              subtitle="Simulación técnica detallada con análisis económico"
+              body="Calcula rápidamente el ahorro en tu factura eléctrica, la capacidad de generación y el retorno de la inversión de tu sistema solar."
+              ctaLabel="Iniciar Simulación"
               href="/advanced"
               onNavigate={handleNavigate}
               icon={
@@ -74,7 +76,9 @@ export function LandingClient() {
             />
             <HomeFlipCard
               title="Relevamiento"
-              description="Comparte los datos del sitio y recibe un presupuesto elaborado por ingeniería."
+              subtitle="Solicitud de presupuesto inicial y factibilidad técnica"
+              body="Solicita un análisis de viabilidad y un presupuesto formal en base a información detallada de la instalación."
+              ctaLabel="Solicitar presupuesto"
               href="/relevamiento"
               onNavigate={handleNavigate}
               icon={
@@ -95,8 +99,10 @@ export function LandingClient() {
               }
             />
             <HomeFlipCard
-              title="Calculadora Básica"
-              description="Explora rápidamente distintos escenarios de rendimiento y ahorro solar."
+              title="Información Básica"
+              subtitle="Comparación simple entre distintos tipos de instalaciones"
+              body="Compara el potencial entre distintas instalaciones dependiendo de su tamaño y características."
+              ctaLabel="Cálculo Rápido"
               href="/basica"
               onNavigate={handleNavigate}
               icon={

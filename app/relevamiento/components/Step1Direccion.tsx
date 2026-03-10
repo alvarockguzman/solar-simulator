@@ -121,7 +121,10 @@ export function Step1Direccion({ onBack, onNext }: Step1DireccionProps) {
     <div className="flex-1 flex flex-col min-h-0 overflow-auto">
       <div className="p-4 space-y-4">
         <h2 className="text-xl font-semibold text-stone-800">Ubicación de la propiedad</h2>
-        <p className="text-stone-600 text-sm">Escribí la dirección o tocá en el mapa para marcar el punto.</p>
+        <p className="text-slate-600 text-sm leading-relaxed">
+          Ingresá la dirección de la instalación. Si la ubicación en el mapa no es exacta, hacé clic directamente sobre el
+          punto correcto para ajustarla.
+        </p>
 
         <div ref={wrapperRef} className="relative">
           <input

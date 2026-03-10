@@ -99,8 +99,9 @@ export function Step2Mapa({ onBack, onNext }: Step2MapaProps) {
             zoom={ZOOM_TECHOS}
             className="absolute inset-0 w-full h-full"
           />
-          <div className="absolute bottom-3 left-3 right-3 rounded-lg bg-white/95 shadow-md px-3 py-2 text-sm text-stone-700 border border-stone-200 pointer-events-none">
-            📍 Toca las esquinas de tu techo para marcar el área donde quieres los paneles.
+          <div className="absolute bottom-3 left-3 right-3 rounded-lg bg-white/95 shadow-md px-3 py-2 text-sm text-slate-600 border border-stone-200 pointer-events-none leading-relaxed">
+            📍 Delimitá el área disponible: hacé clic en el mapa para marcar cada esquina (vértice) de tu techo o terreno.
+            Marcá al menos 4 puntos para cerrar el perímetro.
           </div>
         </div>
 

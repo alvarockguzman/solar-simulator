@@ -16,6 +16,18 @@ const config: Config = {
           cream: "#fef3c7",
         },
       },
+      fontFamily: {
+        sans: ["Inter", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
+      },
+      borderRadius: {
+        lg: "12px",
+        xl: "12px",
+        "2xl": "12px",
+      },
+      boxShadow: {
+        md: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
+        lg: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
+      },
     },
   },
   plugins: [],

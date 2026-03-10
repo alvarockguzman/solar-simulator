@@ -57,7 +57,7 @@ export default function RelevamientoWizardPage() {
 
   if (submitted) {
     return (
-      <div className="flex-1 flex flex-col min-h-0">
+      <div className="flex-1 flex flex-col min-h-0 fade-slide-in">
         <RelevamientoSuccess />
       </div>
     );
@@ -67,12 +67,14 @@ export default function RelevamientoWizardPage() {
     <div className="flex-1 flex flex-col min-h-0">
       <WizardProgress currentStep={currentStep} totalSteps={TOTAL_STEPS} />
 
-      {currentStep === 1 && <Step1Direccion onBack={goBack} onNext={goNext} />}
-      {currentStep === 2 && <Step2Mapa onBack={goBack} onNext={goNext} />}
-      {currentStep === 3 && <Step3Factura onBack={goBack} onNext={goNext} />}
-      {currentStep === 4 && <Step4Techo onBack={goBack} onNext={goNext} />}
-      {currentStep === 5 && <Step5Tablero onBack={goBack} onNext={goNext} />}
-      {currentStep === 6 && <Step6Contacto onBack={goBack} onNext={goNext} onSuccess={() => setSubmitted(true)} />}
+      <div key={currentStep} className="fade-slide-in flex-1 flex flex-col min-h-0 overflow-hidden">
+        {currentStep === 1 && <Step1Direccion onBack={goBack} onNext={goNext} />}
+        {currentStep === 2 && <Step2Mapa onBack={goBack} onNext={goNext} />}
+        {currentStep === 3 && <Step3Factura onBack={goBack} onNext={goNext} />}
+        {currentStep === 4 && <Step4Techo onBack={goBack} onNext={goNext} />}
+        {currentStep === 5 && <Step5Tablero onBack={goBack} onNext={goNext} />}
+        {currentStep === 6 && <Step6Contacto onBack={goBack} onNext={goNext} onSuccess={() => setSubmitted(true)} />}
+      </div>
 
       {showSharedNav && (
         <div className="relevamiento-nav-bar shrink-0 px-4 pt-4 border-t border-stone-200 bg-white flex flex-wrap gap-3 justify-center">

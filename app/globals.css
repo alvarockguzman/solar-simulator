@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,6 +13,53 @@
 
 body {
   @apply bg-stone-50 text-stone-900 antialiased;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@layer base {
+  /* Bordes redondeados consistentes para tarjetas y botones */
+  button,
+  .rounded-lg,
+  .rounded-xl,
+  .rounded-2xl {
+    border-radius: 12px;
+  }
+
+  /* Sombras suaves sustituyendo bordes marcados */
+  .shadow-sm,
+  .shadow-md,
+  .shadow-lg,
+  .shadow-xl {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+
+  /* Micro-interacciones suaves en tarjetas y botones */
+  button,
+  .rounded-lg,
+  .rounded-xl,
+  .rounded-2xl,
+  .shadow-sm,
+  .shadow-md,
+  .shadow-lg,
+  .shadow-xl,
+  a[href] {
+    transition-property: background-color, border-color, box-shadow, transform, color;
+    transition-duration: 0.3s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Botones principales de las tarjetas de la home */
+  .home-card-button {
+    border-radius: 8px;
+    background-color: var(--solar-orange);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+
+  .home-card-button:hover {
+    background-color: #f97316; /* naranja ligeramente más vibrante */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px -2px rgb(0 0 0 / 0.12);
+  }
 }
 
 @layer utilities {
@@ -74,6 +123,21 @@ body {
   from {
     opacity: 0;
     transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animación genérica para entrada suave de pasos (fade + slide-up) */
+.fade-slide-in {
+  animation: fade-slide-in-keyframes 0.3s ease-out both;
+}
+@keyframes fade-slide-in-keyframes {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
   to {
     opacity: 1;

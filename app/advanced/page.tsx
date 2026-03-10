@@ -57,46 +57,48 @@ export default function AdvancedPage() {
   return (
     <>
       <main className="flex-1 flex flex-col min-h-0 overflow-hidden">
-        {currentStep === "intro" && <StepIntro onStart={goNext} />}
-        {currentStep === "address" && (
-          <StepAddress
-            stepIndex={1}
-            onBack={goBack}
-            onNext={goNext}
-          />
-        )}
-        {currentStep === "surface" && (
-          <StepSurface
-            stepIndex={2}
-            onBack={goBack}
-            onNext={goNext}
-          />
-        )}
-        {currentStep === "tariff" && (
-          <StepTariff
-            stepIndex={3}
-            onBack={goBack}
-            onNext={goNext}
-          />
-        )}
-        {currentStep === "consumption" && (
-          <StepConsumption
-            stepIndex={4}
-            onBack={goBack}
-            onNext={goNext}
-            isLoading={isCalculating}
-            nextLabel="Calcular"
-            loadingLabel="Calculando…"
-          />
-        )}
-        {currentStep === "results" && results && (
-          <StepResults
-            results={results}
-            stepIndex={5}
-            onBack={goBack}
-            onRequestQuote={() => setShowLeadForm(true)}
-          />
-        )}
+        <div key={currentStep} className="fade-slide-in flex-1 flex flex-col min-h-0 overflow-hidden">
+          {currentStep === "intro" && <StepIntro onStart={goNext} />}
+          {currentStep === "address" && (
+            <StepAddress
+              stepIndex={1}
+              onBack={goBack}
+              onNext={goNext}
+            />
+          )}
+          {currentStep === "surface" && (
+            <StepSurface
+              stepIndex={2}
+              onBack={goBack}
+              onNext={goNext}
+            />
+          )}
+          {currentStep === "tariff" && (
+            <StepTariff
+              stepIndex={3}
+              onBack={goBack}
+              onNext={goNext}
+            />
+          )}
+          {currentStep === "consumption" && (
+            <StepConsumption
+              stepIndex={4}
+              onBack={goBack}
+              onNext={goNext}
+              isLoading={isCalculating}
+              nextLabel="Calcular"
+              loadingLabel="Calculando…"
+            />
+          )}
+          {currentStep === "results" && results && (
+            <StepResults
+              results={results}
+              stepIndex={5}
+              onBack={goBack}
+              onRequestQuote={() => setShowLeadForm(true)}
+            />
+          )}
+        </div>
       </main>
 
       <LoadingOverlay

@@ -13,11 +13,25 @@ interface StepConsumptionProps {
   loadingLabel?: string;
 }
 
-export function StepConsumption({ stepIndex, onBack, onNext, isLoading = false, nextLabel = "Siguiente", loadingLabel = "..." }: StepConsumptionProps) {
+const PROFILE_PRESETS = [
+  { id: "small", label: "Pequeño (Oficina/Local)", value: 15000 },
+  { id: "medium", label: "Mediano (Taller/Pyme)", value: 50000 },
+  { id: "large", label: "Grande (Industria)", value: 150000 },
+] as const;
+
+export function StepConsumption({
+  stepIndex,
+  onBack,
+  onNext,
+  isLoading = false,
+  nextLabel = "Siguiente",
+  loadingLabel = "...",
+}: StepConsumptionProps) {
   const { consumptionKwhPerYear, setConsumptionKwhPerYear } = useWizard();
   const [localValue, setLocalValue] = useState(
     consumptionKwhPerYear > 0 ? String(consumptionKwhPerYear) : ""
   );
+  const [showProfiles, setShowProfiles] = useState(false);
 
   const num = localValue.trim() === "" ? 0 : Number(localValue);
   const canNext = !Number.isNaN(num) && num > 0;
@@ -27,6 +41,10 @@ export function StepConsumption({ stepIndex, onBack, onNext, isLoading = false, 
       setConsumptionKwhPerYear(num);
       onNext();
     }
+  };
+
+  const handlePresetClick = (value: number) => {
+    setLocalValue(String(value));
   };
 
   return (
@@ -62,7 +80,51 @@ export function StepConsumption({ stepIndex, onBack, onNext, isLoading = false, 
         <p className="mt-3 text-sm text-stone-600 max-w-md">
           Si no lo sabés, podés ingresar un número orientativo para obtener una estimación.
         </p>
-        <WizardNav onBack={onBack} onNext={handleNext} canGoNext={canNext} isLoading={isLoading} nextLabel={nextLabel} loadingLabel={loadingLabel} />
+        <button
+          type="button"
+          onClick={() => setShowProfiles((prev) => !prev)}
+          className="mt-3 inline-flex items-center text-sm font-medium text-amber-600 hover:text-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 rounded-lg px-1"
+        >
+          ¿No conocés tu consumo? Usar un estándar de industria
+        </button>
+
+        {showProfiles && (
+          <div className="mt-4 max-w-xl space-y-3">
+            <div className="flex flex-wrap gap-3">
+              {PROFILE_PRESETS.map((preset) => {
+                const isActive = num === preset.value;
+                return (
+                  <button
+                    key={preset.id}
+                    type="button"
+                    onClick={() => handlePresetClick(preset.value)}
+                    className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                      isActive
+                        ? "border-amber-500 bg-amber-50 text-amber-700"
+                        : "border-stone-200 bg-white text-stone-700 hover:border-amber-300 hover:bg-amber-50/60"
+                    }`}
+                  >
+                    <span className="h-2 w-2 rounded-full bg-amber-500" />
+                    <span>{preset.label}</span>
+                    <span className="text-xs text-stone-500">{preset.value.toLocaleString("es-AR")} kWh</span>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-xs text-slate-600 leading-relaxed max-w-md">
+              Valores basados en promedios industriales de consumo anual. Podrás refinar este dato más adelante.
+            </p>
+          </div>
+        )}
+
+        <WizardNav
+          onBack={onBack}
+          onNext={handleNext}
+          canGoNext={canNext}
+          isLoading={isLoading}
+          nextLabel={nextLabel}
+          loadingLabel={loadingLabel}
+        />
       </div>
     </div>
   );
