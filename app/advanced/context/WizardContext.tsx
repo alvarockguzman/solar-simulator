@@ -23,7 +23,7 @@ const initialState: WizardState = {
 interface WizardContextValue extends WizardState {
   setAddress: (address: string, coords: { lat: number; lng: number } | null) => void;
   setSurfaceM2: (m2: number) => void;
-  setTariff: (tariff: TariffId) => void;
+  setTariff: (tariff: TariffId | null) => void;
   setConsumptionKwhPerYear: (kwh: number) => void;
   getResults: () => CalculationResult | null;
 }
@@ -41,7 +41,7 @@ export function WizardProvider({ children }: { children: React.ReactNode }) {
     setState((s) => ({ ...s, surfaceM2 }));
   }, []);
 
-  const setTariff = useCallback((tariff: TariffId) => {
+  const setTariff = useCallback((tariff: TariffId | null) => {
     setState((s) => ({ ...s, tariff }));
   }, []);
 

@@ -93,7 +93,7 @@ export function StepTariff({ stepIndex, onBack, onNext }: StepTariffProps) {
               setSelection(real);
               setShowUnknownInfo(false);
             } else {
-              setTariff(null as unknown as TariffId | null);
+              setTariff(null);
               setSelection("");
               setShowUnknownInfo(false);
             }
