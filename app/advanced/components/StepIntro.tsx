@@ -21,10 +21,10 @@ export function StepIntro({ onStart }: StepIntroProps) {
 
       {/* Right: content */}
       <div className="flex flex-1 flex-col justify-center px-6 py-8 lg:px-12 lg:py-12 bg-white overflow-auto">
-        <p className="text-sm font-medium text-brand-navy mb-3">
+        <h2 className="mb-4 text-xl font-semibold leading-snug text-stone-900 sm:text-2xl">
           Completá unos datos rápidos y obtené tu resultado en minutos.
-        </p>
-        <ol className="list-decimal list-inside space-y-2 text-stone-700 mb-6">
+        </h2>
+        <ol className="mb-6 list-decimal list-inside space-y-2 text-sm text-stone-600 sm:text-base">
           <li>Ubicación de tu empresa</li>
           <li>Superficie disponible</li>
           <li>Tarifa contratada</li>

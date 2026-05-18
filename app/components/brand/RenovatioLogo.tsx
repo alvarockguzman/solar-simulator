@@ -4,7 +4,7 @@ export const RENOVATIO_TAGLINE_COLOR = "#E67E22";
 
 interface BrandTextProps {
   className?: string;
-  variant?: "compact" | "hero";
+  variant?: "compact" | "hero" | "header";
   /** `inverse`: texto claro sobre fondos oscuros (p. ej. footer). */
   theme?: "default" | "inverse";
 }
@@ -20,7 +20,9 @@ export function RenovatioLogo({
   const sizeClass =
     variant === "hero"
       ? "text-4xl sm:text-5xl lg:text-6xl"
-      : "text-xl sm:text-2xl";
+      : variant === "header"
+        ? "text-lg leading-none sm:text-xl"
+        : "text-xl sm:text-2xl";
 
   return (
     <span
@@ -43,7 +45,9 @@ export function RenovatioTagline({
   const sizeClass =
     variant === "hero"
       ? "text-xl font-medium sm:text-2xl"
-      : "text-sm font-medium";
+      : variant === "header"
+        ? "text-xs font-medium leading-none sm:text-sm"
+        : "text-sm font-medium";
 
   return (
     <span
