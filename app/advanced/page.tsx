@@ -56,7 +56,9 @@ export default function AdvancedPage() {
 
   return (
     <>
-      <main className="flex-1 flex flex-col min-h-0 overflow-hidden">
+      <main
+        className={`flex-1 flex flex-col min-h-0 ${isResults ? "overflow-y-auto" : "overflow-hidden"}`}
+      >
         <div key={currentStep} className="fade-slide-in flex-1 flex flex-col min-h-0 overflow-hidden">
           {currentStep === "intro" && <StepIntro onStart={goNext} />}
           {currentStep === "address" && (

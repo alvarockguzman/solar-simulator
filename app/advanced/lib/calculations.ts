@@ -1,10 +1,13 @@
 import type { TariffId } from "./constants";
 
 // Constantes obligatorias
-const KWP_PER_M2 = 0.2;
-const CAPEX_USD_PER_KWP = 1100;
-const OPEX_USD_PER_KWP_YEAR = 18;
-const KWH_PER_KWP_YEAR = 1550;
+export const KWP_PER_M2 = 0.2;
+export const CAPEX_USD_PER_KWP = 1100;
+export const OPEX_USD_PER_KWP_YEAR = 18;
+export const KWH_PER_KWP_YEAR = 1550;
+export const PROJECT_LIFETIME_YEARS = 25;
+/** Factor de emisión de red (kg CO₂ evitados por kWh solar generado). */
+export const CO2_KG_PER_KWH = 0.4;
 
 const TARIFF_USD_PER_KWH: Record<TariffId, number> = {
   T1: 0.12,
@@ -85,4 +88,15 @@ export function formatUsd(value: number): string {
 export function formatPayback(years: number | null): string {
   if (years === null) return "No aplica";
   return `${years.toFixed(1)} años`;
+}
+
+export function savingsAccumulatedLifetime(
+  savingsUsdPerYear: number,
+  years = PROJECT_LIFETIME_YEARS
+): number {
+  return savingsUsdPerYear * years;
+}
+
+export function co2AvoidedTonsPerYear(energyKwhPerYear: number): number {
+  return (energyKwhPerYear * CO2_KG_PER_KWH) / 1000;
 }

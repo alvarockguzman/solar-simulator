@@ -9,6 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        brand: {
+          orange: "#F39A2D",
+          "orange-dark": "#C77816",
+          navy: "#0F2747",
+          text: "#1F2937",
+          muted: "#6B7280",
+          cream: "#FFF7EC",
+          success: "#059669",
+        },
         solar: {
           amber: "#f59e0b",
           orange: "#ea580c",
@@ -18,6 +27,9 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
+      },
+      fontVariantNumeric: {
+        tabular: ["tabular-nums"],
       },
       borderRadius: {
         lg: "12px",

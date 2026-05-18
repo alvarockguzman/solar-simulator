@@ -377,7 +377,7 @@ export default function BasicaPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="flex min-h-screen flex-col bg-white">
       <main className="mx-auto max-w-6xl px-4 py-8 sm:py-12 lg:py-16">
         <section className="relative mb-16 overflow-hidden rounded-2xl bg-white sm:mb-20">
           <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">

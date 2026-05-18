@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { Header } from "./components/Header";
 import { WizardProvider } from "./context/WizardContext";
 
 export const metadata: Metadata = {
   title: "Calculadora Solar Avanzada | Renovatio",
   description:
-    "En 4 simples pasos, obtené una simulación avanzada para instalar paneles solares en tu empresa.",
+    "Simulación técnica y análisis económico para empresas industriales. Resultado en menos de 2 minutos.",
 };
 
 export default function AdvancedLayout({
@@ -14,7 +15,8 @@ export default function AdvancedLayout({
 }) {
   return (
     <WizardProvider>
-      <div className="min-h-screen h-screen overflow-hidden flex flex-col bg-stone-50">
+      <div className="flex h-screen min-h-screen flex-col overflow-hidden bg-stone-50">
+        <Header />
         {children}
       </div>
     </WizardProvider>

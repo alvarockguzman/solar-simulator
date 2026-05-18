@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { HomeFlipCard } from "./HomeFlipCard";
 import { LoadingOverlay } from "./LoadingOverlay";
+import { RenovatioLogo, RenovatioTagline } from "./brand/RenovatioLogo";
 
 const TRANSITION_DURATION_MS = 380;
 
@@ -27,22 +28,16 @@ export function LandingClient() {
   return (
     <>
       <div
-        className={`renovatio-landing-content min-h-screen bg-stone-50 ${isExiting ? "renovatio-page-exit" : ""}`}
+        className={`renovatio-landing-content flex min-h-screen flex-col bg-stone-50 ${isExiting ? "renovatio-page-exit" : ""}`}
         aria-busy={!!transitionTo}
       >
-        <main className="mx-auto max-w-5xl px-4 py-16 sm:py-20 lg:py-28">
+        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-16 sm:py-20 lg:py-28">
           <header className="mb-14 text-center sm:mb-16">
-            <h1
-              className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
-              style={{ color: "#343A40", fontFamily: "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" }}
-            >
-              Renovatio
+            <h1>
+              <RenovatioLogo variant="hero" />
             </h1>
-            <p
-              className="mt-3 text-xl font-medium sm:text-2xl"
-              style={{ color: "#E67E22", fontFamily: "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" }}
-            >
-              Cuidamos tu energía
+            <p className="mt-3">
+              <RenovatioTagline variant="hero" />
             </p>
           </header>
 

@@ -57,7 +57,7 @@ export default function RelevamientoWizardPage() {
 
   if (submitted) {
     return (
-      <div className="flex-1 flex flex-col min-h-0 fade-slide-in">
+      <div className="flex flex-1 flex-col min-h-0 fade-slide-in overflow-y-auto">
         <RelevamientoSuccess />
       </div>
     );

@@ -75,11 +75,13 @@ function RelevamientoHomeContent() {
 
 export default function RelevamientoHomePage() {
   return (
-    <Suspense fallback={
-      <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 sm:py-12 max-w-lg mx-auto">
-        <p className="text-stone-500">Cargando…</p>
-      </main>
-    }>
+    <Suspense
+      fallback={
+        <main className="flex flex-1 flex-col items-center justify-center px-4 py-8 sm:py-12 max-w-lg mx-auto">
+          <p className="text-stone-500">Cargando…</p>
+        </main>
+      }
+    >
       <RelevamientoHomeContent />
     </Suspense>
   );

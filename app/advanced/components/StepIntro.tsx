@@ -12,16 +12,18 @@ export function StepIntro({ onStart }: StepIntroProps) {
         <h1 className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
           Calculadora Solar Avanzada
         </h1>
-        <p className="mt-4 text-amber-100 text-sm sm:text-base max-w-md">
-          En 4 simples pasos, obtené una simulación avanzada para instalar paneles solares en tu empresa.
+        <p className="mt-4 text-amber-100 text-sm sm:text-base max-w-md leading-relaxed">
+          Simulación técnica y análisis económico para empresas industriales.
+          Resultado en menos de 2 minutos: potencia recomendada, energía generada,
+          ahorro anual y repago. Sin compromiso.
         </p>
       </div>
 
       {/* Right: content */}
       <div className="flex flex-1 flex-col justify-center px-6 py-8 lg:px-12 lg:py-12 bg-white overflow-auto">
-        <h2 className="text-xl font-semibold text-stone-900 mb-4">
-          Te pediremos los siguientes datos:
-        </h2>
+        <p className="text-sm font-medium text-brand-navy mb-3">
+          Completá unos datos rápidos y obtené tu resultado en minutos.
+        </p>
         <ol className="list-decimal list-inside space-y-2 text-stone-700 mb-6">
           <li>Ubicación de tu empresa</li>
           <li>Superficie disponible</li>
@@ -37,10 +39,15 @@ export function StepIntro({ onStart }: StepIntroProps) {
         <button
           type="button"
           onClick={onStart}
-          className="rounded-xl bg-amber-500 px-8 py-4 font-semibold text-white shadow-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 w-fit"
+          className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-8 py-4 font-semibold text-white shadow-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 w-fit"
         >
-          Comenzar
+          Comenzar simulación
+          <span aria-hidden>→</span>
         </button>
+        <p className="mt-3 text-sm text-brand-muted">
+          Sin registro · Resultado inmediato · Un asesor te contacta solo si lo
+          pedís
+        </p>
       </div>
     </div>
   );
