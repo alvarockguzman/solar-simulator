@@ -22,58 +22,81 @@ function WhatsAppIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
+function NavLinks() {
+  return (
+    <>
+      <Link href="/calculadora" className={NAV_LINK_CLASS}>
+        Calculadora
+      </Link>
+      <Link href="/presupuesto" className={NAV_LINK_CLASS}>
+        Presupuesto
+      </Link>
+    </>
+  );
+}
+
 export function Header() {
   return (
     <header className="shrink-0 border-b border-stone-200/80 bg-white">
-      <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:gap-5 sm:px-6 lg:gap-6 lg:px-8">
-        <Link
-          href="/"
-          className="flex min-w-0 items-center gap-2 rounded-md outline-none transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 sm:gap-2.5"
-        >
-          <RenovatioLogo variant="header" className="shrink-0" />
+      <div className="mx-auto max-w-7xl">
+        {/* Fila superior: marca + WhatsApp */}
+        <div className="flex h-14 items-center gap-3 px-4 sm:gap-5 sm:px-6 lg:px-8">
+          <Link
+            href="/"
+            className="flex min-w-0 shrink-0 items-center gap-2 rounded-md outline-none transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 sm:gap-2.5"
+          >
+            <RenovatioLogo variant="header" className="shrink-0" />
+            <span
+              className="hidden h-3.5 w-px shrink-0 bg-stone-300 sm:block"
+              aria-hidden
+            />
+            <RenovatioTagline
+              variant="header"
+              className="hidden min-w-0 truncate sm:inline"
+            />
+          </Link>
+
           <span
-            className="hidden h-3.5 w-px shrink-0 bg-stone-300 sm:block"
+            className="hidden h-3.5 w-px shrink-0 bg-stone-300 md:block"
             aria-hidden
           />
-          <RenovatioTagline
-            variant="header"
-            className="hidden min-w-0 truncate sm:inline"
+
+          {/* Nav en línea solo tablet/desktop */}
+          <nav
+            className="hidden items-center gap-4 md:flex md:gap-5"
+            aria-label="Secciones principales"
+          >
+            <NavLinks />
+          </nav>
+
+          <div className="min-w-0 flex-1" aria-hidden />
+
+          <span
+            className="hidden h-3.5 w-px shrink-0 bg-stone-300 md:block"
+            aria-hidden
           />
-        </Link>
 
-        <span
-          className="hidden h-3.5 w-px shrink-0 bg-stone-300 sm:block"
-          aria-hidden
-        />
+          <a
+            href={WHATSAPP_ADVISOR_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-flex shrink-0 items-center gap-1.5 ${NAV_LINK_CLASS}`}
+            aria-label="Contactar con un asesor por WhatsApp"
+          >
+            <WhatsAppIcon className="h-[18px] w-[18px] shrink-0 text-[#25D366]" />
+            <span className="hidden whitespace-nowrap sm:inline">
+              Contacta con un asesor
+            </span>
+          </a>
+        </div>
 
+        {/* Fila inferior: nav solo mobile */}
         <nav
-          className="flex shrink-0 items-center gap-4 sm:gap-5"
+          className="flex items-center justify-center gap-6 border-t border-stone-200/80 px-4 py-2.5 md:hidden"
           aria-label="Secciones principales"
         >
-          <Link href="/calculadora" className={NAV_LINK_CLASS}>
-            Calculadora
-          </Link>
-          <Link href="/presupuesto" className={NAV_LINK_CLASS}>
-            Presupuesto
-          </Link>
+          <NavLinks />
         </nav>
-
-        <div className="min-w-0 flex-1" aria-hidden />
-
-        <span
-          className="hidden h-3.5 w-px shrink-0 bg-stone-300 sm:block"
-          aria-hidden
-        />
-
-        <a
-          href={WHATSAPP_ADVISOR_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`inline-flex shrink-0 items-center gap-1.5 ${NAV_LINK_CLASS}`}
-        >
-          <WhatsAppIcon className="h-[18px] w-[18px] shrink-0 text-[#25D366]" />
-          <span className="whitespace-nowrap">Contacta con un asesor</span>
-        </a>
       </div>
     </header>
   );
