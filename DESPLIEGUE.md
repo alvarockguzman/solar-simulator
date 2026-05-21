@@ -86,7 +86,7 @@ Si querés que la calculadora avanzada tenga su propio link (por ejemplo `https:
 
 En `next.config.js` hay un **rewrite** que dice: “Si la petición llega con el host `advanced.renovatio.lat`, serví el contenido de `/advanced`”. Por eso:
 
-- `https://renovatio.lat` → calculadora básica (y `/advanced` sigue siendo `https://renovatio.lat/advanced`).
+- `https://renovatio.lat` → landing con acceso a calculadora avanzada y relevamiento (`/advanced`, `/relevamiento`).
 - `https://advanced.renovatio.lat` → mismo proyecto, pero se muestra directamente la calculadora avanzada.
 
 No hace falta otro proyecto ni otro repo; es el mismo deploy con dos formas de entrar.

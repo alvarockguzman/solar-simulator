@@ -1,6 +1,6 @@
 # Conectar el simulador a Google Sheets (paso a paso)
 
-Sigue estos pasos en orden. Al terminar, los leads de la **calculadora básica** y de la **calculadora avanzada** se guardarán en la misma hoja, con una columna **Origen** que indica de dónde vino cada uno. Los leads avanzados incluyen además todos los datos del wizard y los resultados.
+Sigue estos pasos en orden. Al terminar, los leads de la **calculadora avanzada** se guardarán en la hoja, con columna **Origen** = `avanzada` y todos los datos del wizard y resultados. (Leads históricos con origen `básica` siguen soportados por el script.)
 
 ---
 
@@ -79,12 +79,7 @@ Sigue estos pasos en orden. Al terminar, los leads de la **calculadora básica**
 
    Next.js solo lee `.env.local` al arrancar, por eso hay que reiniciar.
 
-3. **Probar calculadora básica:**
-   - Abre http://localhost:3000
-   - Elige un perfil, haz clic en **"Quiero recibir más información"**, completa el formulario y envía.
-   - En la hoja debe aparecer una fila nueva con Nombre, Apellido, Empresa, Mail, Teléfono, Fecha y **Origen** = "básica". Las columnas H a R quedarán vacías.
-
-4. **Probar calculadora avanzada:**
+3. **Probar calculadora avanzada:**
    - Abre http://localhost:3000/advanced
    - Completa los 4 pasos (dirección, superficie, tarifa, consumo), llega a resultados y haz clic en **"Solicitar presupuesto"**.
    - Completa el formulario (Nombre, Apellido, Empresa, Mail, Teléfono) y envía.
@@ -96,7 +91,7 @@ Sigue estos pasos en orden. Al terminar, los leads de la **calculadora básica**
 
 - **Revisa la primera fila de la hoja:** Debe tener exactamente los 18 encabezados en el orden indicado en el Paso 1. Si falta "Origen" o alguna columna, el script puede fallar o escribir en la columna equivocada.
 - **Actualiza la implementación:** Después de cambiar el código en Apps Script, ve a **Implementar** → **Gestionar implementaciones** → los tres puntos de la implementación activa → **Editar** → **Versión**: "Nueva versión" → **Implementar**. Así la URL que usa tu app apunta al código nuevo.
-- **Misma URL para básica y avanzada:** Tanto `/api/lead` como `/api/lead/advanced` envían los datos a la **misma** `LEAD_FORM_URL`. El script distingue por el campo **origen** ("básica" o "avanzada") y escribe en las columnas correspondientes.
+- **API de leads:** `/api/lead/advanced` envía a la **misma** `LEAD_FORM_URL`. El script usa **origen** `avanzada` y completa las columnas H–R.
 
 ---
 
