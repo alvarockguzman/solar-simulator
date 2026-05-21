@@ -42,7 +42,7 @@ export function LandingClient() {
           <LandingFeatureCard
             title="Calculadora Solar"
             subtitle="Simulación rápida con análisis económico"
-            body="Calcula rápidamente el ahorro en tu factura eléctrica, la capacidad de generación y el retorno de la inversión de tu sistema solar."
+            body="Estimá el tamaño de tu sistema solar y el ahorro potencial en tu factura eléctrica en pocos minutos."
             ctaLabel="Iniciar simulación"
             href="/calculadora"
             imageSrc="/landing/calculadora.jpg"
@@ -53,7 +53,7 @@ export function LandingClient() {
           <LandingFeatureCard
             title="Presupuesto Indicativo"
             subtitle="Solicitud de presupuesto inicial y factibilidad técnica"
-            body="Solicita un análisis de viabilidad y un presupuesto formal en base a información detallada de la instalación."
+            body="Compartí información detallada de tu propiedad y recibí una propuesta preliminar con evaluación técnica e ingeniería del sistema."
             ctaLabel="Solicitar presupuesto"
             href="/presupuesto"
             imageSrc="/landing/presupuesto.jpg"
