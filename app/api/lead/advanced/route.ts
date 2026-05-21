@@ -1,15 +1,7 @@
 import { NextResponse } from "next/server";
-
-const LEAD_FORM_URL = process.env.LEAD_FORM_URL;
+import { syncLeadToSheetAndMonday } from "@/app/lib/leads/syncLead";
 
 export async function POST(request: Request) {
-  if (!LEAD_FORM_URL) {
-    return NextResponse.json(
-      { error: "LEAD_FORM_URL no configurada" },
-      { status: 500 }
-    );
-  }
-
   try {
     const body = await request.json();
     const { source, contact, wizard, results } = body;
@@ -55,39 +47,24 @@ export async function POST(request: Request) {
       payload.inversion_usd = results.investmentUsd ?? "";
     }
 
-    const res = await fetch(LEAD_FORM_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    const result = await syncLeadToSheetAndMonday(payload);
 
-    const text = await res.text();
-
-    if (!res.ok) {
+    if (!result.ok) {
       return NextResponse.json(
         {
           error:
-            "Error al enviar. Revisá LEAD_FORM_URL y que el Google Apps Script acepte los campos avanzados.",
-          details: text.slice(0, 200),
+            result.error +
+            ". Revisá LEAD_FORM_URL y que el Google Apps Script acepte los campos avanzados.",
+          details: result.details,
         },
         { status: 502 }
       );
     }
 
-    let data: { ok?: boolean; error?: string } = {};
-    try {
-      data = JSON.parse(text);
-    } catch {
-      // no JSON
-    }
-    if (data.ok === false) {
-      return NextResponse.json(
-        { error: data.error || "Error en el backend de leads" },
-        { status: 502 }
-      );
-    }
-
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({
+      ok: true,
+      mondaySynced: result.mondaySynced,
+    });
   } catch (err) {
     console.error("Lead advanced API error:", err);
     return NextResponse.json(

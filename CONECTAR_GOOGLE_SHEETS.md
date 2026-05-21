@@ -57,9 +57,12 @@ Sigue estos pasos en orden. Al terminar, los leads de la **calculadora básica**
 
    ```
    LEAD_FORM_URL=https://script.google.com/macros/s/TU_URL_COMPLETA_AQUI/exec
+   MONDAY_API_TOKEN=tu_token_de_monday
+   MONDAY_BOARD_ID=18414300841
    ```
 
    Reemplaza `TU_URL_COMPLETA_AQUI` por la URL que copiaste en el Paso 3, o pega la URL entera después del `=`.
+   Para Monday, ver también `MONDAY_INTEGRACION.md`.
 
 3. Guarda el archivo.
 
