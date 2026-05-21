@@ -60,6 +60,15 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 8px 12px -2px rgb(0 0 0 / 0.12);
   }
+
+  /* CTA de cards full-bleed en landing (rama design/landing) */
+  .landing-cta.rounded-xl {
+    border-radius: 12px;
+  }
+
+  .landing-cta:hover {
+    transform: translateY(-1px);
+  }
 }
 
 @layer utilities {
