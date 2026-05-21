@@ -4,7 +4,6 @@ import Image from "next/image";
 
 export interface LandingFeatureCardProps {
   title: string;
-  subtitle: string;
   body: string;
   ctaLabel: string;
   href: string;
@@ -34,7 +33,6 @@ function ChevronRight({ className = "h-4 w-4" }: { className?: string }) {
 
 export function LandingFeatureCard({
   title,
-  subtitle,
   body,
   ctaLabel,
   href,
@@ -67,16 +65,11 @@ export function LandingFeatureCard({
       />
 
       <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-8 lg:p-12">
-        <div className={`flex max-w-xl flex-col gap-3 sm:gap-4 ${contentAlign}`}>
-          <div className="space-y-1 sm:space-y-2">
-            <h2 className="text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.5rem] lg:leading-tight">
-              {title}
-            </h2>
-            <p className="text-sm font-medium text-white/90 sm:text-lg">
-              {subtitle}
-            </p>
-          </div>
-          <p className="max-w-md text-sm leading-relaxed text-white/85 sm:text-base">
+        <div className={`flex max-w-xl flex-col gap-4 sm:gap-5 ${contentAlign}`}>
+          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.5rem] lg:leading-tight">
+            {title}
+          </h2>
+          <p className="max-w-sm text-sm leading-snug text-white/85 text-balance sm:max-w-md sm:text-base sm:leading-snug">
             {body}
           </p>
           {onNavigate ? (
