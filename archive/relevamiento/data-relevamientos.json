@@ -1,0 +1,104 @@
+[
+  {
+    "id": "rel-1770126979052-f1l5g0b",
+    "fecha": "2026-02-03T13:56:19.052Z",
+    "estado": "Pendiente",
+    "address": "495, Libertad, Microcentro, San Nicolás, Buenos Aires, Comuna 1, Ciudad Autónoma de Buenos Aires, C1043AAL, Argentina",
+    "polygon": [
+      [
+        -34.602725012171575,
+        -58.38368028075034
+      ],
+      [
+        -34.60288413638014,
+        -58.38334777687974
+      ],
+      [
+        -34.60289297660501,
+        -58.38370173261298
+      ]
+    ],
+    "center": {
+      "lat": -34.60290497788103,
+      "lng": -58.38366866112438
+    },
+    "surfaceM2": 301.5622748036942,
+    "city": null,
+    "facturaUrl": "https://placeholder.relevamiento/CV 2026 - ES - Alvaro Guzman (2).pdf",
+    "material": "Chapa",
+    "fotoTechoUrl": "https://placeholder.relevamiento/5 resultados.png",
+    "fotoObstaculosUrl": "https://placeholder.relevamiento/5 resultados.png",
+    "fotoTableroUrl": "https://placeholder.relevamiento/0 intro.png",
+    "cableado": "Interior",
+    "distanciaTablero": "> 25m",
+    "nombre": "alvaro",
+    "email": "guzman@gmail.com",
+    "telefono": "+54685567446",
+    "cuit": "20-12012301-5",
+    "notasAdmin": null
+  },
+  {
+    "id": "rel-1770128126028-xexczwi",
+    "fecha": "2026-02-03T14:15:26.028Z",
+    "estado": "Pendiente",
+    "address": "Travessera de Dalt, Vallcarca i els Penitents, Gràcia, Barcelona, Barcelonès, Barcelona, Catalonia, 08023, Spain",
+    "polygon": [
+      [
+        41.40753351946039,
+        2.1505544462704718
+      ],
+      [
+        41.40717487774565,
+        2.1501627618239154
+      ],
+      [
+        41.40740049350969,
+        2.1500715476377508
+      ]
+    ],
+    "center": {
+      "lat": 41.40694593823062,
+      "lng": 2.150610621668381
+    },
+    "surfaceM2": 561.4388958380755,
+    "city": null,
+    "facturaUrl": "https://placeholder.relevamiento/CV 2026 - ES - Alvaro Guzman (2).pdf",
+    "material": "Teja",
+    "fotoTechoUrl": "https://placeholder.relevamiento/5 resultados.png",
+    "fotoObstaculosUrl": "https://placeholder.relevamiento/4 consumo.png",
+    "fotoTableroUrl": "https://placeholder.relevamiento/image (6).png",
+    "cableado": "Exterior",
+    "distanciaTablero": "> 25m",
+    "nombre": "alvaro",
+    "email": "g@gmail.com",
+    "telefono": "+43",
+    "cuit": "22",
+    "notasAdmin": null
+  },
+  {
+    "id": "rel-1770129684964-4z31beb",
+    "fecha": "2026-02-03T14:41:24.964Z",
+    "estado": "Pendiente",
+    "address": "3956, San Nicolás, Villa Devoto, Buenos Aires, Comuna 11, Ciudad Autónoma de Buenos Aires, C1419HYW, Argentina",
+    "polygon": [],
+    "center": {
+      "lat": -34.598418508702636,
+      "lng": -58.5078799724613
+    },
+    "surfaceM2": 0,
+    "city": null,
+    "facturaUrl": "https://rbdkee7x8iiznwon.public.blob.vercel-storage.com/relevamiento/1770129683194-CV_2026_-_ES_-_Alvaro_Guzman__2_.pdf",
+    "material": "Chapa",
+    "fotoTechoUrl": "https://rbdkee7x8iiznwon.public.blob.vercel-storage.com/relevamiento/1770129683207-5_resultados.png",
+    "fotoObstaculosUrl": "https://rbdkee7x8iiznwon.public.blob.vercel-storage.com/relevamiento/1770129683182-4_consumo.png",
+    "fotoTableroUrl": "https://rbdkee7x8iiznwon.public.blob.vercel-storage.com/relevamiento/1770129683229-image__6_.png",
+    "cableado": "Exterior",
+    "distanciaTablero": "> 25m",
+    "nombre": "asdpoasi",
+    "apellido": "Guzman",
+    "empresa": "Wallbox",
+    "email": "arg1989@gmail.com",
+    "telefono": "685567446",
+    "notasAdmin": null
+  }
+]
