@@ -3,7 +3,7 @@ import {
   mapOrigenToMondayLabel,
   mapTarifaToMondayLabel,
 } from "./config";
-import { isMondayConfigured, mondayQuery } from "./client";
+import { getMondayConfig, isMondayConfigured, mondayQuery } from "./client";
 import type { LeadMondayPayload } from "./types";
 
 function formatDateYmd(d: Date): string {
@@ -92,7 +92,10 @@ export async function createLeadInMonday(
     return { ok: false, error: "Monday no configurado (faltan variables de entorno)" };
   }
 
-  const boardId = process.env.MONDAY_BOARD_ID!;
+  const { boardId } = getMondayConfig();
+  if (!boardId) {
+    return { ok: false, error: "MONDAY_BOARD_ID no configurada en el servidor" };
+  }
   const itemName = buildItemName(lead);
   const columnValues = JSON.stringify(buildColumnValues(lead));
 

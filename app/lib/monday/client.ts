@@ -7,17 +7,24 @@ interface MondayGraphQLResponse<T> {
   errors?: Array<{ message: string }>;
 }
 
+export function getMondayConfig() {
+  const token = process.env.MONDAY_API_TOKEN?.trim();
+  const boardId = process.env.MONDAY_BOARD_ID?.trim();
+  return { token, boardId };
+}
+
 export function isMondayConfigured(): boolean {
-  return Boolean(process.env.MONDAY_API_TOKEN && process.env.MONDAY_BOARD_ID);
+  const { token, boardId } = getMondayConfig();
+  return Boolean(token && boardId);
 }
 
 export async function mondayQuery<T>(
   query: string,
   variables?: Record<string, unknown>
 ): Promise<{ data: T } | { error: string }> {
-  const token = process.env.MONDAY_API_TOKEN;
+  const { token } = getMondayConfig();
   if (!token) {
-    return { error: "MONDAY_API_TOKEN no configurada" };
+    return { error: "MONDAY_API_TOKEN no configurada en el servidor" };
   }
 
   let res: Response;

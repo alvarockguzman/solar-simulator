@@ -50,3 +50,16 @@ Board: [Leads Solar](https://renovatio812485.monday.com/boards/18414300841) — 
 | (relevamiento futuro) | relevamiento | 19 |
 
 **Tarifa:** T1→6, T2→9, T3→2
+
+## Si funciona en local pero no en Vercel
+
+1. Abrí en el navegador (mismo dominio de producción):
+   `https://www.renovatio.lat/api/lead/health`
+2. Debe verse algo como:
+   ```json
+   { "leadFormUrl": true, "mondayConfigured": true, "mondayBoardId": "18414300841" }
+   ```
+3. Si `mondayConfigured` es **false** → faltan `MONDAY_API_TOKEN` o `MONDAY_BOARD_ID` en **Production**, o hay que **Redeploy** después de agregarlas.
+4. Al enviar un lead, en DevTools → Network → `lead/advanced` → si `mondaySynced: false`, mirá `mondayError` en la respuesta JSON.
+
+**Importante:** las variables deben estar marcadas para **Production** (no solo Preview). Sin comillas en el valor. Sin espacios al final del token.

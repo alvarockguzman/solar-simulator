@@ -37,7 +37,7 @@ export function sheetPayloadToMondayLead(
 export async function syncLeadToSheetAndMonday(
   sheetPayload: Record<string, unknown>
 ): Promise<
-  | { ok: true; mondaySynced: boolean; mondayItemId?: string }
+  | { ok: true; mondaySynced: boolean; mondayItemId?: string; mondayError?: string }
   | { ok: false; error: string; details?: string }
 > {
   let sheetResult: Awaited<ReturnType<typeof submitToGoogleSheet>>;
@@ -70,7 +70,11 @@ export async function syncLeadToSheetAndMonday(
       origen: mondayLead.origen,
       mail: mondayLead.mail,
     });
-    return { ok: true, mondaySynced: false };
+    return {
+      ok: true,
+      mondaySynced: false,
+      mondayError: mondayResult.error,
+    };
   }
 
   return {

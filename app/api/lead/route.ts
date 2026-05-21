@@ -37,6 +37,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       ok: true,
       mondaySynced: result.mondaySynced,
+      ...(result.mondayError ? { mondayError: result.mondayError } : {}),
     });
   } catch (err) {
     console.error("Lead API error:", err);
