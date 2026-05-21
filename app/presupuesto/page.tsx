@@ -3,8 +3,7 @@
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-/** Formulario Monday — cotización / propuesta indicativa */
-const MONDAY_PRESUPUESTO_FORM_URL = "https://wkf.ms/4nINfcK";
+import { MONDAY_PRESUPUESTO_FORM_URL } from "@/app/lib/renovatioLinks";
 
 type ChecklistItem = {
   title: string;

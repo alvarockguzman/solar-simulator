@@ -4,11 +4,10 @@ import {
   RenovatioTagline,
 } from "./brand/RenovatioLogo";
 
-const WHATSAPP_ADVISOR_URL =
-  "https://wa.me/5491123969892?text=" +
-  encodeURIComponent(
-    "Hola, vengo de la web y quiero contactar con un asesor!"
-  );
+import { WHATSAPP_ADVISOR_URL } from "@/app/lib/renovatioLinks";
+
+const NAV_LINK_CLASS =
+  "rounded-md py-0.5 text-sm font-medium text-brand-navy transition-colors hover:text-[#128C7E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2";
 
 function WhatsAppIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
@@ -43,7 +42,26 @@ export function Header() {
         </Link>
 
         <span
-          className="hidden h-3.5 w-px shrink-0 bg-stone-300 md:block"
+          className="hidden h-3.5 w-px shrink-0 bg-stone-300 sm:block"
+          aria-hidden
+        />
+
+        <nav
+          className="flex shrink-0 items-center gap-4 sm:gap-5"
+          aria-label="Secciones principales"
+        >
+          <Link href="/calculadora" className={NAV_LINK_CLASS}>
+            Calculadora
+          </Link>
+          <Link href="/presupuesto" className={NAV_LINK_CLASS}>
+            Presupuesto
+          </Link>
+        </nav>
+
+        <div className="min-w-0 flex-1" aria-hidden />
+
+        <span
+          className="hidden h-3.5 w-px shrink-0 bg-stone-300 sm:block"
           aria-hidden
         />
 
@@ -51,7 +69,7 @@ export function Header() {
           href={WHATSAPP_ADVISOR_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-md py-0.5 text-sm font-medium text-brand-navy transition-colors hover:text-[#128C7E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
+          className={`inline-flex shrink-0 items-center gap-1.5 ${NAV_LINK_CLASS}`}
         >
           <WhatsAppIcon className="h-[18px] w-[18px] shrink-0 text-[#25D366]" />
           <span className="whitespace-nowrap">Contacta con un asesor</span>

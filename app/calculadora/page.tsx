@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { Suspense, useState, useCallback, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { StepIntro } from "./components/StepIntro";
 import { StepAddress } from "./components/StepAddress";
 import { StepSurface } from "./components/StepSurface";
@@ -18,11 +19,23 @@ function randomBetween(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export default function AdvancedPage() {
+function CalculadoraPageContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const previewLeadSuccess =
+    process.env.NODE_ENV === "development" &&
+    searchParams.get("preview") === "lead-success";
+
   const [currentStep, setCurrentStep] = useState<StepId>("intro");
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
   const { getResults } = useWizard();
+
+  useEffect(() => {
+    if (previewLeadSuccess) {
+      setShowLeadForm(true);
+    }
+  }, [previewLeadSuccess]);
 
   const stepIndex = STEPS.indexOf(currentStep);
   const isIntro = currentStep === "intro";
@@ -51,6 +64,13 @@ export default function AdvancedPage() {
     else if (currentStep === "consumption") setCurrentStep("tariff");
     else if (currentStep === "results") setCurrentStep("consumption");
   }, [currentStep]);
+
+  const closeLeadForm = useCallback(() => {
+    setShowLeadForm(false);
+    if (previewLeadSuccess) {
+      router.replace("/calculadora");
+    }
+  }, [previewLeadSuccess, router]);
 
   const results = isResults ? getResults() : null;
 
@@ -111,10 +131,19 @@ export default function AdvancedPage() {
 
       {showLeadForm && (
         <LeadFormAdvanced
-          onClose={() => setShowLeadForm(false)}
+          onClose={closeLeadForm}
           results={results ?? undefined}
+          initialSuccess={previewLeadSuccess}
         />
       )}
     </>
+  );
+}
+
+export default function AdvancedPage() {
+  return (
+    <Suspense fallback={null}>
+      <CalculadoraPageContent />
+    </Suspense>
   );
 }
