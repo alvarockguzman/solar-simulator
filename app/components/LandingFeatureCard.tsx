@@ -47,10 +47,10 @@ export function LandingFeatureCard({
       : "items-start text-left";
 
   const ctaClass =
-    "landing-cta inline-flex items-center gap-2 rounded-xl bg-amber-500 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-black/20 transition-colors hover:bg-amber-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:px-6 sm:py-3.5 sm:text-base";
+    "landing-cta inline-flex items-center gap-2 rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-black/20 transition-colors hover:bg-amber-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:px-5 sm:py-3";
 
   return (
-    <article className="relative min-h-[min(420px,72vh)] w-full overflow-hidden rounded-3xl sm:min-h-[min(560px,78vh)] lg:min-h-[82vh]">
+    <article className="relative h-[min(260px,48vh)] w-full overflow-hidden rounded-3xl sm:h-[300px] md:h-[340px] lg:h-[380px]">
       <Image
         src={imageSrc}
         alt={imageAlt}
@@ -60,16 +60,16 @@ export function LandingFeatureCard({
         className="object-cover"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/15"
+        className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
         aria-hidden
       />
 
-      <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-8 lg:p-12">
-        <div className={`flex max-w-xl flex-col gap-4 sm:gap-5 ${contentAlign}`}>
-          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.5rem] lg:leading-tight">
+      <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-6 lg:p-8">
+        <div className={`flex max-w-xl flex-col gap-3 sm:gap-3.5 ${contentAlign}`}>
+          <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl lg:text-3xl">
             {title}
           </h2>
-          <p className="max-w-sm text-sm leading-snug text-white/85 text-balance sm:max-w-md sm:text-base sm:leading-snug">
+          <p className="max-w-sm text-sm leading-snug text-white/85 text-balance sm:max-w-md sm:text-[15px]">
             {body}
           </p>
           {onNavigate ? (
