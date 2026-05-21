@@ -130,7 +130,7 @@ export function RelevamientoProvider({ children }: { children: React.ReactNode }
         if (!file) return "";
         const form = new FormData();
         form.append("file", file);
-        const res = await fetch("/api/relevamiento/upload", { method: "POST", body: form });
+        const res = await fetch("/api/presupuesto/upload", { method: "POST", body: form });
         if (!res.ok) throw new Error("Error subiendo archivo");
         const data = await res.json();
         return data.url ?? "";
@@ -160,7 +160,7 @@ export function RelevamientoProvider({ children }: { children: React.ReactNode }
           ...contact,
         };
 
-      const res = await fetch("/api/relevamiento", {
+      const res = await fetch("/api/presupuesto", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

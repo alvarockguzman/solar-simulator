@@ -5,16 +5,16 @@ import { RelevamientoProvider } from "./context/RelevamientoContext";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "SolarCheck | Renovatio",
+  title: "Presupuesto Indicativo | Renovatio",
   description:
-    "Relevamiento técnico para tu instalación solar. Capturá los datos con tu móvil y nuestros ingenieros diseñarán el sistema para tu techo.",
+    "Solicitá un presupuesto indicativo y análisis de factibilidad para tu instalación solar.",
 };
 
 export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RelevamientoLayout({
+export default function PresupuestoLayout({
   children,
 }: {
   children: React.ReactNode;

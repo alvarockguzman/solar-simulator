@@ -48,7 +48,7 @@ export default function RelevamientoAdminDetailPage() {
   const [saving, setSaving] = useState(false);
 
   const load = useCallback(async () => {
-    const res = await fetch("/api/relevamiento", { credentials: "include" });
+    const res = await fetch("/api/presupuesto", { credentials: "include" });
     if (!res.ok) {
       setItem(null);
       return;
@@ -69,7 +69,7 @@ export default function RelevamientoAdminDetailPage() {
   const handleSave = async () => {
     if (!id) return;
     setSaving(true);
-    const res = await fetch("/api/relevamiento/admin", {
+    const res = await fetch("/api/presupuesto/admin", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -93,7 +93,7 @@ export default function RelevamientoAdminDetailPage() {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-4 gap-4">
         <p className="text-stone-600">Relevamiento no encontrado</p>
-        <Link href="/relevamiento/admin" className="text-amber-600 hover:underline">
+        <Link href="/presupuesto/admin" className="text-amber-600 hover:underline">
           Volver al listado
         </Link>
       </div>
@@ -110,7 +110,7 @@ export default function RelevamientoAdminDetailPage() {
   return (
     <div className="flex-1 flex flex-col min-h-0 overflow-auto p-4 max-w-2xl mx-auto">
       <div className="flex items-center gap-4 mb-4">
-        <Link href="/relevamiento/admin" className="text-amber-600 hover:underline font-medium">
+        <Link href="/presupuesto/admin" className="text-amber-600 hover:underline font-medium">
           ← Listado
         </Link>
       </div>

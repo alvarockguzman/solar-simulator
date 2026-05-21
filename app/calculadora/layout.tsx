@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Header } from "./components/Header";
+import { Header } from "../components/Header";
 import { WizardProvider } from "./context/WizardContext";
 
 export const metadata: Metadata = {
-  title: "Calculadora Solar Avanzada | Renovatio",
+  title: "Calculadora Solar | Renovatio",
   description:
     "Simulación técnica y análisis económico para empresas industriales. Resultado en menos de 2 minutos.",
 };
 
-export default function AdvancedLayout({
+export default function CalculadoraLayout({
   children,
 }: {
   children: React.ReactNode;

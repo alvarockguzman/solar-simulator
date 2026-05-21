@@ -2,9 +2,9 @@
 
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { Header } from "./Header";
 import { HomeFlipCard } from "./HomeFlipCard";
 import { LoadingOverlay } from "./LoadingOverlay";
-import { RenovatioLogo, RenovatioTagline } from "./brand/RenovatioLogo";
 
 const TRANSITION_DURATION_MS = 380;
 
@@ -31,26 +31,18 @@ export function LandingClient() {
         className={`renovatio-landing-content flex min-h-screen flex-col bg-stone-50 ${isExiting ? "renovatio-page-exit" : ""}`}
         aria-busy={!!transitionTo}
       >
-        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-16 sm:py-20 lg:py-28">
-          <header className="mb-14 text-center sm:mb-16">
-            <h1>
-              <RenovatioLogo variant="hero" />
-            </h1>
-            <p className="mt-3">
-              <RenovatioTagline variant="hero" />
-            </p>
-          </header>
-
+        <Header />
+        <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-4 py-12 sm:px-6 sm:py-16 lg:py-20">
           <section
-            className="mx-auto grid max-w-3xl grid-cols-1 gap-8 sm:grid-cols-2"
+            className="mx-auto grid w-full max-w-3xl grid-cols-1 gap-8 sm:grid-cols-2"
             aria-label="Aplicaciones disponibles"
           >
             <HomeFlipCard
-              title="Calculadora Avanzada"
-              subtitle="Simulación técnica detallada con análisis económico"
+              title="Calculadora Solar"
+              subtitle="Simulación rápida con análisis económico"
               body="Calcula rápidamente el ahorro en tu factura eléctrica, la capacidad de generación y el retorno de la inversión de tu sistema solar."
               ctaLabel="Iniciar Simulación"
-              href="/advanced"
+              href="/calculadora"
               onNavigate={handleNavigate}
               icon={
                 <svg
@@ -70,11 +62,11 @@ export function LandingClient() {
               }
             />
             <HomeFlipCard
-              title="Relevamiento"
+              title="Presupuesto Indicativo"
               subtitle="Solicitud de presupuesto inicial y factibilidad técnica"
               body="Solicita un análisis de viabilidad y un presupuesto formal en base a información detallada de la instalación."
               ctaLabel="Solicitar presupuesto"
-              href="/relevamiento"
+              href="/presupuesto"
               onNavigate={handleNavigate}
               icon={
                 <svg

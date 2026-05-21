@@ -192,7 +192,7 @@ export function Step1Direccion({ onBack, onNext }: Step1DireccionProps) {
 
       <div className="relevamiento-nav-bar shrink-0 px-4 pt-4 border-t border-stone-200 bg-white flex flex-wrap gap-3 justify-center">
         <Link
-          href="/relevamiento"
+          href="/presupuesto"
           className="rounded-xl border border-stone-300 px-6 py-3 font-semibold text-stone-600 hover:bg-stone-50"
         >
           Salir

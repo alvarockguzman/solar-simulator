@@ -57,77 +57,50 @@
    - Vercel te mostrará qué registros DNS configurar (normalmente un CNAME o A). Entra a la web donde gestionas tu dominio y crea ese registro con el valor que indica Vercel.
    - Cuando el DNS se actualice (puede tardar unos minutos), tu sitio estará en tu dominio con HTTPS.
 
-## 5. Subdominio para la Calculadora Avanzada (advanced.renovatio.lat)
+## 5. Dominio único y rutas públicas
 
-Si querés que la calculadora avanzada tenga su propio link (por ejemplo `https://advanced.renovatio.lat`), hacé lo siguiente.
+Usamos **un solo dominio canónico**: `https://www.renovatio.lat`
 
-### En Vercel
+| Ruta | Contenido |
+|------|-----------|
+| `/` | Landing |
+| `/calculadora` | Calculadora Solar |
+| `/presupuesto` | Presupuesto Indicativo |
 
-1. Entrá a tu **proyecto** en [Vercel](https://vercel.com).
-2. **Settings** → **Domains**.
-3. Clic en **Add** y escribí el subdominio: `advanced.renovatio.lat`.
-4. Vercel te va a indicar qué registro DNS crear:
-   - Si usa **CNAME**: el nombre suele ser `advanced` y el valor algo como `cname.vercel-dns.com` (o el dominio que te muestre Vercel).
-   - Si usa **A**: te dará una IP; creá un registro A con nombre `advanced` apuntando a esa IP.
-5. Guardá el dominio. Vercel validará el DNS; puede tardar unos minutos (o hasta 48 h en casos raros).
-6. Cuando el dominio figure como **Valid**, las visitas a `https://advanced.renovatio.lat` irán al **mismo deploy** del proyecto y, por la configuración en `next.config.js`, se mostrará la calculadora avanzada (ruta `/advanced`).
+Las URLs viejas (`/advanced`, `/relevamiento`) redirigen automáticamente a las nuevas. Si alguien entra por `advanced.renovatio.lat`, el middleware lo manda a `www.renovatio.lat/calculadora`.
 
-### En el proveedor de DNS (donde tenés renovatio.lat)
+**En Vercel → Domains:** mantener `www.renovatio.lat` y `renovatio.lat`; **quitar** `advanced.renovatio.lat`. En tu DNS, borrar el CNAME `advanced` si existía.
 
-1. Entrá al panel donde gestionás el dominio `renovatio.lat`.
-2. Buscá la sección de **DNS** (registros CNAME, A, etc.).
-3. Creá el registro que Vercel te indicó:
-   - **Tipo:** CNAME (o A si Vercel lo pide).
-   - **Nombre / Host:** `advanced` (así el subdominio queda `advanced.renovatio.lat`).
-   - **Valor / Apunta a:** el que te dé Vercel (ej. `cname.vercel-dns.com` para CNAME).
-4. Guardá los cambios y esperá a que Vercel marque el dominio como válido.
-
-### Cómo funciona
-
-En `next.config.js` hay un **rewrite** que dice: “Si la petición llega con el host `advanced.renovatio.lat`, serví el contenido de `/advanced`”. Por eso:
-
-- `https://renovatio.lat` → landing con acceso a calculadora avanzada y relevamiento (`/advanced`, `/relevamiento`).
-- `https://advanced.renovatio.lat` → mismo proyecto, pero se muestra directamente la calculadora avanzada.
-
-No hace falta otro proyecto ni otro repo; es el mismo deploy con dos formas de entrar.
+Detalle completo: ver **`DOMINIOS.md`**.
 
 ---
 
-## 6. Si /relevamiento da 404 en Vercel pero en local funciona
+## 6. Si /presupuesto o /calculadora dan 404 en Vercel
 
-Cuando la ruta **/relevamiento** (SolarCheck) funciona en `localhost` pero en el sitio desplegado sale **404**, suele ser por una de estas causas:
+Cuando una ruta funciona en `localhost` pero en producción sale **404**:
 
 ### A. El deploy no tiene la última versión
 
-1. En **Vercel** → tu proyecto → pestaña **Deployments**.
-2. Revisa el **commit** del último deployment (el que está en “Production”). ¿Incluye la carpeta `app/relevamiento/`?
-3. En tu PC, asegúrate de tener todo subido al branch que Vercel usa (normalmente `main`):
-   - `git status`
-   - `git add .`
-   - `git commit -m "Incluir ruta /relevamiento"`
-   - `git push origin main`
-4. Vercel redeploya solo al hacer push. Si el último push no tenía `app/relevamiento`, haz un **Redeploy** del último commit que sí la tenga, o un nuevo push.
+1. En **Vercel** → **Deployments**, revisá el commit de Production. ¿Incluye `app/calculadora/` y `app/presupuesto/`?
+2. Subí los cambios al branch que usa Vercel (`git push origin main`).
+3. Si hace falta, **Redeploy** del último commit correcto.
 
-### B. Directorio raíz del proyecto en Vercel
+### B. Directorio raíz del proyecto
 
-1. En Vercel → **Settings** → **General**.
-2. Revisa **Root Directory**. Debe estar **vacío** (o `.`). Si apunta a una subcarpeta que no contiene `app/relevamiento`, esa ruta no existirá en el build.
+En **Settings** → **General** → **Root Directory** debe estar vacío (o `.`).
 
 ### C. Build fallando
 
-Si el build **falla** en Vercel, a veces se sigue sirviendo el deploy anterior (sin /relevamiento).
+Si el build falla, Vercel puede seguir sirviendo un deploy viejo sin las rutas nuevas. Revisá el log del último deployment.
 
-1. En **Deployments**, abre el último deployment y revisa si el estado es **Ready** o **Error**.
-2. Si hay **Error**, entra en **Building** y revisa el log. Corrige el error (por ejemplo dependencias o variables de entorno) y haz un nuevo deploy.
+### D. Comprobar rutas en el build
 
-### D. Comprobar que la ruta existe en el build
+Tras un build en verde, deberían abrir:
 
-En el **log del build** de Vercel, Next.js suele listar las rutas generadas. Después de un deploy correcto, deberías poder abrir:
+- `https://www.renovatio.lat/calculadora`
+- `https://www.renovatio.lat/presupuesto`
 
-- `https://tu-dominio.vercel.app/relevamiento`
-- o `https://www.renovatio.lat/relevamiento`
-
-Si tras un push con `app/relevamiento` y un build en verde la ruta sigue en 404, revisa que el dominio de producción en Vercel (Settings → Domains) sea el que estás usando (por ejemplo `www.renovatio.lat`).
+Las rutas antiguas (`/advanced`, `/relevamiento`) deben redirigir con 301.
 
 ---
 
@@ -136,4 +109,4 @@ Si tras un push con `app/relevamiento` y un build en verde la ruta sigue en 404,
 - **Leads:** Se guardan en tu Google Sheet; puedes verlos y exportar a Excel/CSV cuando quieras.
 - **Variables:** Solo necesitas `LEAD_FORM_URL` en `.env.local` en local y en Vercel como variable de entorno.
 - **Dominio:** Se configura en Vercel → Domains y en los DNS de tu proveedor de dominio.
-- **Subdominio avanzada:** Agregar `advanced.renovatio.lat` en Vercel → Domains y crear el CNAME (o A) en tu DNS; el rewrite en `next.config.js` hace el resto.
+- **Dominios:** Un solo sitio en `www.renovatio.lat`; ver `DOMINIOS.md` para redirecciones y quitar `advanced.renovatio.lat`.

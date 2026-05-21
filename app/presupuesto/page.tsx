@@ -64,7 +64,7 @@ function RelevamientoHomeContent() {
       </p>
 
       <Link
-        href="/relevamiento/wizard"
+        href="/presupuesto/wizard"
         className="mt-8 w-full sm:w-auto rounded-xl bg-amber-500 px-8 py-4 font-semibold text-white shadow-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 text-center"
       >
         COMENZAR RELEVAMIENTO

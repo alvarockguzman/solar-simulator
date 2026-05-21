@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   RenovatioLogo,
   RenovatioTagline,
-} from "../../components/brand/RenovatioLogo";
+} from "./brand/RenovatioLogo";
 
 const WHATSAPP_ADVISOR_URL =
   "https://wa.me/5491123969892?text=" +

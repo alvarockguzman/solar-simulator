@@ -80,7 +80,7 @@ Sigue estos pasos en orden. Al terminar, los leads de la **calculadora avanzada*
    Next.js solo lee `.env.local` al arrancar, por eso hay que reiniciar.
 
 3. **Probar calculadora avanzada:**
-   - Abre http://localhost:3000/advanced
+   - Abre http://localhost:3000/calculadora
    - Completa los 4 pasos (dirección, superficie, tarifa, consumo), llega a resultados y haz clic en **"Solicitar presupuesto"**.
    - Completa el formulario (Nombre, Apellido, Empresa, Mail, Teléfono) y envía.
    - En la hoja debe aparecer una fila nueva con **Origen** = "avanzada" y las columnas **Dirección, Lat, Lng, Superficie_m2, Tarifa, Consumo_kWh_año, Potencia_kWp, Energía_kWh_año, Ahorro_USD_año, Repago_años, Inversión_USD** rellenadas con lo que eligió el usuario y los resultados calculados.

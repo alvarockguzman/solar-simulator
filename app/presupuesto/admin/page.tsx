@@ -23,7 +23,7 @@ export default function RelevamientoAdminPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch("/api/relevamiento/admin", { credentials: "include" })
+    fetch("/api/presupuesto/admin", { credentials: "include" })
       .then((r) => {
         if (r.ok) setAuthenticated(true);
         else setAuthenticated(false);
@@ -33,7 +33,7 @@ export default function RelevamientoAdminPage() {
 
   useEffect(() => {
     if (!authenticated) return;
-    fetch("/api/relevamiento", { credentials: "include" })
+    fetch("/api/presupuesto", { credentials: "include" })
       .then((r) => (r.ok ? r.json() : []))
       .then((data) => setList(data))
       .catch(() => setList([]));
@@ -43,7 +43,7 @@ export default function RelevamientoAdminPage() {
     e.preventDefault();
     setLoginError("");
     setLoading(true);
-    const res = await fetch("/api/relevamiento/admin", {
+    const res = await fetch("/api/presupuesto/admin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user, password }),
@@ -116,7 +116,7 @@ export default function RelevamientoAdminPage() {
       <div className="flex items-center justify-between gap-4 mb-4">
         <h1 className="text-xl font-bold text-stone-800">Relevamientos</h1>
         <div className="flex items-center gap-2">
-          <Link href="/relevamiento" className="text-sm text-amber-700 hover:underline">
+          <Link href="/presupuesto" className="text-sm text-amber-700 hover:underline">
             Ir a SolarCheck
           </Link>
           <button
@@ -165,7 +165,7 @@ export default function RelevamientoAdminPage() {
                   </td>
                   <td className="p-3">
                     <Link
-                      href={`/relevamiento/admin/${row.id}`}
+                      href={`/presupuesto/admin/${row.id}`}
                       className="text-amber-600 hover:underline font-medium"
                     >
                       Ver detalle
