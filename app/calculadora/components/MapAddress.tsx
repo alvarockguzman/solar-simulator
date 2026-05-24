@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from "react-leaflet";
 import L from "leaflet";
+import { MapResizeHandler } from "./MapResizeHandler";
 
 import "leaflet/dist/leaflet.css";
 
@@ -36,6 +37,8 @@ function FlyToMarker({ marker }: { marker: { lat: number; lng: number } | null }
   useEffect(() => {
     if (marker) {
       map.flyTo([marker.lat, marker.lng], 17, { duration: 0.5 });
+      const id = window.setTimeout(() => map.invalidateSize(), 550);
+      return () => window.clearTimeout(id);
     }
   }, [map, marker?.lat, marker?.lng]);
   return null;
@@ -52,9 +55,10 @@ export function MapAddress({ center, marker, onMarkerChange, className = "" }: M
       <MapContainer
         center={mapCenter}
         zoom={17}
-        className="h-full w-full rounded-r-xl"
+        className="h-full w-full lg:rounded-r-xl"
         scrollWheelZoom={true}
       >
+        <MapResizeHandler />
         <TileLayer
           attribution='&copy; <a href="https://www.esri.com/">Esri</a>'
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"

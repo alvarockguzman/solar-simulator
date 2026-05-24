@@ -1,10 +1,10 @@
 import type { TariffId } from "./constants";
 
 // Constantes obligatorias
-export const KWP_PER_M2 = 0.2;
-export const CAPEX_USD_PER_KWP = 1100;
-export const OPEX_USD_PER_KWP_YEAR = 18;
-export const KWH_PER_KWP_YEAR = 1550;
+export const KWP_PER_M2 = 0.11;
+export const CAPEX_USD_PER_KWP = 800;
+export const OPEX_USD_PER_KWP_YEAR = 15;
+export const KWH_PER_KWP_YEAR = 1350;
 export const PROJECT_LIFETIME_YEARS = 25;
 /** Factor de emisión de red (kg CO₂ evitados por kWh solar generado). */
 export const CO2_KG_PER_KWH = 0.4;

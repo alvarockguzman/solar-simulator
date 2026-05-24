@@ -31,9 +31,7 @@ export function LandingClient() {
         className={`renovatio-landing-content flex min-h-screen flex-col bg-stone-50 ${isExiting ? "renovatio-page-exit" : ""}`}
         aria-busy={!!transitionTo}
       >
-        <div className="sticky top-0 z-50 shrink-0 bg-white">
-          <Header />
-        </div>
+        <Header />
 
         <main
           className="flex w-full flex-1 flex-col gap-5 px-4 py-6 sm:gap-6 sm:px-6 sm:py-8 lg:gap-8 lg:px-8 lg:py-10"

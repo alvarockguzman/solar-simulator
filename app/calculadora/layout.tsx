@@ -15,7 +15,7 @@ export default function CalculadoraLayout({
 }) {
   return (
     <WizardProvider>
-      <div className="flex h-screen min-h-screen flex-col overflow-hidden bg-stone-50">
+      <div className="flex h-[100dvh] max-h-[100dvh] min-h-0 flex-col overflow-hidden bg-stone-50">
         <Header />
         {children}
       </div>

@@ -2,6 +2,9 @@
 
 import { useWizard } from "../context/WizardContext";
 import { TARIFF_LABELS } from "../lib/constants";
+import { WizardStepBanner } from "./WizardStepBanner";
+import { WizardStepLayout } from "./WizardStepLayout";
+import { wizardBtnPrimary, wizardBtnSecondary } from "./wizardButtons";
 import {
   formatKwp,
   formatPayback,
@@ -44,23 +47,17 @@ export function StepResults({
   const tariffLabel = tariff ? TARIFF_LABELS[tariff] : "—";
 
   return (
-    <div
-      className="renovatio-results-enter flex min-h-0 flex-1 flex-col lg:flex-row"
-      aria-busy="false"
+    <WizardStepLayout
+      className="renovatio-results-enter"
+      banner={
+        <WizardStepBanner
+          stepIndex={stepIndex}
+          title="Tu instalación a medida"
+          subtitle="Revisá los resultados y solicitá un presupuesto."
+        />
+      }
     >
-      <div className="flex flex-col justify-center bg-gradient-to-br from-amber-500 to-orange-600 px-8 py-8 lg:w-2/5 lg:min-h-0">
-        <h2 className="text-2xl font-bold text-white">Tu instalación a medida</h2>
-        <p className="mt-2 text-sm text-amber-100">
-          Revisá los resultados y solicitá un presupuesto.
-        </p>
-        <div className="mt-6 h-1.5 w-full max-w-[200px] rounded-full bg-amber-300/50">
-          <div className="h-full w-full rounded-full bg-white" />
-        </div>
-        <p className="mt-2 text-sm text-white/90">Paso {stepIndex + 1}/6</p>
-      </div>
-
-      <div className="flex flex-1 flex-col overflow-auto bg-white px-6 py-8 lg:px-12 lg:py-10">
-        <div className="mx-auto w-full max-w-3xl">
+      <div className="mx-auto w-full max-w-3xl">
           <h3 className="text-sm font-semibold uppercase tracking-wide text-stone-500">
             Tu instalación solar a medida
           </h3>
@@ -162,25 +159,20 @@ export function StepResults({
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <button
-              type="button"
-              onClick={onBack}
-              className="rounded-xl border-2 border-amber-600 bg-white px-6 py-3 font-semibold text-amber-700 transition-colors hover:bg-amber-50"
-            >
+            <button type="button" onClick={onBack} className={wizardBtnSecondary}>
               Atrás
             </button>
             <button
               type="button"
               onClick={onRequestQuote}
-              className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-8 py-3 font-semibold text-white shadow-md transition-colors hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+              className={`inline-flex items-center gap-2 ${wizardBtnPrimary} px-8`}
             >
               Solicitar presupuesto personalizado
               <span aria-hidden>→</span>
             </button>
           </div>
-        </div>
       </div>
-    </div>
+    </WizardStepLayout>
   );
 }
 

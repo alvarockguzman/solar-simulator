@@ -1,13 +1,50 @@
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   RenovatioLogo,
   RenovatioTagline,
 } from "./brand/RenovatioLogo";
-
 import { WHATSAPP_ADVISOR_URL } from "@/app/lib/renovatioLinks";
 
 const NAV_LINK_CLASS =
-  "rounded-md py-0.5 text-sm font-medium text-brand-navy transition-colors hover:text-[#128C7E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2";
+  "rounded-md text-sm font-medium text-brand-navy transition-colors hover:text-[#128C7E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2";
+
+const MOBILE_NAV_LINK_CLASS = `block py-3 ${NAV_LINK_CLASS}`;
+
+function MenuIcon({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      aria-hidden
+    >
+      <path d="M4 7h16M4 12h16M4 17h16" />
+    </svg>
+  );
+}
+
+function CloseIcon({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      aria-hidden
+    >
+      <path d="M6 6l12 12M18 6 6 18" />
+    </svg>
+  );
+}
 
 function WhatsAppIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
@@ -22,81 +59,133 @@ function WhatsAppIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-function NavLinks() {
+function BrandLink({ onNavigate }: { onNavigate?: () => void }) {
   return (
-    <>
+    <Link
+      href="/"
+      onClick={onNavigate}
+      className="flex min-w-0 flex-1 items-center gap-1.5 rounded-md outline-none transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 sm:gap-2 md:flex-initial"
+    >
+      <RenovatioLogo variant="header" className="shrink-0" />
+      <span className="h-3.5 w-px shrink-0 bg-stone-300" aria-hidden />
+      <RenovatioTagline variant="header" className="min-w-0 truncate" />
+    </Link>
+  );
+}
+
+function DesktopNav() {
+  return (
+    <nav
+      className="ml-auto hidden items-center gap-5 md:flex"
+      aria-label="Secciones principales"
+    >
       <Link href="/calculadora" className={NAV_LINK_CLASS}>
         Calculadora
       </Link>
       <Link href="/presupuesto" className={NAV_LINK_CLASS}>
         Presupuesto
       </Link>
+      <span className="h-3.5 w-px shrink-0 bg-stone-300" aria-hidden />
+      <a
+        href={WHATSAPP_ADVISOR_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`inline-flex items-center gap-1.5 ${NAV_LINK_CLASS}`}
+      >
+        <WhatsAppIcon className="h-[18px] w-[18px] shrink-0 text-[#25D366]" />
+        <span className="whitespace-nowrap">Contacta con un asesor</span>
+      </a>
+    </nav>
+  );
+}
+
+function MobileMenuPanel({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  if (!open) return null;
+
+  return (
+    <>
+      <button
+        type="button"
+        className="fixed inset-0 top-14 z-40 bg-stone-900/20 md:hidden"
+        aria-label="Cerrar menú"
+        onClick={onClose}
+      />
+      <nav
+        id="header-mobile-menu"
+        className="absolute left-0 right-0 top-full z-50 border-b border-stone-200 bg-white px-4 py-1 shadow-lg md:hidden"
+        aria-label="Menú principal"
+      >
+        <Link
+          href="/calculadora"
+          className={MOBILE_NAV_LINK_CLASS}
+          onClick={onClose}
+        >
+          Calculadora
+        </Link>
+        <Link
+          href="/presupuesto"
+          className={MOBILE_NAV_LINK_CLASS}
+          onClick={onClose}
+        >
+          Presupuesto
+        </Link>
+        <a
+          href={WHATSAPP_ADVISOR_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`inline-flex items-center gap-2 ${MOBILE_NAV_LINK_CLASS}`}
+          onClick={onClose}
+        >
+          <WhatsAppIcon className="h-[18px] w-[18px] shrink-0 text-[#25D366]" />
+          Contacta con un asesor
+        </a>
+      </nav>
     </>
   );
 }
 
 export function Header() {
+  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+
+  useEffect(() => {
+    closeMenu();
+  }, [pathname, closeMenu]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMenu();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen, closeMenu]);
+
   return (
-    <header className="shrink-0 border-b border-stone-200/80 bg-white">
-      <div className="mx-auto max-w-7xl">
-        {/* Fila superior: marca + WhatsApp */}
-        <div className="flex h-14 items-center gap-3 px-4 sm:gap-5 sm:px-6 lg:px-8">
-          <Link
-            href="/"
-            className="flex min-w-0 shrink-0 items-center gap-2 rounded-md outline-none transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 sm:gap-2.5"
+    <header className="sticky top-0 z-50 shrink-0 bg-white shadow-sm">
+      <div className="relative mx-auto max-w-7xl">
+        <div className="flex h-14 items-center gap-3 px-4 md:h-16 md:px-6 lg:px-8">
+          <BrandLink onNavigate={closeMenu} />
+          <DesktopNav />
+          <button
+            type="button"
+            className="ml-auto inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-stone-200 bg-white text-brand-navy transition-colors hover:border-stone-300 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 md:hidden"
+            aria-expanded={menuOpen}
+            aria-controls="header-mobile-menu"
+            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+            onClick={() => setMenuOpen((prev) => !prev)}
           >
-            <RenovatioLogo variant="header" className="shrink-0" />
-            <span
-              className="hidden h-3.5 w-px shrink-0 bg-stone-300 sm:block"
-              aria-hidden
-            />
-            <RenovatioTagline
-              variant="header"
-              className="hidden min-w-0 truncate sm:inline"
-            />
-          </Link>
-
-          <span
-            className="hidden h-3.5 w-px shrink-0 bg-stone-300 md:block"
-            aria-hidden
-          />
-
-          {/* Nav en línea solo tablet/desktop */}
-          <nav
-            className="hidden items-center gap-4 md:flex md:gap-5"
-            aria-label="Secciones principales"
-          >
-            <NavLinks />
-          </nav>
-
-          <div className="min-w-0 flex-1" aria-hidden />
-
-          <span
-            className="hidden h-3.5 w-px shrink-0 bg-stone-300 md:block"
-            aria-hidden
-          />
-
-          <a
-            href={WHATSAPP_ADVISOR_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex shrink-0 items-center gap-1.5 ${NAV_LINK_CLASS}`}
-            aria-label="Contactar con un asesor por WhatsApp"
-          >
-            <WhatsAppIcon className="h-[18px] w-[18px] shrink-0 text-[#25D366]" />
-            <span className="hidden whitespace-nowrap sm:inline">
-              Contacta con un asesor
-            </span>
-          </a>
+            {menuOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
         </div>
-
-        {/* Fila inferior: nav solo mobile */}
-        <nav
-          className="flex items-center justify-center gap-6 border-t border-stone-200/80 px-4 py-2.5 md:hidden"
-          aria-label="Secciones principales"
-        >
-          <NavLinks />
-        </nav>
+        <MobileMenuPanel open={menuOpen} onClose={closeMenu} />
       </div>
     </header>
   );

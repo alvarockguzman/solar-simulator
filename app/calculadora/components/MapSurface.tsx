@@ -1,6 +1,15 @@
 "use client";
 
-import { MapContainer, TileLayer, Polygon, CircleMarker, useMapEvents } from "react-leaflet";
+import { useEffect } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Polygon,
+  CircleMarker,
+  useMapEvents,
+  useMap,
+} from "react-leaflet";
+import { MapResizeHandler } from "./MapResizeHandler";
 
 import "leaflet/dist/leaflet.css";
 
@@ -29,6 +38,16 @@ function MapClickHandler({
   return null;
 }
 
+function FlyToCenter({ center }: { center: { lat: number; lng: number } }) {
+  const map = useMap();
+  useEffect(() => {
+    map.flyTo([center.lat, center.lng], 18, { duration: 0.4 });
+    const id = window.setTimeout(() => map.invalidateSize(), 450);
+    return () => window.clearTimeout(id);
+  }, [map, center.lat, center.lng]);
+  return null;
+}
+
 export function MapSurface({ center, points, closed, onAddPoint, className = "" }: MapSurfaceProps) {
   const latLngs: [number, number][] =
     closed && points.length >= 3 ? [...points, points[0]] : points;
@@ -38,9 +57,11 @@ export function MapSurface({ center, points, closed, onAddPoint, className = "" 
       <MapContainer
         center={[center.lat, center.lng]}
         zoom={18}
-        className="h-full w-full rounded-r-xl"
+        className="h-full w-full lg:rounded-r-xl"
         scrollWheelZoom={true}
       >
+        <MapResizeHandler />
+        <FlyToCenter center={center} />
         <TileLayer
           attribution='&copy; <a href="https://www.esri.com/">Esri</a>'
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"

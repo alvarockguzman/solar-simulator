@@ -7,6 +7,8 @@ import area from "@turf/area";
 import { useWizard } from "../context/WizardContext";
 import { DrawingInstructions } from "./DrawingInstructions";
 import { ManualSurfaceModal } from "./ManualSurfaceModal";
+import { MapStepLayout, MAP_MIN_HEIGHT_CLASS } from "./MapStepLayout";
+import { wizardBtnPrimary, wizardBtnSecondary } from "./wizardButtons";
 import { getSurfaceEstimate } from "../lib/surfaceEstimate";
 import type { SurfacePoint } from "./MapSurface";
 
@@ -15,7 +17,9 @@ const MapSurface = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="flex h-full w-full items-center justify-center rounded-r-xl bg-stone-200">
+      <div
+        className={`flex h-full w-full items-center justify-center bg-stone-200 lg:rounded-r-xl ${MAP_MIN_HEIGHT_CLASS}`}
+      >
         Cargando mapa…
       </div>
     ),
@@ -83,106 +87,85 @@ export function StepSurface({ stepIndex, onBack, onNext }: StepSurfaceProps) {
     areaConfirmed && surfaceM2 > 0 ? getSurfaceEstimate(surfaceM2) : null;
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
-      <div className="flex flex-col justify-center bg-gradient-to-br from-amber-500 to-orange-600 px-8 py-8 lg:w-2/5 lg:min-h-0">
-        <h2 className="text-2xl font-bold text-white">Superficie disponible</h2>
-        <p className="mt-2 text-sm text-amber-100">Dibujá el área en el mapa.</p>
-        <div className="mt-6 h-1.5 w-full max-w-[200px] rounded-full bg-amber-300/50">
-          <div
-            className="h-full rounded-full bg-white transition-all duration-300"
-            style={{ width: `${((stepIndex + 1) / 6) * 100}%` }}
-          />
-        </div>
-        <p className="mt-2 text-sm text-white/90">Paso {stepIndex + 1}/6</p>
-      </div>
+    <>
+      <MapStepLayout
+        stepIndex={stepIndex}
+        title="Superficie disponible"
+        subtitle="Dibujá el área en el mapa."
+        controls={
+          <>
+            <h3 className="mb-3 text-lg font-semibold text-stone-800">
+              Dibujá el área disponible para tu instalación solar
+            </h3>
 
-      <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
-        <div className="flex shrink-0 flex-col justify-center overflow-auto bg-white px-6 py-6 lg:px-8 lg:py-8">
-          <h3 className="mb-4 text-lg font-semibold text-stone-800">
-            Dibujá el área disponible para tu instalación solar
-          </h3>
-
-          {!areaConfirmed ? (
-            <>
-              <DrawingInstructions />
-              <button
-                type="button"
-                onClick={() => setShowManualModal(true)}
-                className="mt-4 text-left text-sm font-medium text-amber-700 underline decoration-amber-700/40 underline-offset-2 transition-colors hover:text-amber-800 hover:decoration-amber-800"
-              >
-                ¿Preferís ingresar la superficie manualmente?
-              </button>
-            </>
-          ) : estimate ? (
-            <p className="text-sm leading-relaxed text-stone-800">
-              <span className="font-semibold text-stone-900">
-                Superficie estimada: {estimate.surfaceM2} m²
-              </span>
-              {" — "}
-              equivalente a ~{estimate.panels} paneles de {estimate.panelPowerW}W
-              (≈ {estimate.kwp} kWp si fuera 100% utilizable).
-            </p>
-          ) : null}
-
-          {areaConfirmed && manualEntry && (
-            <p className="mt-2 text-xs text-stone-500">
-              Superficie ingresada manualmente.
-            </p>
-          )}
-
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
-            <button
-              type="button"
-              onClick={onBack}
-              className="rounded-xl border-2 border-amber-600 bg-white px-6 py-3 font-semibold text-amber-700 transition-colors hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-            >
-              Atrás
-            </button>
             {!areaConfirmed ? (
-              <button
-                type="button"
-                onClick={handleConfirmArea}
-                disabled={points.length < 4}
-                className="rounded-xl bg-amber-500 px-6 py-3 font-semibold text-white shadow-md transition-colors hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                Confirmar área
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={handleReset}
-                className="rounded-xl border-2 border-amber-600 bg-white px-6 py-3 font-semibold text-amber-700 transition-colors hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-              >
-                {manualEntry ? "Cambiar superficie" : "Dibujar de nuevo"}
-              </button>
+              <>
+                <DrawingInstructions />
+                <button
+                  type="button"
+                  onClick={() => setShowManualModal(true)}
+                  className="mt-4 text-left text-sm font-medium text-amber-700 underline decoration-amber-700/40 underline-offset-2 transition-colors hover:text-amber-800 hover:decoration-amber-800"
+                >
+                  ¿Preferís ingresar la superficie manualmente?
+                </button>
+              </>
+            ) : estimate ? (
+              <p className="text-sm leading-relaxed text-stone-800">
+                <span className="font-semibold text-stone-900">
+                  Superficie estimada: {estimate.surfaceM2} m²
+                </span>
+                {" — "}
+                equivalente a ~{estimate.panels} paneles de {estimate.panelPowerW}W (≈{" "}
+                {estimate.kwp} kWp si fuera 100% utilizable).
+              </p>
+            ) : null}
+
+            {areaConfirmed && manualEntry && (
+              <p className="mt-2 text-xs text-stone-500">Superficie ingresada manualmente.</p>
             )}
-            {areaConfirmed && (
-              <button
-                type="button"
-                onClick={onNext}
-                className="rounded-xl bg-amber-500 px-6 py-3 font-semibold text-white shadow-md transition-colors hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-              >
-                Siguiente
+
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              <button type="button" onClick={onBack} className={wizardBtnSecondary}>
+                Atrás
               </button>
-            )}
-          </div>
-        </div>
-        <div className="min-h-[280px] flex-1 lg:min-h-0 lg:min-w-0">
+              {!areaConfirmed ? (
+                <button
+                  type="button"
+                  onClick={handleConfirmArea}
+                  disabled={points.length < 4}
+                  className={wizardBtnPrimary}
+                >
+                  Confirmar área
+                </button>
+              ) : (
+                <button type="button" onClick={handleReset} className={wizardBtnSecondary}>
+                  {manualEntry ? "Cambiar superficie" : "Dibujar de nuevo"}
+                </button>
+              )}
+              {areaConfirmed && (
+                <button type="button" onClick={onNext} className={wizardBtnPrimary}>
+                  Siguiente
+                </button>
+              )}
+            </div>
+          </>
+        }
+        map={
           <MapSurface
             center={center}
             points={points}
             closed={mapClosed}
             onAddPoint={handleAddPoint}
-            className="h-full min-h-[280px] lg:min-h-0"
+            className={`h-full w-full ${MAP_MIN_HEIGHT_CLASS}`}
           />
-        </div>
-      </div>
+        }
+      />
 
       <ManualSurfaceModal
         open={showManualModal}
         onClose={() => setShowManualModal(false)}
         onConfirm={handleManualConfirm}
       />
-    </div>
+    </>
   );
 }

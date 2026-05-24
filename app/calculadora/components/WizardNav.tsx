@@ -1,5 +1,7 @@
 "use client";
 
+import { wizardBtnPrimary, wizardBtnSecondary } from "./wizardButtons";
+
 interface WizardNavProps {
   onBack?: () => void;
   onNext: () => void;
@@ -20,13 +22,13 @@ export function WizardNav({
   loadingLabel,
 }: WizardNavProps) {
   return (
-    <div className="flex items-center justify-center gap-4 mt-6">
+    <div className="mt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
       {onBack && (
         <button
           type="button"
           onClick={onBack}
           disabled={isLoading}
-          className="rounded-xl border-2 border-amber-600 px-6 py-3 font-semibold text-amber-700 bg-white hover:bg-amber-50 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed"
+          className={wizardBtnSecondary}
         >
           {backLabel}
         </button>
@@ -35,7 +37,7 @@ export function WizardNav({
         type="button"
         onClick={onNext}
         disabled={!canGoNext || isLoading}
-        className="rounded-xl bg-amber-500 px-6 py-3 font-semibold text-white shadow-md hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+        className={wizardBtnPrimary}
       >
         {isLoading ? (loadingLabel ?? "...") : nextLabel}
       </button>
