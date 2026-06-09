@@ -12,7 +12,6 @@ import {
   savingsAccumulatedLifetime,
   co2AvoidedTonsPerYear,
   KWP_PER_M2,
-  KWH_PER_KWP_YEAR,
   CAPEX_USD_PER_KWP,
   OPEX_USD_PER_KWP_YEAR,
   CO2_KG_PER_KWH,
@@ -128,7 +127,11 @@ export function StepResults({
                 utilizable.
               </li>
               <li>
-                Generación: {KWH_PER_KWP_YEAR.toLocaleString("es-AR")} kWh/kWp·año.
+                Generación: {Math.round(results.yieldKwhPerKwpYear).toLocaleString("es-AR")}{" "}
+                kWh/kWp·año
+                {results.yieldSource === "pvgis"
+                  ? " (radiación solar de tu ubicación, fuente PVGIS – Comisión Europea)."
+                  : " (promedio estimado)."}
               </li>
               <li>Tarifa de referencia: {tariffLabel}.</li>
               <li>

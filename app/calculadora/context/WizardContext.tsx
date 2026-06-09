@@ -10,6 +10,8 @@ export interface WizardState {
   surfaceM2: number;
   tariff: TariffId | null;
   consumptionKwhPerYear: number;
+  /** Rendimiento específico (kWh/kWp·año) de PVGIS para las coordenadas; null si no se pudo obtener. */
+  pvgisYieldKwhPerKwpYear: number | null;
 }
 
 const initialState: WizardState = {
@@ -18,6 +20,7 @@ const initialState: WizardState = {
   surfaceM2: 0,
   tariff: null,
   consumptionKwhPerYear: 0,
+  pvgisYieldKwhPerKwpYear: null,
 };
 
 interface WizardContextValue extends WizardState {
@@ -25,6 +28,7 @@ interface WizardContextValue extends WizardState {
   setSurfaceM2: (m2: number) => void;
   setTariff: (tariff: TariffId | null) => void;
   setConsumptionKwhPerYear: (kwh: number) => void;
+  setPvgisYield: (yieldKwhPerKwpYear: number | null) => void;
   getResults: () => CalculationResult | null;
 }
 
@@ -49,6 +53,10 @@ export function WizardProvider({ children }: { children: React.ReactNode }) {
     setState((s) => ({ ...s, consumptionKwhPerYear }));
   }, []);
 
+  const setPvgisYield = useCallback((pvgisYieldKwhPerKwpYear: number | null) => {
+    setState((s) => ({ ...s, pvgisYieldKwhPerKwpYear }));
+  }, []);
+
   const getResults = useCallback((): CalculationResult | null => {
     if (
       state.surfaceM2 <= 0 ||
@@ -61,8 +69,14 @@ export function WizardProvider({ children }: { children: React.ReactNode }) {
       surfaceM2: state.surfaceM2,
       tariff: state.tariff,
       consumptionKwhPerYear: state.consumptionKwhPerYear,
+      pvgisYieldKwhPerKwpYear: state.pvgisYieldKwhPerKwpYear,
     });
-  }, [state.surfaceM2, state.tariff, state.consumptionKwhPerYear]);
+  }, [
+    state.surfaceM2,
+    state.tariff,
+    state.consumptionKwhPerYear,
+    state.pvgisYieldKwhPerKwpYear,
+  ]);
 
   const value: WizardContextValue = {
     ...state,
@@ -70,6 +84,7 @@ export function WizardProvider({ children }: { children: React.ReactNode }) {
     setSurfaceM2,
     setTariff,
     setConsumptionKwhPerYear,
+    setPvgisYield,
     getResults,
   };
 

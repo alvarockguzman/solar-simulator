@@ -15,8 +15,20 @@ import { useWizard } from "./context/WizardContext";
 const STEPS = ["intro", "address", "surface", "tariff", "consumption", "results"] as const;
 type StepId = (typeof STEPS)[number];
 
-function randomBetween(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+/** Espera mínima para que el overlay "Calculando…" no parpadee. */
+const MIN_CALCULATION_MS = 800;
+
+async function fetchPvgisYield(coords: { lat: number; lng: number }): Promise<number | null> {
+  try {
+    const res = await fetch(`/api/pvgis?lat=${coords.lat}&lon=${coords.lng}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return typeof data?.yieldKwhPerKwpYear === "number" && data.yieldKwhPerKwpYear > 0
+      ? data.yieldKwhPerKwpYear
+      : null;
+  } catch {
+    return null;
+  }
 }
 
 function CalculadoraPageContent() {
@@ -29,7 +41,7 @@ function CalculadoraPageContent() {
   const [currentStep, setCurrentStep] = useState<StepId>("intro");
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
-  const { getResults } = useWizard();
+  const { getResults, coordinates, setPvgisYield } = useWizard();
 
   useEffect(() => {
     if (previewLeadSuccess) {
@@ -44,18 +56,21 @@ function CalculadoraPageContent() {
   const goNext = useCallback(() => {
     if (currentStep === "consumption") {
       setIsCalculating(true);
-      const delay = randomBetween(800, 1500);
-      setTimeout(() => {
+      const minDelay = new Promise((resolve) => setTimeout(resolve, MIN_CALCULATION_MS));
+      const yieldPromise = coordinates ? fetchPvgisYield(coordinates) : Promise.resolve(null);
+      // Si PVGIS falla o no hay coordenadas, yield = null y calculate() usa el promedio.
+      Promise.all([yieldPromise, minDelay]).then(([pvgisYield]) => {
+        setPvgisYield(pvgisYield);
         setCurrentStep("results");
         setIsCalculating(false);
-      }, delay);
+      });
       return;
     }
     if (currentStep === "intro") setCurrentStep("address");
     else if (currentStep === "address") setCurrentStep("surface");
     else if (currentStep === "surface") setCurrentStep("tariff");
     else if (currentStep === "tariff") setCurrentStep("consumption");
-  }, [currentStep]);
+  }, [currentStep, coordinates, setPvgisYield]);
 
   const goBack = useCallback(() => {
     if (currentStep === "address") setCurrentStep("intro");

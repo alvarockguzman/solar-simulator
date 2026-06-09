@@ -19,7 +19,11 @@ export interface CalculationInput {
   surfaceM2: number;
   tariff: TariffId;
   consumptionKwhPerYear: number;
+  /** Rendimiento específico (kWh/kWp·año) obtenido de PVGIS para la ubicación. Si falta, se usa KWH_PER_KWP_YEAR. */
+  pvgisYieldKwhPerKwpYear?: number | null;
 }
+
+export type YieldSource = "pvgis" | "promedio";
 
 export interface CalculationResult {
   powerKwp: number;
@@ -30,10 +34,19 @@ export interface CalculationResult {
   opexUsdPerYear: number;
   netFlowUsdPerYear: number;
   paybackYears: number | null;
+  /** kWh/kWp·año efectivamente usado en el cálculo. */
+  yieldKwhPerKwpYear: number;
+  /** Origen del rendimiento: radiación PVGIS de la ubicación o promedio fijo. */
+  yieldSource: YieldSource;
 }
 
 export function calculate(input: CalculationInput): CalculationResult {
-  const { surfaceM2, tariff } = input;
+  const { surfaceM2, tariff, pvgisYieldKwhPerKwpYear } = input;
+
+  const usePvgis =
+    typeof pvgisYieldKwhPerKwpYear === "number" && pvgisYieldKwhPerKwpYear > 0;
+  const yieldKwhPerKwpYear = usePvgis ? pvgisYieldKwhPerKwpYear : KWH_PER_KWP_YEAR;
+  const yieldSource: YieldSource = usePvgis ? "pvgis" : "promedio";
 
   if (surfaceM2 <= 0) {
     return {
@@ -45,11 +58,13 @@ export function calculate(input: CalculationInput): CalculationResult {
       opexUsdPerYear: 0,
       netFlowUsdPerYear: 0,
       paybackYears: null,
+      yieldKwhPerKwpYear,
+      yieldSource,
     };
   }
 
   const powerKwp = surfaceM2 * KWP_PER_M2;
-  const energyKwhPerYear = powerKwp * KWH_PER_KWP_YEAR;
+  const energyKwhPerYear = powerKwp * yieldKwhPerKwpYear;
   const tariffUsdPerKwh = TARIFF_USD_PER_KWH[tariff];
   const savingsUsdPerYear = energyKwhPerYear * tariffUsdPerKwh;
   const investmentUsd = powerKwp * CAPEX_USD_PER_KWP;
@@ -70,6 +85,8 @@ export function calculate(input: CalculationInput): CalculationResult {
     opexUsdPerYear,
     netFlowUsdPerYear,
     paybackYears,
+    yieldKwhPerKwpYear,
+    yieldSource,
   };
 }
 
