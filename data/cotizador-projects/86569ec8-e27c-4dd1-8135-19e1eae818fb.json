@@ -1,0 +1,87 @@
+{
+  "step": 5,
+  "proyectoNombre": "prueba 2",
+  "cliente": {
+    "razonSocial": "industria morello",
+    "contacto": "",
+    "email": "Alvaro",
+    "representanteModo": "alvaro",
+    "representanteOtro": "",
+    "direccion": "",
+    "lat": -31.41922123941412,
+    "lon": -64.1923749446869
+  },
+  "techo": {
+    "tipoTecho": "inclinado",
+    "kwpDeseado": 25,
+    "factorAprovechamiento": 0.85,
+    "sombraPct": null,
+    "azimutDeg": 19,
+    "inclinacionDeg": 15,
+    "distanciaTableroM": null
+  },
+  "poligonos": [
+    {
+      "id": "poly-1781206757073",
+      "points": [
+        [
+          -31.418888479481186,
+          -64.19411838054658
+        ],
+        [
+          -31.419048813682494,
+          -64.19356584548952
+        ],
+        [
+          -31.419264119178788,
+          -64.1938501596451
+        ],
+        [
+          -31.419177080846147,
+          -64.19421494007112
+        ]
+      ],
+      "areaM2": 1468
+    }
+  ],
+  "consumo": {
+    "habilitado": true,
+    "modo": "promedio",
+    "promedioKwh": 12000,
+    "mensualKwh": [
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000
+    ],
+    "tarifaModo": "directa",
+    "tarifaNivel": "T2",
+    "tarifaUsdKwh": 0.117,
+    "facturaMensualUsd": 4680,
+    "pctDiurno": 0.7,
+    "consumoPreset": "pequeno"
+  },
+  "ajustes": {
+    "panelModelo": null,
+    "inversorModelo": "GW30K-SDT-C30 AFCI",
+    "margenPct": null,
+    "descuentoPct": 0,
+    "lineasOverride": {},
+    "lineasManuales": [],
+    "mostrarDetalle": true
+  },
+  "flowVersion": 2,
+  "id": "86569ec8-e27c-4dd1-8135-19e1eae818fb",
+  "snapshotUrl": "/api/cotizador/projects/86569ec8-e27c-4dd1-8135-19e1eae818fb/snapshot",
+  "vendedor": "Alvaro",
+  "createdAt": "2026-06-11T19:39:09.164Z",
+  "updatedAt": "2026-06-11T19:43:29.542Z"
+}

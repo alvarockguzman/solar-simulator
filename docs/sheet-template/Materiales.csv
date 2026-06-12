@@ -1,0 +1,11 @@
+item,regla,kwp_min,kwp_max,valor_usd
+Cable DC,por_metro,,,2.8
+Cable AC,por_metro,,,4.2
+Cableado DC+AC,por_rango_kwp,0,30,1200
+Cableado DC+AC,por_rango_kwp,30,100,3000
+Cableado DC+AC,por_rango_kwp,100,300,6000
+Cableado DC+AC,por_rango_kwp,300,10000,12000
+Protecciones y tablero,por_rango_kwp,0,30,900
+Protecciones y tablero,por_rango_kwp,30,100,2200
+Protecciones y tablero,por_rango_kwp,100,300,4200
+Protecciones y tablero,por_rango_kwp,300,10000,8000

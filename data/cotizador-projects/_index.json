@@ -1,0 +1,35 @@
+[
+  {
+    "id": "abd58986-2560-48c6-8d4f-ed1e97a65f77",
+    "proyectoNombre": "Prueba 2 — Buenos Aires",
+    "clienteRazonSocial": "Prueba 2",
+    "direccion": "5233, Blanco Encalada, Villa Urquiza, Monte Chingolo, Partido de Lanús, Buenos Aires, B1874BEO, Argentina",
+    "kwp": 75.03,
+    "mwh": 111.3,
+    "vendedor": "Alvaro",
+    "updatedAt": "2026-06-12T13:44:43.682Z",
+    "createdAt": "2026-06-11T22:31:18.725Z"
+  },
+  {
+    "id": "a5c2c608-05a4-4966-9e4d-38ab02d086f2",
+    "proyectoNombre": "Proyecto — Ciudad Autónoma de Buenos Aires",
+    "clienteRazonSocial": "Pipos",
+    "direccion": "3950, San Nicolás, Villa Devoto, Buenos Aires, Comuna 11, Ciudad Autónoma de Buenos Aires, 1419, Argentina",
+    "kwp": 24.65,
+    "mwh": 34.4,
+    "vendedor": "Alvaro",
+    "updatedAt": "2026-06-11T22:04:47.472Z",
+    "createdAt": "2026-06-11T21:14:59.074Z"
+  },
+  {
+    "id": "86569ec8-e27c-4dd1-8135-19e1eae818fb",
+    "proyectoNombre": "prueba 2",
+    "clienteRazonSocial": "industria morello",
+    "direccion": "",
+    "kwp": 25.22,
+    "mwh": 35.3,
+    "vendedor": "Alvaro",
+    "updatedAt": "2026-06-11T19:43:29.542Z",
+    "createdAt": "2026-06-11T19:39:09.164Z"
+  }
+]

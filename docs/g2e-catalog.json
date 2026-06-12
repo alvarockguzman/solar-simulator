@@ -1,0 +1,846 @@
+{
+  "source": "Lista de Precios - G2E.xlsx",
+  "updated": "2026-05",
+  "items": [
+    {
+      "product": "PRODUCTO",
+      "usdPerWp": null,
+      "datasheetUrl": null
+    },
+    {
+      "product": "LONGI - 430w HiMOX6-LR5-54HTB (USD/watt)",
+      "usdPerWp": 0.2302325581,
+      "datasheetUrl": null
+    },
+    {
+      "product": "LONGI - 645w LR7-72HVH  N-Type HPBC 2.0, HI-MO X10  (USD/watt)  . se vende por unidad  15% mas caro.",
+      "usdPerWp": 0.1914,
+      "datasheetUrl": "https://drive.google.com/file/d/1LP2jOBVOE3TMr0EB0BVeZqYVzSIwJ_zA/view?usp=drive_link"
+    },
+    {
+      "product": "LONGI - 610w BIFACIAL (USD/watt) - se vende por unidad  15% mas caro.",
+      "usdPerWp": 0.21,
+      "datasheetUrl": "https://drive.google.com/file/d/1wRzLyMFIgZjda7jTVL6SyrF4dOQ5cezR/view?usp=drive_link"
+    },
+    {
+      "product": "TRINA - BIFACIAL 570 (USD/watt).- se vende pallet cerrado",
+      "usdPerWp": 0.161,
+      "datasheetUrl": "https://drive.google.com/file/d/16rfu7FgrzWEXmL8PZE_Hg7Q2_bPMCnUF/view?usp=drive_link"
+    },
+    {
+      "product": "TRINA - BIFACIAL 605w TIPO N (USD/watt)- se vende pallet cerrado",
+      "usdPerWp": 0.161,
+      "datasheetUrl": "https://drive.google.com/file/d/12DtT1WW4pQN8bGyiOT0g0HqRamFcGIKf/view?usp=sharing"
+    },
+    {
+      "product": "TRINA - BIFACIAL 615w TIPO N (USD/watt)- se vende pallet cerrado",
+      "usdPerWp": 0.1749,
+      "datasheetUrl": null
+    },
+    {
+      "product": "TRINA - MONOFACIAL 620w TIPO N (USD/watt)- se vende pallet cerrado",
+      "usdPerWp": 0.1749,
+      "datasheetUrl": null
+    },
+    {
+      "product": "TRINA - BIFACIAL 630w TIPO N (USD/watt)- se vende pallet cerrrado (o por unidad con costo de flete al transporte de usd 35+iva por entrega total)",
+      "usdPerWp": 0.165,
+      "datasheetUrl": "https://drive.google.com/file/d/1DRDRvR98ccDblsGi6TPFRk0wGMJR9Quz/view?usp=drive_link"
+    },
+    {
+      "product": "TRINA - MONOFACIAL 670w (USD/watt).- se vende pallet cerrado. Se entrega en transporte en Cordoba",
+      "usdPerWp": 0.1815,
+      "datasheetUrl": "https://drive.google.com/file/d/1ngXoa2qpin3SnpMuXsVgNJq5Vx7cYJ56/view?usp=drive_link"
+    },
+    {
+      "product": "TRINA - BIFACIAL 715 (USD/watt).- se vende pallet cerrado. Se retira por depo Soldati o va a transporte en CTC",
+      "usdPerWp": 0.1947,
+      "datasheetUrl": "https://drive.google.com/file/d/1DrUGov6ERQ-N_Lu-cFDj6RPUNmijVRrV/view?usp=drive_link"
+    },
+    {
+      "product": "JINKO - M/M 475w TIGER NEO JKM475-60HL4. se vende pallet cerrado o por unidad 30% mas caro",
+      "usdPerWp": 0.166,
+      "datasheetUrl": "https://drive.google.com/file/d/1SNrfKLIRMS16H5SsOxTNJXroGXj9vA4V/view?usp=drive_link"
+    },
+    {
+      "product": "JINKO - BIFACIAL 585 w 72HL4-BDV  (USD/watt)- Se retiran por depo soldati",
+      "usdPerWp": 0.15,
+      "datasheetUrl": "https://drive.google.com/file/d/1gezcymFaPc30tnePI4up1PtCHIYpIiaL/view?usp=drive_link"
+    },
+    {
+      "product": "JINKO - MONOF 585 w 72HL4-BDV  (USD/watt)- Se envia a transporte en Cordoba",
+      "usdPerWp": 0.18955,
+      "datasheetUrl": null
+    },
+    {
+      "product": "JINKO - BIF 725 w TIPO N (USD/watt) se vende contenedor entero (20 pallet de 33 u)",
+      "usdPerWp": 0.15,
+      "datasheetUrl": "https://drive.google.com/file/d/12QMr_PrgmPZ1gtrLvSWxMA6uDiNRPZA2/view?usp=drive_link"
+    },
+    {
+      "product": "JINKO - BIFACIAL TIPO N, 620w(USD/watt)-se vende por unidad 32% mas caro.",
+      "usdPerWp": 0.17446,
+      "datasheetUrl": "https://drive.google.com/file/d/1OEQkgiRkfcF7GsCoNgCKEdp-ZaVNHqAw/view?usp=drive_link"
+    },
+    {
+      "product": "JINKO - M/M TOPcon, 715w(USD/watt)-se vende palet cerrado",
+      "usdPerWp": 0.155,
+      "datasheetUrl": "https://drive.google.com/file/d/1Nyg6A5Jj_jp9KYb7BHLzO9FrKRYBHjeB/view?usp=drive_link"
+    },
+    {
+      "product": "JA SOLAR - BIFACIAL 600w - se vende pallet cerrado",
+      "usdPerWp": 0.155,
+      "datasheetUrl": "https://drive.google.com/file/d/1ouHWbvcPFLoe5eS059rvY6bEAXjfkwEz/view?usp=drive_link"
+    },
+    {
+      "product": "TRINA - BiFACIAL 620w TIPO N  (USD/watt)-se vende pallet cerrado  -",
+      "usdPerWp": 0.1749,
+      "datasheetUrl": "https://drive.google.com/file/d/1uZejbSwcm7_SOndqPN4WO12kKrzqWEGp/view?usp=sharing"
+    },
+    {
+      "product": "LUXEN 144C. Mono Serie 4  410Wp PERC- se vende por unidad 2.5% mas caro (35mm) -5 a 10 dias habiles para despachar",
+      "usdPerWp": 0.16576,
+      "datasheetUrl": null
+    },
+    {
+      "product": "LUXEN 144C. Mono Serie 5 550Wp PERC (35mm)- se vende por unidad 2.5% mas caro - 5 a 10 dias habiles para despachar",
+      "usdPerWp": 0.16128,
+      "datasheetUrl": null
+    },
+    {
+      "product": "LUXEN - 144C. M/M . Serie 5  550Wp PERC BLACK (35mm)- se vende por unidad 2.5% mas caro - 5 a 10 dias habiles para despachar",
+      "usdPerWp": 0.165,
+      "datasheetUrl": "https://drive.google.com/file/d/1mozVvcg1TJpysy7zrhQgspML4Sq9UryA/view?usp=drive_link"
+    },
+    {
+      "product": "LUXEN - 132C. M/M N5 585Wp TOPcon- se vende por unidad 2.5% mas caro  - 5 a 10 dias habiles para despachar",
+      "usdPerWp": 0.1694,
+      "datasheetUrl": "https://drive.google.com/file/d/10VKsNdrCOoT5oPQA3bWLr9oa8V68LOy_/view?usp=drive_link"
+    },
+    {
+      "product": "LUXEN - 132C. N5 RECT 585Wp TOPCon GoG bifacial - se vende por unidad 2.5% mas caro (36u x pallet) - 5 a 10 dias habiles para despachar",
+      "usdPerWp": 0.1694,
+      "datasheetUrl": "https://drive.google.com/file/d/1mORCfQn2J1JZwcAroqfsdOpg_HJohnf5/view?usp=drive_link"
+    },
+    {
+      "product": "LUXEN 144C. Mono N5 RECT 630Wp TOPCon- se vende por unidad 2.5% mas caro. - 5 a 10 dias habiles para despachar",
+      "usdPerWp": 0.1694,
+      "datasheetUrl": "https://drive.google.com/file/d/1p-ZPZad7dtUHTLI4cp_JLMSgTcnlmE5W/view?usp=drive_link"
+    },
+    {
+      "product": "LUXEN - 132C. Mono N6 700Wp TOPCon GoG Bifacial- se vende por unidad 2.5% mas caro (34u x pallet) - 5 a 10 dias habiles para despachar",
+      "usdPerWp": 0.1694,
+      "datasheetUrl": "https://drive.google.com/file/d/1LaNAAtnbTJ6pVyu1OWM5bK2sXJ-ApUfs/view?usp=drive_link"
+    },
+    {
+      "product": "ASTROENERGY - BIFACIAL 144 CEL. N TYPE 575W CABLE 1.4M. Se vende pallet cerrado. Se entrega en transporte en Cordoba",
+      "usdPerWp": 0.15,
+      "datasheetUrl": "https://drive.google.com/file/d/1dt-dLwe79p04JHdV8rU441Kj1Duw3LgK/view?usp=drive_link"
+    },
+    {
+      "product": "ASTROENERGY - BIFACIAL 144 CEL. N TYPE 585W - se vende por unidad. Se entrega en depo soldati u oficina DOT",
+      "usdPerWp": 0.14,
+      "datasheetUrl": null
+    },
+    {
+      "product": "ASTROENERGY - 615w -N7_CHSM66RN(DG)F-BH dual glass - BIFACIAL. Se retira por depo Soldati",
+      "usdPerWp": 0.2235772358,
+      "datasheetUrl": "https://drive.google.com/file/d/1pvT33Oxp8HFD_A0OitHMDJ_5ldieFd9N/view?usp=drive_link"
+    },
+    {
+      "product": "AMERISOLAR- Policristalino 340w. Pallet 36 unidades. se vende pallet cerrado",
+      "usdPerWp": 0.28336,
+      "datasheetUrl": null
+    },
+    {
+      "product": "AMERISOLAR - MONOCRISTALINO AS-7M108N-HC-440W. se vende por unidad 32% mas caro. 36u x pallet -Entrega gratis en GBA.",
+      "usdPerWp": 0.187,
+      "datasheetUrl": "https://drive.google.com/file/d/1QKHMK-JnmLvnXwjOJtR2ESwt9sB7T23_/view?usp=sharing"
+    },
+    {
+      "product": "AMERISOLAR - MONOCRISTALINO  AS-7M144-HC-555W. se vende por unidad 32% mas caro. -Entrega gratis en GBA.",
+      "usdPerWp": 0.1668106,
+      "datasheetUrl": "https://drive.google.com/file/d/1JxyCC0GBrw-SYnXARu8C_IB2ZVQCOx3Y/view?usp=drive_link"
+    },
+    {
+      "product": "AMERISOLAR - MONOCRISTALINO  AS-7M144-HC-580W. precio pallet cerrado. Entrega gratis en GBA. Por unidad 30% mas caro",
+      "usdPerWp": 0.158592181,
+      "datasheetUrl": "https://drive.google.com/file/d/1tnf-BixMQMmgm_v4nATDegntHOFueozg/view?usp=drive_link"
+    },
+    {
+      "product": "AMERISOLAR - MONOCRISTALINO AS-8M120-HC-600W. se vende por unidad 30% mas caro.",
+      "usdPerWp": 0.14,
+      "datasheetUrl": null
+    },
+    {
+      "product": "SUNPRO - Monoc, TOPCON,  SPDG585-N144M10-585W con Marco Negro. BIFACIAL. se venden las 28 unidades juntas",
+      "usdPerWp": 0.1595,
+      "datasheetUrl": "https://drive.google.com/file/d/1aDcae8n_r0wq8kss2YQkHAEHlVY08Ce8/view?usp=sharing"
+    },
+    {
+      "product": "HAITAI - Monocristalino, media celda,  Anti LID HTM585DMH5-72NT-585W. Pallet 36 unidades.  se vende por unidad 32% mas caro.",
+      "usdPerWp": 0.1750419658,
+      "datasheetUrl": "https://drive.google.com/file/d/1KxOcFB1Qzio8OG_wFNWGFATCjblbEIvq/view?usp=drive_link"
+    },
+    {
+      "product": "HAITAI - Monocristalino, media celda, HTM415MH5-54 415W. Pallet 36 unidades.  se vende por unidad 32% mas caro.",
+      "usdPerWp": 0.1495,
+      "datasheetUrl": "https://drive.google.com/file/d/1i0G7iSgro-9yNnuORyyBknw8qXZ1Ypa7/view?usp=drive_link"
+    },
+    {
+      "product": "HAITAI, Monocristalino, media celda, Anti LID, Bifacial, HTM630DMH6-66NT BIFACIAL 630W. Pallet 36 unidades.se vende por unidad 32% mas caro",
+      "usdPerWp": 0.1826,
+      "datasheetUrl": "https://drive.google.com/file/d/1OTlXH0VHgeTlaY0Ij_gQ0rPdGN5PXs33/view?usp=drive_link"
+    },
+    {
+      "product": "TLC - Anti LID TCL-MI585 DH182-72NT 585W BIFACIAL. Pallet 36 unidades.  se vende por unidad 32% mas caro",
+      "usdPerWp": 0.1626448718,
+      "datasheetUrl": "https://drive.google.com/file/d/1_AjoXBjmeMByyuaF_yT060wN1MECA3MN/view?usp=drive_link"
+    },
+    {
+      "product": "NUUKO - monof 550w (pallet 31 u) - se vende minimo 10 u",
+      "usdPerWp": 0.161,
+      "datasheetUrl": "https://drive.google.com/file/d/1v2rCXkATake5lw5mWsq0CrJpPFT9_Mwc/view?usp=drive_link"
+    },
+    {
+      "product": "NUUKO - bif 615w topcon (pallet 36 u) - se vende minimo 10 u",
+      "usdPerWp": 0.169,
+      "datasheetUrl": "https://drive.google.com/file/d/1L0RiGd06hFoGKahWfisktdNne3FADhgs/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor On-Grid SunGrow Trifasico 15 KW",
+      "usdPerWp": 1297.8336,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Inversor On-Grid SunGrow Trifasico 20 KW",
+      "usdPerWp": 1433.993,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Inversor On-Grid SunGrow Trifasico 25 KW",
+      "usdPerWp": 1779.206,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Inversor On-Grid SunGrow Trifasico 30 KW",
+      "usdPerWp": 2044.768,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Inversor On-Grid SunGrow Trifasico 40 KW",
+      "usdPerWp": 2400.607,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Inversor On-Grid SunGrow Trifasico 50 KW",
+      "usdPerWp": 2798.4544,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Inversor On-Grid SunGrow Trifasico 75 KW",
+      "usdPerWp": 3823.975,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Inversor On-Grid SunGrow Trifasico 110 KW",
+      "usdPerWp": 5066.765,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Inversor On-Grid SunGrow Trifasico 250 KW",
+      "usdPerWp": 9942.328,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Inversor On-Grid SunGrow Trifasico 333 KW",
+      "usdPerWp": 12236.719,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 1500W Monof. (GW1500 - XS-30)",
+      "usdPerWp": 186.3,
+      "datasheetUrl": "https://drive.google.com/file/d/1yHQmq3bm6spK99CAg2cpkBz2A_9gA1nL/view?usp=drive_link"
+    },
+    {
+      "product": "IMicronversor de inyección a red GOODWE 2000w Monof. (GW2000-MIS)",
+      "usdPerWp": 279.0625,
+      "datasheetUrl": "https://drive.google.com/file/d/1yHQmq3bm6spK99CAg2cpkBz2A_9gA1nL/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 3600W Monof. c/AFCI (GW3.6K-DNS-G40)",
+      "usdPerWp": 401.375,
+      "datasheetUrl": "https://drive.google.com/file/d/1yHQmq3bm6spK99CAg2cpkBz2A_9gA1nL/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 6000W Trif. c/AFCI",
+      "usdPerWp": 610.88,
+      "datasheetUrl": "https://drive.google.com/file/d/13jWEFzjeGx_ObFiwU81-heegpsIFotmi/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 10kW Trif. (10K-SDT30)",
+      "usdPerWp": 779.52,
+      "datasheetUrl": "https://drive.google.com/file/d/1n_PRVHH7VH8MgqtnZcqm_HLcOuU82j1-/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 12kW Trif. c/Wifi",
+      "usdPerWp": 2168.274223,
+      "datasheetUrl": "https://drive.google.com/file/d/1yHQmq3bm6spK99CAg2cpkBz2A_9gA1nL/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 15kW Trif.  (15K-SDT-30)",
+      "usdPerWp": 860.16,
+      "datasheetUrl": "https://drive.google.com/file/d/1n_PRVHH7VH8MgqtnZcqm_HLcOuU82j1-/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 20kW Trif.(20K-SDT-30)",
+      "usdPerWp": 987.84,
+      "datasheetUrl": "https://drive.google.com/file/d/1n_PRVHH7VH8MgqtnZcqm_HLcOuU82j1-/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 25kW Trif. c/AFCI (25K-SDT-C30-AFCI)",
+      "usdPerWp": 1113.28,
+      "datasheetUrl": "https://drive.google.com/file/d/1n_PRVHH7VH8MgqtnZcqm_HLcOuU82j1-/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 30kW Trif. c/AFCI (30K-SDT-C30-AFCI)",
+      "usdPerWp": 1227.52,
+      "datasheetUrl": "https://drive.google.com/file/d/1n_PRVHH7VH8MgqtnZcqm_HLcOuU82j1-/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 33kW Trif. c/AFCI (30K-SDT-C30-AFCI)",
+      "usdPerWp": 1232,
+      "datasheetUrl": "https://drive.google.com/file/d/1n_PRVHH7VH8MgqtnZcqm_HLcOuU82j1-/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 36kW Trif. c/AFCI (30K-SDT-C30-AFCI)",
+      "usdPerWp": 1276,
+      "datasheetUrl": "https://drive.google.com/file/d/1n_PRVHH7VH8MgqtnZcqm_HLcOuU82j1-/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 40kW Trif. c/AFCI (40K-SDT-C30-AFCI)",
+      "usdPerWp": 1460.8,
+      "datasheetUrl": "https://drive.google.com/file/d/1RAuzWoQFxyGKAoyp-hACivZHj0WJSEyL/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 30kW Trif. MT (30K-MT)",
+      "usdPerWp": 1842.6,
+      "datasheetUrl": "https://drive.google.com/file/d/1yHQmq3bm6spK99CAg2cpkBz2A_9gA1nL/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 50kW Trif. AFCI",
+      "usdPerWp": 1634.6,
+      "datasheetUrl": "https://drive.google.com/file/d/1yHQmq3bm6spK99CAg2cpkBz2A_9gA1nL/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 60kW Trif. AFCI (GW 60KS-MT-AFCI)",
+      "usdPerWp": 2421.9,
+      "datasheetUrl": "https://drive.google.com/file/d/1yHQmq3bm6spK99CAg2cpkBz2A_9gA1nL/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 80kW Trif. c/ AFCI (GW80K-SMT-AFCI)",
+      "usdPerWp": 2442,
+      "datasheetUrl": "https://drive.google.com/file/d/1yHQmq3bm6spK99CAg2cpkBz2A_9gA1nL/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 100kW Trif. (GW100K GT). Se entrega en transporte en Rosario",
+      "usdPerWp": 3847.8,
+      "datasheetUrl": "https://drive.google.com/file/d/1DIKwg8HeXmaMB4_le1EjOAjugbZmka_U/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 110kW Trif. C/AFCI",
+      "usdPerWp": 3907.2,
+      "datasheetUrl": "https://drive.google.com/file/d/1DIKwg8HeXmaMB4_le1EjOAjugbZmka_U/view?usp=drive_link"
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 100KW Trifasico AFCI",
+      "usdPerWp": 4040.96,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 50kW  GW50K-SDT-C30",
+      "usdPerWp": 2365,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Inversor de inyección a red GOODWE 125KW Trifasico. (GW100K GT). Se entrega en transporte en Rosario",
+      "usdPerWp": 4374.72,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Smart meter GMK110 monofasico",
+      "usdPerWp": 195.125,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Smart meter GMK330 trifasico",
+      "usdPerWp": 379.5,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR TRIFASICO HUAWEI SUN2000-40KTL-M3",
+      "usdPerWp": 2711.83,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR TRIFASICO HUAWEI SUN2000-50KTL-M3",
+      "usdPerWp": 2937.979,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR TRIFASICO HUAWEI SUN2000-100KTL M2-",
+      "usdPerWp": 5645.893,
+      "datasheetUrl": "https://drive.google.com/file/d/1Il3m54K_i84akTSdvW89ZvDYfHzhl5e1/view?usp=drive_link"
+    },
+    {
+      "product": "INVERSOR TRIFASICO HUAWEI SUN2000-150K-MG0 -",
+      "usdPerWp": 6325,
+      "datasheetUrl": "https://drive.google.com/file/d/1FvgTwtBLcwHrwKljRu9B6r0SOaSV-f3B/view?usp=drive_link"
+    },
+    {
+      "product": "INVERSOR TRIFASICO 6MPPT 800V 330KW HUAWEI",
+      "usdPerWp": 9898.9,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Huawei SmartPS-250A-T0 - Smart Power Sensor",
+      "usdPerWp": 173.7,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Huawei SDongleA-05",
+      "usdPerWp": 62.1,
+      "datasheetUrl": null
+    },
+    {
+      "product": "DongleB-06-AU - Dongle 4G",
+      "usdPerWp": 152.1,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR OFF GRID - AXPERT VM 2KW",
+      "usdPerWp": 520.24,
+      "datasheetUrl": null
+    },
+    {
+      "product": "VOLTRONIC AXPERT VM 1kW",
+      "usdPerWp": 322,
+      "datasheetUrl": null
+    },
+    {
+      "product": "VOLTRONIC AXPERT VP 3kW (24V ‐ PWM.)",
+      "usdPerWp": 594.0864,
+      "datasheetUrl": null
+    },
+    {
+      "product": "VOLTRONIC AXPERT VMIII 3kW (24V. Alta tensión de paneles. MPPT. Modo SUB.)",
+      "usdPerWp": 703.2,
+      "datasheetUrl": null
+    },
+    {
+      "product": "VOLTRONIC AXPERT VMIV 5,6kW (48V. Alta tensión de paneles. MPPT. Modo SUB.)",
+      "usdPerWp": 957.6,
+      "datasheetUrl": null
+    },
+    {
+      "product": "VOLTRONIC AXPERT MAX 7,2kW (48V. Alta tensión de paneles. 2xMPPT. Modo SUB.)",
+      "usdPerWp": 900,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Módulo WiFi para Axpert VMIII",
+      "usdPerWp": 90,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Microinversor 1000W 2MPPT Mono c/Wifi DEYE (SUN-M100G4-EU-Q0)",
+      "usdPerWp": 269.5,
+      "datasheetUrl": "https://drive.google.com/file/d/15ThUxjVjJjfmiSe2Uh-9DWAgDxPIXAdO/view?usp=drive_link"
+    },
+    {
+      "product": "Microinversor 2250W 4MPPT Mono c/Wifi c/ Zero Export DEYE (SUN-M225G4-EU-Q0-I)",
+      "usdPerWp": 365,
+      "datasheetUrl": null
+    },
+    {
+      "product": "On Grid 3KVA 1MPPT Mono c/CT y Wifi DEYE  (SUN-3K-G04LP1-EU-AM1)",
+      "usdPerWp": 365,
+      "datasheetUrl": "https://drive.google.com/file/d/1Y8fni7g5oQxRlRra7ShZalNoqaoSekMe/view?usp=drive_link"
+    },
+    {
+      "product": "On Grid 5kW 2MPPT Mono c/CT y WiFi DEYE (SUN-5K-G05LP1-EU-AM2)",
+      "usdPerWp": 525,
+      "datasheetUrl": null
+    },
+    {
+      "product": "On Grid 6KVA 2MPPT Mono con meter c/ WiFi DEYE  (SUN-6K-G05LP1-EU-AM2)",
+      "usdPerWp": 805,
+      "datasheetUrl": "https://drive.google.com/file/d/16fKKxU88HJ_z5ax_Utclx2FsJ-nycpz7/view?usp=sharing"
+    },
+    {
+      "product": "On Grid 6kW 2MPPT Trif c/WiFi s/Meter DEYE(SUN-6K-G06P3-EU-AM2-P1)",
+      "usdPerWp": 568.4,
+      "datasheetUrl": "https://drive.google.com/file/d/1eUR-uyH4rZJG-7WWWH18Mw_Ln5zGw2NX/view?usp=sharing"
+    },
+    {
+      "product": "On Grid 10KVA 2MPPT Trif SIN Meter y WiFi DEYE (SUN-10K-G06P3-EU-BM2-P1)",
+      "usdPerWp": 597.8,
+      "datasheetUrl": "https://drive.google.com/file/d/1eUR-uyH4rZJG-7WWWH18Mw_Ln5zGw2NX/view?usp=sharing"
+    },
+    {
+      "product": "On Grid 15KVA 2MPPT Trif SIN Meter y WiFi DEYE  (SUN-15K-G06P3-EU-AM2-P1)",
+      "usdPerWp": 882,
+      "datasheetUrl": "https://drive.google.com/file/d/1eUR-uyH4rZJG-7WWWH18Mw_Ln5zGw2NX/view?usp=sharing"
+    },
+    {
+      "product": "On Grid 20KVA 2MPPT Trif SIN Meter y WiFi DEYE  (SUN-20K-G05)",
+      "usdPerWp": 980,
+      "datasheetUrl": "https://drive.google.com/file/d/1i373I1D6gdYaU1Imjxpx9Mk4MkXVfjDn/view?usp=drive_link"
+    },
+    {
+      "product": "On Grid 30KVA 2MPPT Trif SIN Meter y WiFi DEYE  (SUN-30K-G04)",
+      "usdPerWp": 1803,
+      "datasheetUrl": null
+    },
+    {
+      "product": "On Grid 40KVA Trif SIN Meter y WiFi DEYE  (SUN-40K-G03)",
+      "usdPerWp": 1518.96,
+      "datasheetUrl": null
+    },
+    {
+      "product": "On Grid 50kW 4MPPT  DEYE (SUN-50K-G04)",
+      "usdPerWp": 2352,
+      "datasheetUrl": "https://drive.google.com/file/d/1JL_yGQe48okOYa4I47aa11Z5AbjePxF2/view?usp=drive_link"
+    },
+    {
+      "product": "On Grid 75kW  DEYE (SUN-75K-G) SIN METER SIN WIFI",
+      "usdPerWp": 2200,
+      "datasheetUrl": null
+    },
+    {
+      "product": "On Grid 80kW 6MPPT Trif c/ AFCI , SIN Meter y WiFi DEYE (SUN-80K-G03)",
+      "usdPerWp": 3234,
+      "datasheetUrl": null
+    },
+    {
+      "product": "On Grid 100KVA 6MPPT Trif SIN Meter y WiFi DEYE  (SUN-100K-G03)",
+      "usdPerWp": 3724,
+      "datasheetUrl": "https://drive.google.com/file/d/1Je7GXOGVHmk1ZhUXvSKVI478-QamLuyz/view?usp=drive_link"
+    },
+    {
+      "product": "On Grid 125KVA 8MPPT Trif SIN Meter y WiFi DEYE  (SUN-125K-G01P3-EU-AM8)",
+      "usdPerWp": 4410,
+      "datasheetUrl": null
+    },
+    {
+      "product": "On Grid 136kW 8MPPT Trif SIN Meter y WiFi DEYE (SUN-136K-G01P3-EU-AM8)",
+      "usdPerWp": 4900,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Meter directo Monofasico 100A EASTRON (SDM230 Modb V1 (100A))",
+      "usdPerWp": 138,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Meter directo Trifasico 100A EASTRON (SDM630 Modb V2 (100A))",
+      "usdPerWp": 144,
+      "datasheetUrl": "https://drive.google.com/file/d/1rF-vo4PlDmNXH2Scgc6ZFMJVDBzK3XR4/view?usp=drive_link"
+    },
+    {
+      "product": "Meter para pinzas Trifasico c/ CT 250A d24 EASTRON (SDM630MCT-ETL+T24 250A/1A)",
+      "usdPerWp": 250,
+      "datasheetUrl": "https://drive.google.com/file/d/1gRkWgOSNRddXfwfTOVDxo7-Fy4AjphN5/view?usp=drive_link"
+    },
+    {
+      "product": "Meter para pinzas Trifasico c/ CT 500A d24 EASTRON (SDM 630MCT-ETL+T24 500A/1A))",
+      "usdPerWp": 300,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Meter para pinzas Trifasico c/ CT 630A d36 EASTRON (SDM630MCT-ETL+T36 630A/1A))",
+      "usdPerWp": 350,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Smart Transceptor Lora DEYE (SUN-SMART-TX01)",
+      "usdPerWp": 55,
+      "datasheetUrl": "https://drive.google.com/file/d/19BleEx-4qJoyB-PlKtEXNAS3PqKNofN1/view?usp=drive_link"
+    },
+    {
+      "product": "Smart Meter CT Mono Tri Lora DEYE (SUN-SMART-CT01)",
+      "usdPerWp": 120,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID MONOFÁSICO GROWATT MIC-1500TL-X",
+      "usdPerWp": 294.784,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID MONOFÁSICO GROWATT MIN 2500TL-X2 Inc. Ant. WIFI X",
+      "usdPerWp": 402.5,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID MONOFÁSICO GROWATT MIC-2000TL-X2 wifi x",
+      "usdPerWp": 344.4896,
+      "datasheetUrl": "https://drive.google.com/file/d/1X_gZhvBvQWu1bmcHn0W0kQlEs9YE8hmU/view?usp=sharing"
+    },
+    {
+      "product": "INVERSOR ON-GRID MONOFÁSICO GROWATT MIN 3000TL-X2 incl wifi",
+      "usdPerWp": 442.75,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR GROWATT MONOFASICO ON GRID - MIC3000TL-X2 incl wifi",
+      "usdPerWp": 399.84,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID MONOFÁSICO GROWATT MIC-3300TL-X",
+      "usdPerWp": 471.1392,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID MONOFÁSICO 4200W, MIN4200TL-X",
+      "usdPerWp": 584.545,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID MONOFÁSICO 5000W, MIN5000TL-X2 incl ant wifi",
+      "usdPerWp": 619.3,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID MONOFÁSICO 5000W, MIN5000TL-X",
+      "usdPerWp": 621.656,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR GROWATT MONOFASICO ON GRID MIN 6000 TL-X2 incl ant wifi",
+      "usdPerWp": 680,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR GROWATT TRIFÁSICO ON GRID MOD4000TL3-X",
+      "usdPerWp": 1068.1,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR GROWATT TRIFÁSICO ON GRID MOD5000TL3-X inc wifi",
+      "usdPerWp": 784.38,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR GROWATT TRIFASICO ON GRID MOD 6000 TL3-X",
+      "usdPerWp": 935.2,
+      "datasheetUrl": "https://drive.google.com/file/d/190HAu4E7u2uCt23EmIQBC4UYBG8drIZU/view?usp=drive_link"
+    },
+    {
+      "product": "INVERSOR GROWATT MONOFASICO ON GRID MIN10000 TL-X2",
+      "usdPerWp": 1271.809,
+      "datasheetUrl": "https://drive.google.com/file/d/1QabJg4JSkOuxVDMKseEsP-gJ_lm6XVBb/view?usp=drive_link"
+    },
+    {
+      "product": "INVERSOR GROWATT TRIFASICO ON GRID MOD 8000 TL3-X incl wifi",
+      "usdPerWp": 1242,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR GROWATT TRIFASICO ON GRID MOD 10000 TL3-X",
+      "usdPerWp": 1237.6,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR GROWATT TRIFASICO ON GRID MOD 10000 TL3-X2 PRO Incl. Ant. WIFI X",
+      "usdPerWp": 972.1375,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR GROWATT TRIFASICO ON GRID MOD 15000 TL3-X2 PRO incl wifi",
+      "usdPerWp": 1349.205,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID TRIFÁSICO GROWATT MID15KTL3-X  incl wifi.",
+      "usdPerWp": 1531.2,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID TRIFÁSICO GROWATT MID20KTL3-X2 -",
+      "usdPerWp": 1372.571,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR GROWATT TRIFASICO ON GRID MID 25KTL3-X - PROMO",
+      "usdPerWp": 1657.768,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID TRIFÁSICO GROWATT MID30KTL3-X2 inc wifi.afci",
+      "usdPerWp": 1535.666,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR GROWATT TRIFASICO ON GRID MID 40KTL3-X",
+      "usdPerWp": 1952.9888,
+      "datasheetUrl": "https://drive.google.com/file/d/1RwsQGEnM8MgrDO6ulfh4MBV5osaXoj-A/view?usp=drive_link"
+    },
+    {
+      "product": "INVERSOR GROWATT TRIFASICO ON GRID MID 40KTL3-X2",
+      "usdPerWp": 2422.651,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID TRIFÁSICO GROWATT MAC50KTL3-XLV con 3MPPT - LIQUIDACION",
+      "usdPerWp": 1610,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID TRIFÁSICO GROWATT MAX50KTL3-LV con 6MPPT - LIQUIDACION",
+      "usdPerWp": 1610,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID TRIFÁSICO GROWATT MID50KTL3-X2 con 4MPPT AFCI",
+      "usdPerWp": 1957.14,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID TRIFÁSICO GROWATT MAX60KTL3-XLV con 6 MPPT AFCI INC WIFI",
+      "usdPerWp": 3230.92,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID TRIFÁSICO GROWATT MAX60KTL3-XLV con 6 MPPT  -",
+      "usdPerWp": 3417.403,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID TRIFÁSICO GROWATT MAX60KTL3-LV  - PROMO",
+      "usdPerWp": 2968,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID TRIFÁSICO GROWATT MAX80KTL3 LV",
+      "usdPerWp": 3044.8,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID TRIFÁSICO GROWATT MAX80KTL3 LV (AFCI) INC WIFI",
+      "usdPerWp": 2501.62,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID TRIFÁSICO GROWATT MAX100KTL3-X2 LV (AFCI) Incl. Ant. WIFI X",
+      "usdPerWp": 3261.5265,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR ON-GRID TRIFÁSICO GROWATT MAX110KTL3-X2 LV  -",
+      "usdPerWp": 5031.301,
+      "datasheetUrl": "https://drive.google.com/file/d/1QEQSyh8ip5LmEe3xRD8cBgembDm4L3OG/view?usp=drive_link"
+    },
+    {
+      "product": "INVERSOR GROWATT TRIFASICO MAX125KTL3- LV",
+      "usdPerWp": 4240.5888,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR GROWATT TRIFASICO MAX125KTL3-X2 LV AFCI -",
+      "usdPerWp": 4291.1,
+      "datasheetUrl": "https://drive.google.com/file/d/1QEQSyh8ip5LmEe3xRD8cBgembDm4L3OG/view?usp=drive_link"
+    },
+    {
+      "product": "SISTEMA DE COMUNICACIÓN GROWATT - SHINE WIFI-X - 4G",
+      "usdPerWp": 107.952,
+      "datasheetUrl": null
+    },
+    {
+      "product": "SISTEMA DE COMUNICACIÓN GROWATT - SHINE WIFI-X",
+      "usdPerWp": 41.6,
+      "datasheetUrl": null
+    },
+    {
+      "product": "SISTEMA DE COMUNICACIÓN GROWATT - SHINE WIFI-F",
+      "usdPerWp": 41.6,
+      "datasheetUrl": null
+    },
+    {
+      "product": "SISTEMA DE COMUNICACIÓN GROWATT - SHINE LAN-X",
+      "usdPerWp": 41.08,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Shinemaster Growatt",
+      "usdPerWp": 487.25,
+      "datasheetUrl": "https://drive.google.com/file/d/1hoo93FAXW6PPORDDtNpfbIdeC8gzUkCX/view?usp=drive_link"
+    },
+    {
+      "product": "Smart Energy Meter Growatt",
+      "usdPerWp": 933.12,
+      "datasheetUrl": "https://drive.google.com/file/d/1TGHfb5dL4hXmrmFofyBSOeKNTAzQpCGM/view?usp=drive_link"
+    },
+    {
+      "product": "battery hub",
+      "usdPerWp": 350,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Limitador de inyeccion MONOFASICO, Modelo Growatt SPM - E, (CHINT o eastron),",
+      "usdPerWp": 126,
+      "datasheetUrl": "https://drive.google.com/file/d/1xXQq88WkJ-uzWamz_SJIU9y0scRwT5zL/view?usp=drive_link"
+    },
+    {
+      "product": "Limitador de inyeccion MONOFASICO, Modelo Growatt SPM-CT-E , censado mediante CT",
+      "usdPerWp": 258,
+      "datasheetUrl": "https://drive.google.com/file/d/1jpFqyEREFWopHm53dsmVpUu4ZNffTdMS/view?usp=sharing"
+    },
+    {
+      "product": "Limitador de inyeccion TRIFASICO, Modelo Growatt TPM - E, (eastron),",
+      "usdPerWp": 187.746,
+      "datasheetUrl": "https://drive.google.com/file/d/1xXQq88WkJ-uzWamz_SJIU9y0scRwT5zL/view?usp=drive_link"
+    },
+    {
+      "product": "Limitador de inyección Growatt TPM-CT-E(250A) trifásico",
+      "usdPerWp": 258.96,
+      "datasheetUrl": "https://drive.google.com/file/d/1jpFqyEREFWopHm53dsmVpUu4ZNffTdMS/view?usp=sharing"
+    },
+    {
+      "product": "Limitador de inyección Growatt TPM-CT-E(100A) trifásico",
+      "usdPerWp": 239.04,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Limitador de inyección Growatt TPM-CT-E(600A) trifásico",
+      "usdPerWp": 655.2,
+      "datasheetUrl": null
+    },
+    {
+      "product": "Limitador de inyección de energía a red, para varios inversores OnGrid Growatt Trifásicos, hasta 100kw",
+      "usdPerWp": 747,
+      "datasheetUrl": null
+    },
+    {
+      "product": "INVERSOR GROWATT MONOFASICO OFF GRID 3KW SPF 3000TL HVM-24.",
+      "usdPerWp": 377.982,
+      "datasheetUrl": "https://drive.google.com/file/d/1-kjEMngaKyaBlTN3VdKwsFzaeqbhJGnz/view?usp=drive_link"
+    },
+    {
+      "product": "INVERSOR GROWATT MONOFASICO OFF GRID 3KW SPF 3000TL HVM-48.",
+      "usdPerWp": 425.25,
+      "datasheetUrl": "https://drive.google.com/file/d/1-kjEMngaKyaBlTN3VdKwsFzaeqbhJGnz/view?usp=drive_link"
+    },
+    {
+      "product": "INVERSOR GROWATT MONOFASICO OFF GRID 3.5KW SPF 3500 ES (en caso de usar BMS avisar para actualizacion de firmware)",
+      "usdPerWp": 407,
+      "datasheetUrl": "https://drive.google.com/file/d/1eEXxSLvkTS5Su4KOLtVns7AC4hx0oDUo/view?usp=drive_link"
+    },
+    {
+      "product": "INVERSOR GROWATT MONOFASICO OFF GRID 5KW - SPF 5000 TL HVM -48. Wifi",
+      "usdPerWp": 692.52,
+      "datasheetUrl": "https://drive.google.com/file/d/1JDLVYmNjAfRdpCmvscRwHLUFVluTJ46x/view?usp=drive_link"
+    }
+  ]
+}

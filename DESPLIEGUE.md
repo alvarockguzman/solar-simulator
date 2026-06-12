@@ -66,6 +66,7 @@ Usamos **un solo dominio canónico**: `https://www.renovatio.lat`
 | `/` | Landing |
 | `/calculadora` | Calculadora Solar |
 | `/presupuesto` | Presupuesto Indicativo |
+| `/cotizador` | Cotizador Solar (interno, protegido con password) |
 
 Las URLs viejas (`/advanced`, `/relevamiento`) redirigen automáticamente a las nuevas. Si alguien entra por `advanced.renovatio.lat`, el middleware lo manda a `www.renovatio.lat/calculadora`.
 
@@ -101,6 +102,52 @@ Tras un build en verde, deberían abrir:
 - `https://www.renovatio.lat/presupuesto`
 
 Las rutas antiguas (`/advanced`, `/relevamiento`) deben redirigir con 301.
+
+---
+
+## 7. Cotizador Solar interno (/cotizador)
+
+Herramienta interna del equipo comercial para generar cotizaciones preliminares en PDF.
+
+### Variables de entorno
+
+| Variable | Para qué | Obligatoria |
+|----------|----------|-------------|
+| `APP_PASSWORD` | Password compartida que protege `/cotizador` y sus APIs | Sí en producción (sin ella la ruta queda abierta) |
+| `GOOGLE_SERVICE_ACCOUNT_JSON` | JSON completo del service account (una sola línea) para leer precios y registrar cotizaciones | No (sin ella usa catálogo mock) |
+| `PRICING_SHEET_ID` | ID del Google Sheet "Precios Cotizador" (está en la URL del Sheet) | No (junto con la anterior) |
+| `BLOB_READ_WRITE_TOKEN` | Vercel Blob: PDFs, snapshots de techo y **borradores de proyectos** (`/cotizador/proyectos`) | Sí en producción (sin token, proyectos en `data/cotizador-projects/` solo en local) |
+
+### Proyectos guardados
+
+Los borradores del wizard (cliente, techo, polígonos, consumo, ajustes) se persisten en Blob:
+
+- `cotizador/projects/{id}.json` — estado del wizard
+- `cotizador/projects/_index.json` — listado para `/cotizador/proyectos`
+- `cotizador/snapshots/{id}.jpg` — captura del mapa (si se tomó)
+
+En local sin `BLOB_READ_WRITE_TOKEN`, los mismos datos van a `data/cotizador-projects/` (no usar en Vercel prod).
+
+### Crear el service account de Google (una sola vez)
+
+1. Entrá a [Google Cloud Console](https://console.cloud.google.com) → creá un proyecto (o usá uno existente).
+2. **APIs y servicios** → **Biblioteca** → buscá **Google Sheets API** → **Habilitar**.
+3. **APIs y servicios** → **Credenciales** → **Crear credenciales** → **Cuenta de servicio**. Nombre: por ejemplo `cotizador-solar`. No hace falta darle roles.
+4. Entrá a la cuenta de servicio creada → pestaña **Claves** → **Agregar clave** → **JSON**. Se descarga un archivo `.json`.
+5. Abrí el archivo, copiá TODO el contenido en una sola línea y pegalo como valor de `GOOGLE_SERVICE_ACCOUNT_JSON` (en `.env.local` y en Vercel).
+6. El JSON tiene un campo `client_email` (algo como `cotizador-solar@proyecto.iam.gserviceaccount.com`). **Compartí el Google Sheet de precios con ese email** (permiso Editor, para que pueda registrar cotizaciones).
+
+### Crear el Google Sheet de precios
+
+1. Creá un Sheet nuevo llamado "Precios Cotizador".
+2. Creá 7 pestañas con estos nombres EXACTOS: `Paneles`, `Inversores`, `Estructuras`, `Materiales`, `ManoDeObra`, `Parametros`, `Cotizaciones`.
+3. Copiá el contenido de los CSVs de `docs/sheet-template/` en cada pestaña (primera fila = encabezados).
+4. El ID del Sheet está en la URL: `https://docs.google.com/spreadsheets/d/ESTE_ES_EL_ID/edit` → ese es `PRICING_SHEET_ID`.
+5. El equipo edita precios directamente en el Sheet; la app los relee cada 1 hora (cache).
+
+### Health check
+
+`GET /api/cotizador/health` verifica Sheets, PVGIS, Blob y auth, y devuelve el estado de cada uno. Útil tras cada deploy.
 
 ---
 

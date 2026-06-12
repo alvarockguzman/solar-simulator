@@ -1,0 +1,4 @@
+marca,modelo,wp,largo_m,ancho_m,precio_usd,activo,voc_v,vmp_v,bifacial
+Trina Solar,Vertex N 615W bifacial,615,2.384,1.134,107.56,TRUE,51.8,43.4,TRUE
+LONGi,Hi-MO X10 645W N-Type,645,2.382,1.134,123.45,TRUE,49.5,42.0,FALSE
+Jinko Solar,Tiger Neo 725W bifacial,725,2.384,1.134,120.35,TRUE,48.4,40.5,TRUE

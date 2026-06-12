@@ -1,0 +1,24 @@
+clave,valor
+margen_default,0.35
+tasa_descuento,0.10
+opex_usd_kwp,11
+packing_plano,0.50
+packing_inclinado,0.85
+packing_serrucho,0.50
+tilt_inclinado_default,8
+tilt_serrucho_default,20
+sombra_pct,3
+soiling_pct,2.5
+mismatch_pct,2
+dc_wiring_pct,1
+ac_pct,0.5
+clipping_curve,1.10:0.001;1.15:0.001;1.25:0.005;1.35:0.015
+tarifa_inyeccion,0
+autoconsumo_objetivo,1
+co2_kg_kwh,0.4
+validez_dias_cotizacion,15
+ingenieria_fija_usd,1500
+ingenieria_pct,0.02
+degradacion_anual,0.005
+pct_diurno_default,0.70
+supuestos_texto,"Cotización preliminar sujeta a visita técnica. No incluye obras civiles, refuerzos estructurales, adecuaciones del tablero general ni trámites ante la distribuidora fuera de los indicados. Precios en USD sin IVA."

@@ -1,5 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // @react-pdf/renderer no debe bundlearse: cuelga renderToBuffer en API routes.
+  experimental: {
+    serverComponentsExternalPackages: ["@react-pdf/renderer"],
+  },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.externals = [...(config.externals || []), "@react-pdf/renderer"];
+    }
+    return config;
+  },
   async redirects() {
     return [
       // Rutas antiguas → URLs canónicas (opción A: un solo dominio)

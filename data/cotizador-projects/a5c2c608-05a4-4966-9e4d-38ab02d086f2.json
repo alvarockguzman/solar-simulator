@@ -1,0 +1,132 @@
+{
+  "step": 5,
+  "proyectoNombre": "Proyecto — Ciudad Autónoma de Buenos Aires",
+  "cliente": {
+    "razonSocial": "Pipos",
+    "contacto": "op",
+    "email": "Alvaro",
+    "representanteModo": "alvaro",
+    "representanteOtro": "",
+    "direccion": "3950, San Nicolás, Villa Devoto, Buenos Aires, Comuna 11, Ciudad Autónoma de Buenos Aires, 1419, Argentina",
+    "lat": -34.598359,
+    "lon": -58.5078886
+  },
+  "techo": {
+    "tipoTecho": "inclinado",
+    "kwpDeseado": 25,
+    "factorAprovechamiento": 0.85,
+    "sombraPct": null,
+    "azimutDeg": 47,
+    "inclinacionDeg": 15,
+    "distanciaTableroM": null
+  },
+  "poligonos": [
+    {
+      "id": "poly-1781212518672",
+      "points": [
+        [
+          -34.59916493206332,
+          -58.50819468498231
+        ],
+        [
+          -34.5993372604673,
+          -58.508001565933235
+        ],
+        [
+          -34.59939028451965,
+          -58.50810885429383
+        ],
+        [
+          -34.59926656167815,
+          -58.50833415985108
+        ]
+      ],
+      "areaM2": 351
+    }
+  ],
+  "consumo": {
+    "habilitado": true,
+    "modo": "promedio",
+    "promedioKwh": 12000,
+    "mensualKwh": [
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000,
+      12000
+    ],
+    "tarifaModo": "directa",
+    "tarifaNivel": "T2",
+    "tarifaUsdKwh": 0.117,
+    "facturaMensualUsd": 4680,
+    "pctDiurno": 0.7,
+    "consumoPreset": "pequeno",
+    "tarifaInyeccionUsdKwh": null
+  },
+  "ajustes": {
+    "panelModelo": null,
+    "inversorModelo": null,
+    "margenPct": null,
+    "descuentoPct": 0,
+    "lineasOverride": {},
+    "lineasManuales": [],
+    "mostrarDetalle": true
+  },
+  "flowVersion": 2,
+  "id": "a5c2c608-05a4-4966-9e4d-38ab02d086f2",
+  "snapshotUrl": "/api/cotizador/projects/a5c2c608-05a4-4966-9e4d-38ab02d086f2/snapshot",
+  "vendedor": "Alvaro",
+  "createdAt": "2026-06-11T21:14:59.074Z",
+  "updatedAt": "2026-06-11T22:04:47.472Z",
+  "pvgisSnapshot": {
+    "yieldKwhPerKwpYear": 1394.0381338742395,
+    "monthlyKwhPerKwp": [
+      161.73793103448278,
+      135.35091277890467,
+      130.62028397565925,
+      99.22596348884382,
+      76.76348884381339,
+      63.98336713995944,
+      67.12210953346856,
+      87.71724137931035,
+      108.12170385395538,
+      136.87586206896552,
+      155.905476673428,
+      170.6133874239351
+    ],
+    "irradiationKwhM2Year": 1804.55,
+    "monthlyIrradiationKwhM2": [
+      217.1,
+      181,
+      170.63,
+      126.74,
+      95.88,
+      78.73,
+      82.31,
+      108.4,
+      135.65,
+      175.36,
+      204.7,
+      228.04
+    ],
+    "angleDeg": 15,
+    "aspectDeg": -133,
+    "angleOptimal": false,
+    "aspectOptimal": false,
+    "internalLosses": {
+      "lAoiPct": -2.73,
+      "lSpecPct": null,
+      "lTgPct": -10.86,
+      "lTotalPct": -22.75
+    },
+    "radiationDb": "PVGIS-SARAH2",
+    "source": "pvgis"
+  }
+}

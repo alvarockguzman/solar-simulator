@@ -1,0 +1,154 @@
+{
+  "step": 5,
+  "proyectoNombre": "Prueba 2 — Buenos Aires",
+  "cliente": {
+    "razonSocial": "Prueba 2",
+    "contacto": "Pipo",
+    "email": "Alvaro",
+    "representanteModo": "alvaro",
+    "representanteOtro": "",
+    "direccion": "5233, Blanco Encalada, Villa Urquiza, Monte Chingolo, Partido de Lanús, Buenos Aires, B1874BEO, Argentina",
+    "lat": -34.729331583883955,
+    "lon": -58.34086926911908
+  },
+  "techo": {
+    "tipoTecho": "serrucho",
+    "kwpDeseado": 75,
+    "factorAprovechamiento": 0.5,
+    "sombraPct": null,
+    "azimutDeg": 41,
+    "inclinacionDeg": 15,
+    "distanciaTableroM": null
+  },
+  "poligonos": [
+    {
+      "id": "poly-1781217087723",
+      "points": [
+        [
+          -34.729823530975,
+          -58.339467644691474
+        ],
+        [
+          -34.72977059032938,
+          -58.33956420421601
+        ],
+        [
+          -34.7298500012851,
+          -58.33962857723237
+        ],
+        [
+          -34.72989853016492,
+          -58.33953738212586
+        ]
+      ],
+      "areaM2": 108
+    },
+    {
+      "id": "poly-1781271793462",
+      "points": [
+        [
+          -34.72919863730337,
+          -58.34039668897396
+        ],
+        [
+          -34.729397002173215,
+          -58.34011780150958
+        ],
+        [
+          -34.72948075608647,
+          -58.340203613037076
+        ],
+        [
+          -34.72928679952653,
+          -58.34047177406053
+        ]
+      ],
+      "areaM2": 399
+    }
+  ],
+  "consumo": {
+    "habilitado": true,
+    "modo": "promedio",
+    "promedioKwh": 40000,
+    "mensualKwh": [
+      40000,
+      40000,
+      40000,
+      40000,
+      40000,
+      40000,
+      40000,
+      40000,
+      40000,
+      40000,
+      40000,
+      40000
+    ],
+    "tarifaModo": "directa",
+    "tarifaNivel": "T2",
+    "tarifaUsdKwh": 0.117,
+    "facturaMensualUsd": 4680,
+    "pctDiurno": 0.7,
+    "consumoPreset": "mediano",
+    "tarifaInyeccionUsdKwh": null
+  },
+  "ajustes": {
+    "panelModelo": "Vertex N 615W bifacial",
+    "inversorModelo": "SG110CX 110kW",
+    "margenPct": null,
+    "descuentoPct": 0,
+    "lineasOverride": {},
+    "lineasManuales": [],
+    "mostrarDetalle": true
+  },
+  "flowVersion": 2,
+  "id": "abd58986-2560-48c6-8d4f-ed1e97a65f77",
+  "snapshotUrl": "/api/cotizador/projects/abd58986-2560-48c6-8d4f-ed1e97a65f77/snapshot",
+  "vendedor": "Alvaro",
+  "createdAt": "2026-06-11T22:31:18.725Z",
+  "updatedAt": "2026-06-12T13:44:43.682Z",
+  "pvgisSnapshot": {
+    "yieldKwhPerKwpYear": 1483.4207650273224,
+    "monthlyKwhPerKwp": [
+      172.77249100359856,
+      144.97107823537252,
+      140.7458349993336,
+      106.48060775689724,
+      80.59536185525789,
+      67.86845261895242,
+      70.86405437824871,
+      92.11701985872318,
+      114.38411302145808,
+      145.60335865653738,
+      165.8951086232174,
+      181.12328401972545
+    ],
+    "irradiationKwhM2Year": 1819.96,
+    "monthlyIrradiationKwhM2": [
+      218.09,
+      182.72,
+      173.98,
+      129.46,
+      96.58,
+      80.27,
+      83.5,
+      108.9,
+      136.58,
+      176.77,
+      205.48,
+      227.63
+    ],
+    "angleDeg": 15,
+    "aspectDeg": -139,
+    "angleOptimal": false,
+    "aspectOptimal": false,
+    "internalLosses": {
+      "lAoiPct": -2.71,
+      "lSpecPct": null,
+      "lTgPct": -6.81,
+      "lTotalPct": -18.49
+    },
+    "radiationDb": "PVGIS-SARAH2",
+    "source": "pvgis"
+  }
+}
