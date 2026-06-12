@@ -45,11 +45,17 @@ async function readBlobJson<T>(pathname: string): Promise<T | null> {
   }
 }
 
+/** Rutas fijas por project id: actualizar borrador requiere sobrescribir en Blob. */
+const BLOB_PUT_OVERWRITE = {
+  access: "public" as const,
+  addRandomSuffix: false,
+  allowOverwrite: true,
+};
+
 async function writeBlobJson(pathname: string, data: unknown): Promise<void> {
   await put(pathname, JSON.stringify(data, null, 2), {
-    access: "public",
+    ...BLOB_PUT_OVERWRITE,
     contentType: "application/json",
-    addRandomSuffix: false,
   });
 }
 
@@ -99,9 +105,8 @@ export async function uploadSnapshot(
 
   if (usesBlob()) {
     const blob = await put(snapshotPath(projectId), buffer, {
-      access: "public",
+      ...BLOB_PUT_OVERWRITE,
       contentType,
-      addRandomSuffix: false,
     });
     return blob.url;
   }

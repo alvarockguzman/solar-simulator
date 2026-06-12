@@ -154,6 +154,7 @@ export async function POST(request: Request, context: RouteContext) {
               access: "public",
               contentType: res.headers.get("content-type") ?? "image/jpeg",
               addRandomSuffix: false,
+              allowOverwrite: true,
             });
             snapshotUrl = blob.url;
           }

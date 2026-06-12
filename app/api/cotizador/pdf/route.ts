@@ -67,7 +67,11 @@ export async function POST(request: Request) {
     const blob = await put(
       `cotizador/${numero}-${safeCliente}.pdf`,
       Buffer.from(buffer),
-      { access: "public", contentType: "application/pdf" }
+      {
+        access: "public",
+        contentType: "application/pdf",
+        allowOverwrite: true,
+      }
     );
 
     try {
