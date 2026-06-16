@@ -38,6 +38,7 @@ async function buildDraftFromBody(
     poligonos: rest.poligonos,
     consumo: normalizeProjectConsumo(rest.consumo),
     ajustes: rest.ajustes,
+    economicsOverrides: rest.economicsOverrides ?? existing?.economicsOverrides ?? {},
     flowVersion: rest.flowVersion,
     id,
     snapshotUrl,

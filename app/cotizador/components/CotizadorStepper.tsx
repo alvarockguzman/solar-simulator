@@ -3,7 +3,7 @@
 import { Check } from "lucide-react";
 import { useCotizador } from "../context/CotizadorContext";
 
-const PASOS = ["Cliente", "Techo", "Consumo", "Equipos", "Reporte"] as const;
+const PASOS = ["Cliente", "Techo", "Consumo", "Equipos", "Economía", "Reporte"] as const;
 
 export function CotizadorStepper() {
   const { state, dispatch } = useCotizador();
@@ -17,7 +17,7 @@ export function CotizadorStepper() {
       <p className="mx-auto mb-2 max-w-3xl text-center text-xs font-medium text-amber-700 sm:hidden">
         Paso {state.step}: {pasoActual}
       </p>
-      <ol className="mx-auto flex max-w-3xl items-center">
+      <ol className="mx-auto flex max-w-4xl items-center">
         {PASOS.map((paso, i) => {
           const n = i + 1;
           const activo = state.step === n;
@@ -28,7 +28,11 @@ export function CotizadorStepper() {
               state.result !== null &&
               state.catalog !== null &&
               !state.needsRecalc) ||
-            (n === 5 && state.report !== null && !state.needsRecalc);
+            (n === 5 &&
+              state.result !== null &&
+              state.catalog !== null &&
+              !state.needsRecalc) ||
+            (n === 6 && state.report !== null && !state.needsRecalc);
           const ultimo = i === PASOS.length - 1;
 
           return (
@@ -53,7 +57,7 @@ export function CotizadorStepper() {
                   {completado ? <Check className="h-4 w-4 stroke-[2.5]" /> : n}
                 </span>
                 <span
-                  className={`hidden text-xs font-medium sm:block ${
+                  className={`hidden text-[11px] font-medium sm:block ${
                     activo
                       ? "text-amber-700"
                       : completado
@@ -66,7 +70,7 @@ export function CotizadorStepper() {
               </button>
               {!ultimo && (
                 <div
-                  className={`mx-2 h-0.5 flex-1 rounded-full transition sm:mx-4 ${
+                  className={`mx-1 h-0.5 flex-1 rounded-full transition sm:mx-2 ${
                     completado ? "bg-amber-500" : "bg-slate-200"
                   }`}
                   aria-hidden

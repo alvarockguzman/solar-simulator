@@ -3,6 +3,7 @@ import type {
   CotizadorProjectConsumo,
   CotizadorProjectDraft,
   CotizadorProjectSummary,
+  EconomicsOverrides,
 } from "../types";
 
 /** Subconjunto del estado del wizard que se persiste. */
@@ -15,6 +16,7 @@ export interface CotizadorPersistedState {
   poligonos: CotizadorProjectDraft["poligonos"];
   consumo: CotizadorProjectDraft["consumo"];
   ajustes: CotizadorProjectDraft["ajustes"];
+  economicsOverrides: EconomicsOverrides;
 }
 
 export function normalizeProjectConsumo(
@@ -41,7 +43,7 @@ export function normalizeProjectDraftFields(
   }
 ): Pick<
   CotizadorProjectDraft,
-  "step" | "proyectoNombre" | "cliente" | "techo" | "poligonos" | "consumo" | "ajustes" | "vendedor" | "flowVersion"
+  "step" | "proyectoNombre" | "cliente" | "techo" | "poligonos" | "consumo" | "ajustes" | "economicsOverrides" | "vendedor" | "flowVersion"
 > {
   return {
     step: draft.step,
@@ -51,6 +53,7 @@ export function normalizeProjectDraftFields(
     poligonos: draft.poligonos,
     consumo: normalizeProjectConsumo(draft.consumo),
     ajustes: draft.ajustes,
+    economicsOverrides: draft.economicsOverrides ?? {},
     vendedor: draft.vendedor,
     flowVersion: draft.flowVersion,
   };
@@ -88,6 +91,7 @@ export function serializeProject(
     poligonos: state.poligonos,
     consumo: state.consumo,
     ajustes: state.ajustes,
+    economicsOverrides: state.economicsOverrides,
     snapshotUrl: isDataUrl ? existing?.snapshotUrl ?? null : snapshotDataUrl ?? existing?.snapshotUrl ?? null,
     vendedor: representanteComercialNombre(state.cliente) || undefined,
     createdAt: existing?.createdAt ?? new Date().toISOString(),
@@ -108,5 +112,6 @@ export function hydratePersistedState(draft: CotizadorProjectDraft): CotizadorPe
     poligonos: draft.poligonos,
     consumo: normalizeProjectConsumo(draft.consumo),
     ajustes: draft.ajustes,
+    economicsOverrides: draft.economicsOverrides ?? {},
   };
 }

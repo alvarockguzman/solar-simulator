@@ -46,6 +46,9 @@ async function mergeDraft(
       ? normalizeProjectConsumo({ ...existing.consumo, ...patch.consumo })
       : existing.consumo,
     ajustes: patch.ajustes ? { ...existing.ajustes, ...patch.ajustes } : existing.ajustes,
+    economicsOverrides: patch.economicsOverrides
+      ? { ...existing.economicsOverrides, ...patch.economicsOverrides }
+      : existing.economicsOverrides ?? {},
     poligonos: patch.poligonos ?? existing.poligonos,
     snapshotUrl,
     updatedAt: now,

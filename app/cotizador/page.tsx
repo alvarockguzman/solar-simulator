@@ -10,6 +10,7 @@ import { CotizadorHeader } from "./components/CotizadorHeader";
 import { CotizadorStepper } from "./components/CotizadorStepper";
 import { StepCliente } from "./components/StepCliente";
 import { StepConsumo } from "./components/StepConsumo";
+import { StepEconomics } from "./components/StepEconomics";
 import { StepEquipos } from "./components/StepEquipos";
 import { StepTecho } from "./components/StepTecho";
 import { buildQuoteInput, useCotizador, type CotizadorState } from "./context/CotizadorContext";
@@ -27,6 +28,14 @@ const StepReporte = dynamic(
   }
 );
 
+/** Migra pasos guardados con flowVersion anterior al wizard de 6 pasos. */
+function normalizeLoadedStep(step: number, flowVersion: number): number {
+  if (flowVersion >= 3) return step;
+  if (flowVersion < 2 && step === 4) return 6;
+  if (flowVersion < 3 && step >= 5) return step + 1;
+  return step;
+}
+
 function quoteInputFromDraft(project: CotizadorProjectDraft) {
   return {
     proyectoNombre: project.proyectoNombre,
@@ -43,14 +52,17 @@ function quoteInputFromDraft(project: CotizadorProjectDraft) {
             mensualKwh: project.consumo.mensualKwh,
             tarifaUsdKwh: project.consumo.tarifaUsdKwh,
             pctDiurno: project.consumo.pctDiurno,
+            tarifaInyeccionUsdKwh: project.consumo.tarifaInyeccionUsdKwh,
           }
         : {
             mensualKwh: Array(12).fill(0),
             tarifaUsdKwh: 0,
             pctDiurno: project.consumo.pctDiurno,
+            tarifaInyeccionUsdKwh: project.consumo.tarifaInyeccionUsdKwh,
           },
       ajustes: project.ajustes,
     },
+    economicsOverrides: project.economicsOverrides ?? {},
   };
 }
 
@@ -79,8 +91,7 @@ function ProjectLoader() {
 
         const project = data.project as CotizadorProjectDraft;
         const flowVersion = project.flowVersion ?? 1;
-        let step = project.step;
-        if (flowVersion < 2 && step === 4) step = 5;
+        const step = normalizeLoadedStep(project.step, flowVersion);
 
         dispatch({ type: "LOAD_PROJECT", draft: { ...project, step } });
 
@@ -88,8 +99,8 @@ function ProjectLoader() {
         if (!kwpOk) return;
 
         const body = quoteInputFromDraft(project);
-        const needReport = step >= 5 || (flowVersion < 2 && project.step === 4);
-        const needQuote = step === 4;
+        const needReport = step >= 6;
+        const needQuote = step >= 4 && step < 6;
 
         if (needReport) {
           const reportRes = await fetch("/api/cotizador/report", {
@@ -207,6 +218,7 @@ function Wizard() {
           proyectoNombre: state.proyectoNombre,
           input: buildQuoteInput(state),
           pvgisSnapshot: pvgisSnapshotFromState(state),
+          economicsOverrides: state.economicsOverrides,
         }),
       });
       const data = await res.json();
@@ -220,12 +232,12 @@ function Wizard() {
       dispatch({ type: "SET_GHI", ghi: data.ghi });
       dispatch({ type: "SET_RESULT", result: data.result });
       dispatch({ type: "SET_REPORT", report: data.report });
-      dispatch({ type: "GO_STEP", step: 5 });
+      dispatch({ type: "GO_STEP", step: 6 });
 
       await autosaveAfterReport(
         {
           ...state,
-          step: 5,
+          step: 6,
           result: data.result,
           report: data.report,
           needsRecalc: false,
@@ -282,13 +294,19 @@ function Wizard() {
         {state.step === 4 && (
           <StepEquipos
             onBack={() => dispatch({ type: "GO_STEP", step: 3 })}
+            onContinuar={() => dispatch({ type: "GO_STEP", step: 5 })}
+          />
+        )}
+        {state.step === 5 && (
+          <StepEconomics
+            onBack={() => dispatch({ type: "GO_STEP", step: 4 })}
             onGenerarReporte={generarReporte}
             calculando={state.calculando}
           />
         )}
-        {state.step === 5 && (
+        {state.step === 6 && (
           <StepReporte
-            onBack={() => dispatch({ type: "GO_STEP", step: 4 })}
+            onBack={() => dispatch({ type: "GO_STEP", step: 5 })}
             onRecalcular={() => dispatch({ type: "GO_STEP", step: 3 })}
           />
         )}

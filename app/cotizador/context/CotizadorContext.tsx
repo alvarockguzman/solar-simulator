@@ -16,6 +16,7 @@ import type {
   ClienteInput,
   CotizadorProjectConsumo,
   CotizadorProjectDraft,
+  EconomicsOverrides,
   GhiResult,
   Poligono,
   ProductionReportData,
@@ -40,6 +41,8 @@ export interface CotizadorState {
   poligonos: Poligono[];
   consumo: CotizadorProjectConsumo;
   ajustes: QuoteAjustes;
+  /** Parámetros financieros editables en paso Economía. */
+  economicsOverrides: EconomicsOverrides;
   catalog: Catalog | null;
   pvgis: PvgisResult | null;
   ghi: GhiResult | null;
@@ -111,6 +114,7 @@ export const initialState: CotizadorState = {
     lineasManuales: [],
     mostrarDetalle: true,
   },
+  economicsOverrides: {},
   catalog: null,
   pvgis: null,
   ghi: null,
@@ -136,6 +140,8 @@ type Action =
   | { type: "REMOVE_POLIGONO"; id: string }
   | { type: "SET_CONSUMO"; consumo: Partial<CotizadorState["consumo"]> }
   | { type: "SET_AJUSTES"; ajustes: Partial<QuoteAjustes> }
+  | { type: "SET_ECONOMICS_OVERRIDES"; overrides: Partial<EconomicsOverrides> }
+  | { type: "SET_CONSUMO_FINANCIERO"; consumo: Partial<CotizadorState["consumo"]> }
   | { type: "SET_CATALOG"; catalog: Catalog }
   | { type: "SET_PVGIS"; pvgis: PvgisResult; kwp: number }
   | { type: "SET_GHI"; ghi: GhiResult }
@@ -239,6 +245,20 @@ function reducer(state: CotizadorState, action: Action): CotizadorState {
     }
     case "SET_AJUSTES":
       return markDirtyOnly({ ...state, ajustes: { ...state.ajustes, ...action.ajustes } });
+    case "SET_ECONOMICS_OVERRIDES":
+      return {
+        ...markDirtyOnly(state),
+        economicsOverrides: { ...state.economicsOverrides, ...action.overrides },
+        needsRecalc: state.report !== null ? true : state.needsRecalc,
+      };
+    case "SET_CONSUMO_FINANCIERO": {
+      const consumo = { ...state.consumo, ...action.consumo };
+      return {
+        ...markDirtyOnly(state),
+        consumo,
+        needsRecalc: state.report !== null ? true : state.needsRecalc,
+      };
+    }
     case "SET_CATALOG":
       return { ...state, catalog: action.catalog };
     case "SET_PVGIS":
@@ -269,6 +289,7 @@ function reducer(state: CotizadorState, action: Action): CotizadorState {
         dirty: false,
         needsRecalc: false,
         lastSavedAt: action.draft.updatedAt,
+        economicsOverrides: action.draft.economicsOverrides ?? {},
         catalog: state.catalog,
       };
     }

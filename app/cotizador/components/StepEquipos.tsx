@@ -2,11 +2,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import {
-  Brain,
   Check,
   CheckCircle2,
   Circle,
-  Loader2,
   Package,
   Sun,
   Zap,
@@ -61,18 +59,16 @@ function groupBomLineas(lineas: BomLinea[]): { categoria: string; lineas: BomLin
 
 export function StepEquipos({
   onBack,
-  onGenerarReporte,
-  calculando,
+  onContinuar,
 }: {
   onBack: () => void;
-  onGenerarReporte: () => void | Promise<void>;
-  calculando: boolean;
+  onContinuar: () => void;
 }) {
   const { state, dispatch } = useCotizador();
   const { ajustes } = state;
   const { result, catalog } = useLiveQuote();
   const [checked, setChecked] = useState<Record<string, boolean>>({});
-  const isBusy = calculando;
+  const isBusy = false;
 
   const lineas = result?.bom.lineas ?? [];
   const grupos = useMemo(() => groupBomLineas(lineas), [lineas]);
@@ -94,9 +90,9 @@ export function StepEquipos({
   const todosRevisados = lineas.length > 0 && revisados === lineas.length;
   const hayErrores = result?.warnings.some((w) => w.code === "sin_inversor") ?? false;
 
-  async function handleGenerar() {
-    if (isBusy || hayErrores || !todosRevisados) return;
-    await onGenerarReporte();
+  function handleContinuar() {
+    if (hayErrores || !todosRevisados) return;
+    onContinuar();
   }
 
   if (!result || !catalog) {
@@ -328,7 +324,7 @@ export function StepEquipos({
         <div className="flex flex-col gap-3 border-t border-slate-200 pt-2">
           {!todosRevisados && !hayErrores && (
             <ValidationHint>
-              Revisá todos los insumos del checklist antes de generar el reporte.
+              Revisá todos los insumos del checklist antes de continuar al modelo económico.
             </ValidationHint>
           )}
           <div className="flex gap-3">
@@ -336,24 +332,11 @@ export function StepEquipos({
               ← Consumo
             </BtnSecondary>
             <BtnPrimary
-              onClick={() => void handleGenerar()}
+              onClick={handleContinuar}
               disabled={isBusy || hayErrores || !todosRevisados}
-              aria-busy={isBusy}
-              className={`relative flex flex-1 items-center justify-center gap-2 ${
-                isBusy ? "animate-pulse !cursor-wait bg-amber-700 !opacity-100" : ""
-              }`}
+              className="relative flex flex-1 items-center justify-center gap-2"
             >
-              {isBusy ? (
-                <>
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  Generando reporte…
-                </>
-              ) : (
-                <>
-                  <Brain className="h-4 w-4" />
-                  Generar reporte
-                </>
-              )}
+              Revisar economía →
             </BtnPrimary>
           </div>
         </div>

@@ -59,13 +59,23 @@ const ajustesSchema = z.object({
 
 export const projectDraftSchema = z.object({
   id: z.string().uuid().optional(),
-  step: z.number().int().min(1).max(5),
+  step: z.number().int().min(1).max(6),
   proyectoNombre: z.string(),
   cliente: clienteSchema,
   techo: techoSchema,
   poligonos: z.array(poligonoSchema),
   consumo: consumoSchema,
   ajustes: ajustesSchema,
+  economicsOverrides: z
+    .object({
+      tasaDescuento: z.number().nullable().optional(),
+      degradacionAnual: z.number().nullable().optional(),
+      escalacionTarifaReal: z.number().nullable().optional(),
+      opexUsdKwp: z.number().nullable().optional(),
+      co2KgKwh: z.number().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
   snapshotDataUrl: z.string().nullable().optional(),
   vendedor: z.string().optional(),
   flowVersion: z.number().int().optional(),
@@ -75,7 +85,7 @@ export const projectDraftSchema = z.object({
 });
 
 export const projectPatchSchema = projectDraftSchema.partial().extend({
-  step: z.number().int().min(1).max(5).optional(),
+  step: z.number().int().min(1).max(6).optional(),
 });
 
 export type ProjectDraftInput = z.infer<typeof projectDraftSchema>;

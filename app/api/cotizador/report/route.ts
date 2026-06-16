@@ -10,7 +10,8 @@ import {
 import { getCatalog } from "@/lib/cotizador/pricing";
 import { getProductionData } from "@/lib/cotizador/pvgis";
 import { mountingForTecho } from "@/lib/cotizador/pvgis/client";
-import type { PvgisResult, QuoteInput } from "@/lib/cotizador/types";
+import type { PvgisResult, QuoteInput, EconomicsOverrides } from "@/lib/cotizador/types";
+import { applyEconomicsToResult } from "@/lib/cotizador/economics-overrides";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +19,7 @@ interface ReportRequestBody {
   proyectoNombre?: string;
   input: QuoteInput;
   pvgisSnapshot?: PvgisResult | null;
+  economicsOverrides?: EconomicsOverrides | null;
 }
 
 /**
@@ -90,7 +92,16 @@ export async function POST(request: Request) {
       body.pvgisSnapshot ?? null
     );
 
-    const result = quote(input, catalog, pvgis);
+    let result = quote(input, catalog, pvgis);
+    if (body.economicsOverrides && Object.keys(body.economicsOverrides).length > 0) {
+      result = applyEconomicsToResult(
+        result,
+        input.consumo,
+        pvgis,
+        catalog.parametros,
+        body.economicsOverrides
+      );
+    }
     const report = deriveProductionReport({
       proyectoNombre: body.proyectoNombre ?? "",
       input,

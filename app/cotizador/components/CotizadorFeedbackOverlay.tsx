@@ -19,6 +19,12 @@ function workloadMessage(step: number, hydrating: boolean): { title: string; sub
   }
   if (step === 4) {
     return {
+      title: "Revisando equipos",
+      subtitle: "Actualizando dimensionamiento y precios…",
+    };
+  }
+  if (step === 5) {
+    return {
       title: "Generando reporte",
       subtitle: "Consultando PVGIS y armando el reporte. Puede tardar unos segundos…",
     };

@@ -3,6 +3,10 @@
  * y resultado del motor de cálculo). Ver docs/Plan_Cotizador_Solar.md.
  */
 
+import type { EconomicsOverrides } from "./economics-overrides";
+
+export type { EconomicsOverrides };
+
 // ── Catálogo (Google Sheet "Precios Cotizador") ──────────────────────────────
 
 export type TipoTecho = "plano" | "inclinado" | "serrucho";
@@ -495,6 +499,7 @@ export interface CotizadorProjectSummary {
   createdAt: string;
 }
 
+
 export interface CotizadorProjectDraft {
   id: string;
   step: number;
@@ -504,9 +509,11 @@ export interface CotizadorProjectDraft {
   poligonos: Poligono[];
   consumo: CotizadorProjectConsumo;
   ajustes: QuoteAjustes;
+  /** Overrides financieros del paso Economía (tasa descuento, OPEX, etc.). */
+  economicsOverrides?: EconomicsOverrides | null;
   snapshotUrl?: string | null;
   vendedor?: string;
-  /** 2 = wizard con paso Equipos (5 pasos). Ausente o 1 = flujo anterior (reporte en paso 4). */
+  /** 3 = wizard 6 pasos (incluye Economía). 2 = 5 pasos. 1 = legacy. */
   flowVersion?: number;
   /** Última respuesta PVGIS exitosa del proyecto (cache offline). */
   pvgisSnapshot?: PvgisResult | null;
