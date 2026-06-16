@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import {
+  Area,
   Bar,
   CartesianGrid,
   Cell,
@@ -9,6 +10,7 @@ import {
   Legend,
   Pie,
   PieChart,
+  ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -30,6 +32,10 @@ function fmt(n: number, dec = 0): string {
     minimumFractionDigits: dec,
     maximumFractionDigits: dec,
   });
+}
+
+function fmtUsd(n: number): string {
+  return `US$ ${fmt(n, 0)}`;
 }
 
 export function StepReporte({
@@ -67,6 +73,22 @@ export function StepReporte({
       : null;
   const coberturaPct =
     consumoAnualKwh > 0 ? (produccionAnualKwh / consumoAnualKwh) * 100 : null;
+
+  const eco = result.economics;
+  const capexUsd = result.bom.capexUsd;
+  const tarifaCompra = state.consumo.tarifaUsdKwh;
+  const tarifaIny =
+    state.consumo.tarifaInyeccionUsdKwh ?? state.catalog?.parametros.tarifaInyeccion ?? 0;
+  const ano1 = eco.proyeccion[0] ?? null;
+  const ingresoAutoconsumo = ano1 ? ano1.autoconsumoKwh * tarifaCompra : 0;
+  const ingresoInyeccion = ano1 ? ano1.excedenteKwh * tarifaIny : 0;
+  const flujoNetoAno1 = eco.ahorroAnualUsd - eco.opexAnualUsd;
+  const showEconomics = capexUsd > 0;
+
+  const flujoChartData = eco.proyeccion.map((p) => ({
+    ano: p.ano,
+    acumulado: p.flujoAcumuladoUsd,
+  }));
 
   const chartData = MESES.map((mes, i) => ({
     mes,
@@ -201,7 +223,95 @@ export function StepReporte({
       {/* Advertencias */}
       {warnings.length > 0 && <QuoteWarningList warnings={warnings} />}
 
-      {/* KPIs */}
+      {showEconomics && (
+        <section className="space-y-5">
+          <div>
+            <h3 className="text-base font-semibold text-slate-900">Económico</h3>
+            <p className="mt-0.5 text-xs text-slate-500">
+              Horizonte 25 años · degradación 0,4 %/año · tarifas constantes · VAN al 11 %
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+            <EcoHero label="Inversión (CAPEX)" value={fmtUsd(capexUsd)} />
+            <EcoHero label="Ahorro anual (año 1)" value={fmtUsd(eco.ahorroAnualUsd)} highlight />
+            <EcoHero
+              label="Recupero"
+              value={eco.paybackAnos !== null ? `${fmt(eco.paybackAnos, 1)} años` : "—"}
+            />
+            <EcoHero
+              label="TIR (25 años)"
+              value={eco.tirPct !== null ? `${fmt(eco.tirPct, 1)} %` : "—"}
+            />
+            <EcoHero label="VAN (25 años)" value={fmtUsd(eco.vanUsd)} />
+          </div>
+
+          <Card title="Flujo de fondos acumulado (25 años)">
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <ComposedChart data={flujoChartData} margin={{ top: 8, right: 12, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis dataKey="ano" tick={{ fontSize: 11 }} />
+                  <YAxis
+                    tick={{ fontSize: 11 }}
+                    width={72}
+                    tickFormatter={(v) => fmt(Number(v) / 1000, 0) + "k"}
+                  />
+                  <Tooltip
+                    formatter={(v) => fmtUsd(Number(v))}
+                    labelFormatter={(label) => `Año ${label}`}
+                  />
+                  <ReferenceLine y={0} stroke="#64748b" strokeDasharray="4 4" />
+                  <Area
+                    type="monotone"
+                    dataKey="acumulado"
+                    name="Flujo acumulado"
+                    stroke="#d97706"
+                    fill="#fef3c7"
+                    strokeWidth={2}
+                  />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
+            <p className="mt-2 text-xs text-slate-500">
+              El punto donde la curva cruza el cero marca el recupero de la inversión.
+            </p>
+          </Card>
+
+          <div className="grid gap-5 lg:grid-cols-2">
+            <Card title="Ingresos anuales (año 1)">
+              <table className="w-full text-sm">
+                <tbody>
+                  <EcoTableRow label="Ahorro por autoconsumo" value={fmtUsd(ingresoAutoconsumo)} />
+                  <EcoTableRow label="Inyección a la red" value={fmtUsd(ingresoInyeccion)} />
+                  <EcoTableRow
+                    label="Total"
+                    value={fmtUsd(eco.ahorroAnualUsd)}
+                    strong
+                    borderTop
+                  />
+                </tbody>
+              </table>
+            </Card>
+            <Card title="Costos">
+              <table className="w-full text-sm">
+                <tbody>
+                  <EcoTableRow label="Inversión inicial" value={fmtUsd(capexUsd)} />
+                  <EcoTableRow label="Mantenimiento anual (OPEX)" value={fmtUsd(eco.opexAnualUsd)} />
+                  <EcoTableRow
+                    label="Flujo neto año 1"
+                    value={fmtUsd(flujoNetoAno1)}
+                    strong
+                    borderTop
+                  />
+                </tbody>
+              </table>
+            </Card>
+          </div>
+        </section>
+      )}
+
+      {/* KPIs producción — cobertura */}
       {coberturaPct !== null && (
         <div
           className={`rounded-xl border p-4 shadow-sm ${
@@ -501,6 +611,58 @@ function FieldRow({ label, value }: { label: string; value: string }) {
     <tr className="border-b border-stone-100">
       <td className="py-1.5 pr-2 font-medium text-stone-500">{label}</td>
       <td className="py-1.5 text-right text-stone-800">{value}</td>
+    </tr>
+  );
+}
+
+function EcoHero({
+  label,
+  value,
+  highlight = false,
+}: {
+  label: string;
+  value: string;
+  highlight?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-xl border p-4 shadow-sm ${
+        highlight ? "border-amber-300 bg-amber-50" : "border-slate-200 bg-white"
+      }`}
+    >
+      <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">{label}</p>
+      <p
+        className={`mt-1.5 text-xl font-bold sm:text-2xl ${
+          highlight ? "text-amber-900" : "text-slate-800"
+        }`}
+      >
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function EcoTableRow({
+  label,
+  value,
+  strong = false,
+  borderTop = false,
+}: {
+  label: string;
+  value: string;
+  strong?: boolean;
+  borderTop?: boolean;
+}) {
+  return (
+    <tr className={borderTop ? "border-t border-slate-200" : ""}>
+      <td className={`py-2 pr-2 ${strong ? "font-semibold text-slate-800" : "text-slate-600"}`}>
+        {label}
+      </td>
+      <td
+        className={`py-2 text-right ${strong ? "font-semibold text-slate-900" : "text-slate-800"}`}
+      >
+        {value}
+      </td>
     </tr>
   );
 }

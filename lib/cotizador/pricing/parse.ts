@@ -194,7 +194,7 @@ export const CLIPPING_CURVE_DEFAULT: ClippingPoint[] = [
  */
 export const PARAMETROS_DEFAULT: Parametros = {
   margenDefault: 0.35,
-  tasaDescuento: 0.1,
+  tasaDescuento: 0.11,
   opexUsdKwp: 11,
   packingPlano: 0.5,
   packingInclinado: 0.85,
