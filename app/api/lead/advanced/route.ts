@@ -1,5 +1,35 @@
 import { NextResponse } from "next/server";
+import { brands, type BrandId } from "@/app/lib/brands";
 import { syncLeadToSheetAndMonday } from "@/app/lib/leads/syncLead";
+
+function isBrandId(value: unknown): value is BrandId {
+  return value === "renovatio" || value === "nexo";
+}
+
+function resolveOrigen(brand: BrandId | null, rawOrigen: unknown): string {
+  if (brand === "nexo") return "nexo";
+  if (brand === "renovatio") return "avanzada";
+  if (typeof rawOrigen === "string" && rawOrigen.trim().length > 0) {
+    return rawOrigen.trim();
+  }
+  return "avanzada";
+}
+
+/** URL o board propios de la marca. Si la env var no está, quedan vacíos y se usan los de siempre. */
+function resolveBrandDestinations(brand: BrandId | null): {
+  sheetUrl?: string;
+  mondayBoardId?: string;
+} {
+  if (!brand) return {};
+  const config = brands[brand];
+  const sheetUrl = config.leadFormUrlEnv
+    ? process.env[config.leadFormUrlEnv]?.trim() || undefined
+    : undefined;
+  const mondayBoardId = config.mondayBoardIdEnv
+    ? process.env[config.mondayBoardIdEnv]?.trim() || undefined
+    : undefined;
+  return { sheetUrl, mondayBoardId };
+}
 
 export async function POST(request: Request) {
   try {
@@ -21,13 +51,17 @@ export async function POST(request: Request) {
       );
     }
 
+    const brand = isBrandId(body.brand) ? body.brand : null;
+    const origen = resolveOrigen(brand, body.origen);
+    const destinations = resolveBrandDestinations(brand);
+
     const payload: Record<string, unknown> = {
       nombre,
       apellido,
       empresa,
       mail,
       telefono: telefono || "",
-      origen: "avanzada",
+      origen,
     };
 
     if (wizard) {
@@ -47,7 +81,7 @@ export async function POST(request: Request) {
       payload.inversion_usd = results.investmentUsd ?? "";
     }
 
-    const result = await syncLeadToSheetAndMonday(payload);
+    const result = await syncLeadToSheetAndMonday(payload, destinations);
 
     if (!result.ok) {
       return NextResponse.json(

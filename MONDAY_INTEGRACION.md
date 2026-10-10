@@ -47,6 +47,7 @@ Board: [Leads Solar](https://renovatio812485.monday.com/boards/18414300841) — 
 |----------------|--------------|----------|
 | `básica` | calculadora | 7 |
 | `avanzada` | calculadora | 7 |
+| `nexo` | Nexo | se crea al primer lead (`create_labels_if_missing`) |
 | (relevamiento futuro) | relevamiento | 19 |
 
 **Tarifa:** T1→6, T2→9, T3→2

@@ -4,7 +4,8 @@
  *
  * Origen del lead:
  * - "básica": calculadora básica (solo contacto).
- * - "avanzada": calculadora avanzada (contacto + datos del wizard + resultados).
+ * - "avanzada": calculadora Renovatio (contacto + wizard + resultados).
+ * - "nexo": calculadora Nexo Energía. Misma fila que la avanzada; la columna Origen queda "nexo".
  *
  * Ver CONECTAR_GOOGLE_SHEETS.md en el proyecto para el paso a paso completo.
  */
@@ -25,10 +26,11 @@ function doPost(e) {
     var telefono = body.telefono || '';
     var fecha = new Date();
     var origen = body.origen || 'básica';
+    var esCalculadoraCompleta = origen === 'avanzada' || origen === 'nexo';
 
     var rowValues;
 
-    if (origen === 'avanzada') {
+    if (esCalculadoraCompleta) {
       rowValues = [
         nombre,
         apellido,
@@ -76,7 +78,9 @@ function doPost(e) {
 
     // Enviar mail resumen si se configuró NOTIFICATION_EMAIL
     if (NOTIFICATION_EMAIL && NOTIFICATION_EMAIL !== "") {
-      var asunto = "Nuevo lead Solar - " + (origen === "avanzada" ? "Calculadora Avanzada" : "Calculadora Básica");
+      var asunto = "Nuevo lead Solar - " + (
+        origen === "nexo" ? "Nexo Energía" : origen === "avanzada" ? "Calculadora Avanzada" : "Calculadora Básica"
+      );
       var zonaHoraria = Session.getScriptTimeZone();
       var fechaTexto = Utilities.formatDate(fecha, zonaHoraria, "yyyy-MM-dd HH:mm:ss");
 
@@ -91,8 +95,8 @@ function doPost(e) {
       lineas.push("");
       lineas.push("Selección de datos:");
 
-      if (origen === "avanzada") {
-        lineas.push("• Origen: Calculadora avanzada");
+      if (esCalculadoraCompleta) {
+        lineas.push("• Origen: " + (origen === "nexo" ? "Nexo Energía" : "Calculadora avanzada"));
         lineas.push("• Dirección: " + (body.direccion || ""));
         lineas.push("• Superficie estimada (m²): " + (body.superficie_m2 || ""));
         lineas.push("• Tarifa: " + (body.tarifa || ""));

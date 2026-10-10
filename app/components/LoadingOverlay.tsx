@@ -29,10 +29,10 @@ export function LoadingOverlay({ visible, message, "aria-label": ariaLabel }: Lo
       aria-label={ariaLabel ?? message}
       aria-busy="true"
       tabIndex={-1}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-4 bg-stone-900/60 backdrop-blur-[2px]"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-4 bg-brand-ink/60 backdrop-blur-[2px]"
     >
       <div
-        className="h-10 w-10 rounded-full border-2 border-amber-200 border-t-amber-500 renovatio-spinner"
+        className="h-10 w-10 rounded-full border-2 border-brand-accent-faint border-t-brand-accent renovatio-spinner"
         aria-hidden
       />
       <p className="text-sm font-medium text-white/95">{message}</p>

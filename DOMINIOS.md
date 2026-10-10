@@ -7,7 +7,8 @@ Un solo dominio canónico: **https://www.renovatio.lat**
 | URL pública | Contenido |
 |-------------|-----------|
 | `/` | Landing (Calculadora Solar + Presupuesto Indicativo) |
-| `/calculadora` | Calculadora Solar (wizard) |
+| `/calculadora` | Calculadora Solar Renovatio (wizard) |
+| `/calculadora/nexo` | Misma calculadora, marca Nexo Energía |
 | `/presupuesto` | Presupuesto Indicativo (inicio) |
 | `/presupuesto/wizard` | Formulario presupuesto |
 | `/presupuesto/admin` | Panel admin (protegido) |

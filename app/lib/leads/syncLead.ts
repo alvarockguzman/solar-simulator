@@ -35,14 +35,15 @@ export function sheetPayloadToMondayLead(
 }
 
 export async function syncLeadToSheetAndMonday(
-  sheetPayload: Record<string, unknown>
+  sheetPayload: Record<string, unknown>,
+  options?: { sheetUrl?: string; mondayBoardId?: string }
 ): Promise<
   | { ok: true; mondaySynced: boolean; mondayItemId?: string; mondayError?: string }
   | { ok: false; error: string; details?: string }
 > {
   let sheetResult: Awaited<ReturnType<typeof submitToGoogleSheet>>;
   try {
-    sheetResult = await submitToGoogleSheet(sheetPayload);
+    sheetResult = await submitToGoogleSheet(sheetPayload, options?.sheetUrl);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     return { ok: false, error: `Error al guardar el lead: ${message}` };
@@ -59,7 +60,9 @@ export async function syncLeadToSheetAndMonday(
   const mondayLead = sheetPayloadToMondayLead(sheetPayload);
   let mondayResult: Awaited<ReturnType<typeof createLeadInMonday>>;
   try {
-    mondayResult = await createLeadInMonday(mondayLead);
+    mondayResult = await createLeadInMonday(mondayLead, {
+      boardId: options?.mondayBoardId,
+    });
   } catch (err) {
     console.error("[Monday] Excepción al crear lead:", err);
     return { ok: true, mondaySynced: false };

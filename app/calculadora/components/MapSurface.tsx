@@ -9,6 +9,7 @@ import {
   useMapEvents,
   useMap,
 } from "react-leaflet";
+import { useBrand } from "@/app/lib/BrandContext";
 import { MapResizeHandler } from "./MapResizeHandler";
 
 import "leaflet/dist/leaflet.css";
@@ -49,6 +50,7 @@ function FlyToCenter({ center }: { center: { lat: number; lng: number } }) {
 }
 
 export function MapSurface({ center, points, closed, onAddPoint, className = "" }: MapSurfaceProps) {
+  const { colors } = useBrand();
   const latLngs: [number, number][] =
     closed && points.length >= 3 ? [...points, points[0]] : points;
 
@@ -73,7 +75,7 @@ export function MapSurface({ center, points, closed, onAddPoint, className = "" 
               center={[lat, lng]}
               radius={6}
               pathOptions={{
-                fillColor: "#ea580c",
+                fillColor: colors.marker,
                 color: "#fff",
                 weight: 2,
                 fillOpacity: 1,
@@ -84,8 +86,8 @@ export function MapSurface({ center, points, closed, onAddPoint, className = "" 
           <Polygon
             positions={latLngs}
             pathOptions={{
-              color: "#ea580c",
-              fillColor: "#f59e0b",
+              color: colors.marker,
+              fillColor: colors.polygonFill,
               fillOpacity: 0.4,
               weight: 2,
             }}

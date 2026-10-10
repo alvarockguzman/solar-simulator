@@ -1,6 +1,8 @@
 "use client";
 
+import { useBrand } from "@/app/lib/BrandContext";
 import { useWizard } from "../context/WizardContext";
+import { NexoResults } from "../nexo/components/NexoResults";
 import { TARIFF_LABELS } from "../lib/constants";
 import { WizardStepBanner } from "./WizardStepBanner";
 import { WizardStepLayout } from "./WizardStepLayout";
@@ -40,10 +42,22 @@ export function StepResults({
   onBack,
   onRequestQuote,
 }: StepResultsProps) {
+  const brand = useBrand();
   const { tariff } = useWizard();
   const accumulated = savingsAccumulatedLifetime(results.savingsUsdPerYear);
   const co2Tons = co2AvoidedTonsPerYear(results.energyKwhPerYear);
   const tariffLabel = tariff ? TARIFF_LABELS[tariff] : "—";
+
+  if (brand.id === "nexo") {
+    return (
+      <NexoResults
+        results={results}
+        stepIndex={stepIndex}
+        onBack={onBack}
+        onRequestQuote={onRequestQuote}
+      />
+    );
+  }
 
   return (
     <WizardStepLayout
@@ -57,13 +71,13 @@ export function StepResults({
       }
     >
       <div className="mx-auto w-full max-w-3xl">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-stone-500">
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-brand-caption">
             Tu instalación solar a medida
           </h3>
 
           {/* Hero: ahorro anual */}
           <section
-            className="mt-4 rounded-2xl border border-stone-200 bg-gradient-to-br from-brand-cream/60 to-white p-6 shadow-sm sm:p-8"
+            className="mt-4 rounded-2xl border border-brand-line bg-gradient-to-br from-brand-surface-alt/60 to-white p-6 shadow-sm sm:p-8"
             aria-labelledby="hero-savings-title"
           >
             <p
@@ -79,7 +93,7 @@ export function StepResults({
                 / año
               </span>
             </p>
-            <p className="mt-2 text-sm text-stone-600 sm:text-base">
+            <p className="mt-2 text-sm text-brand-body-soft sm:text-base">
               ≈ {formatUsd(accumulated)} acumulados a {PROJECT_LIFETIME_YEARS}{" "}
               años
             </p>
@@ -109,11 +123,11 @@ export function StepResults({
           </div>
 
           {/* Supuestos */}
-          <details className="group mt-8 rounded-xl border border-stone-200 bg-stone-50/80">
-            <summary className="cursor-pointer list-none px-4 py-3 text-sm font-medium text-stone-700 transition-colors hover:text-stone-900 [&::-webkit-details-marker]:hidden">
+          <details className="group mt-8 rounded-xl border border-brand-line bg-brand-surface/80">
+            <summary className="cursor-pointer list-none px-4 py-3 text-sm font-medium text-brand-body transition-colors hover:text-brand-ink [&::-webkit-details-marker]:hidden">
               <span className="inline-flex items-center gap-2">
                 <span
-                  className="text-stone-400 transition-transform group-open:rotate-180"
+                  className="text-brand-faint transition-transform group-open:rotate-180"
                   aria-hidden
                 >
                   ▼
@@ -121,7 +135,7 @@ export function StepResults({
                 Supuestos del cálculo
               </span>
             </summary>
-            <ul className="space-y-2 border-t border-stone-200 px-4 py-4 text-sm text-stone-600">
+            <ul className="space-y-2 border-t border-brand-line px-4 py-4 text-sm text-brand-body-soft">
               <li>
                 Densidad de potencia: {KWP_PER_M2} kWp/m² de superficie
                 utilizable.
@@ -156,7 +170,7 @@ export function StepResults({
             </ul>
           </details>
 
-          <p className="mt-4 text-xs text-stone-500">
+          <p className="mt-4 text-xs text-brand-caption">
             Valores orientativos; un presupuesto personalizado puede ajustar
             supuestos y dimensionamiento.
           </p>
@@ -189,7 +203,7 @@ function SubKpi({
   subValue?: string;
 }) {
   return (
-    <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+    <div className="rounded-xl border border-brand-line bg-white p-4 shadow-sm">
       <p className="text-xs font-medium uppercase tracking-wide text-brand-muted">
         {label}
       </p>
@@ -197,7 +211,7 @@ function SubKpi({
         {value}
       </p>
       {subValue && (
-        <p className="mt-0.5 text-xs text-stone-500 sm:text-sm">{subValue}</p>
+        <p className="mt-0.5 text-xs text-brand-caption sm:text-sm">{subValue}</p>
       )}
     </div>
   );

@@ -23,6 +23,7 @@ const ORIGEN_APP_TO_MONDAY: Record<string, string> = {
   básica: "calculadora",
   avanzada: "calculadora",
   relevamiento: "relevamiento",
+  nexo: "Nexo",
 };
 
 const TARIFA_LABELS = new Set(["T1", "T2", "T3"]);

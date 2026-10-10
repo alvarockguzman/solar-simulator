@@ -74,11 +74,17 @@ function buildColumnValues(lead: LeadMondayPayload): Record<string, unknown> {
 }
 
 const CREATE_ITEM_MUTATION = `
-  mutation CreateLeadItem($boardId: ID!, $itemName: String!, $columnValues: JSON!) {
+  mutation CreateLeadItem(
+    $boardId: ID!
+    $itemName: String!
+    $columnValues: JSON!
+    $createLabelsIfMissing: Boolean
+  ) {
     create_item(
       board_id: $boardId,
       item_name: $itemName,
-      column_values: $columnValues
+      column_values: $columnValues,
+      create_labels_if_missing: $createLabelsIfMissing
     ) {
       id
     }
@@ -86,13 +92,18 @@ const CREATE_ITEM_MUTATION = `
 `;
 
 export async function createLeadInMonday(
-  lead: LeadMondayPayload
+  lead: LeadMondayPayload,
+  options?: { boardId?: string }
 ): Promise<{ ok: true; itemId: string } | { ok: false; error: string }> {
-  if (!isMondayConfigured()) {
+  const boardId = options?.boardId?.trim() || getMondayConfig().boardId;
+  if (!isMondayConfigured() && !boardId) {
     return { ok: false, error: "Monday no configurado (faltan variables de entorno)" };
   }
 
-  const { boardId } = getMondayConfig();
+  const { token } = getMondayConfig();
+  if (!token) {
+    return { ok: false, error: "Monday no configurado (faltan variables de entorno)" };
+  }
   if (!boardId) {
     return { ok: false, error: "MONDAY_BOARD_ID no configurada en el servidor" };
   }
@@ -105,6 +116,7 @@ export async function createLeadInMonday(
     boardId,
     itemName,
     columnValues,
+    createLabelsIfMissing: true,
   });
 
   if ("error" in result) {

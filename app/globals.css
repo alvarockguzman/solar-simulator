@@ -9,6 +9,76 @@
   --solar-orange: #ea580c;
   --solar-dark: #1c1917;
   --solar-cream: #fef3c7;
+
+  /*
+   * Marca Renovatio. Los tokens de acción y de gris usan el color que la
+   * calculadora ya pinta (ámbar y stone de Tailwind), no un hex parecido.
+   * Un tono sin equivalente tiene su propia variable.
+   */
+  --brand-primary: 243 154 45;
+  --brand-primary-dark: 199 120 22;
+  --brand-navy: 15 39 71;
+  --brand-accent: 245 158 11;
+  --brand-accent-dark: 217 119 6;
+  --brand-accent-deep: 180 83 9;
+  --brand-accent-deeper: 146 64 14;
+  --brand-accent-soft: 252 211 77;
+  --brand-accent-muted: 254 243 199;
+  --brand-accent-faint: 253 230 138;
+  --brand-accent-wash: 255 251 235;
+  --brand-accent-end: 234 88 12;
+  --brand-accent-2: 15 39 71;
+  --brand-highlight: 245 158 11;
+  --brand-ink: 28 25 23;
+  --brand-ink-soft: 41 37 36;
+  --brand-body: 68 64 60;
+  --brand-body-soft: 87 83 78;
+  --brand-caption: 120 113 108;
+  --brand-faint: 168 162 158;
+  --brand-muted: 107 114 128;
+  --brand-line-strong: 214 211 209;
+  --brand-line: 231 229 228;
+  --brand-line-soft: 245 245 244;
+  --brand-surface: 250 250 249;
+  --brand-surface-alt: 255 247 236;
+  --brand-slate: 71 85 105;
+  --brand-slate-strong: 51 65 85;
+  --brand-cyan: 15 39 71;
+  --brand-blue-050: 255 247 236;
+}
+
+[data-brand="nexo"] {
+  --brand-primary: 4 18 122;
+  --brand-primary-dark: 3 12 78;
+  --brand-navy: 4 18 122;
+  --brand-accent: 0 150 87;
+  --brand-accent-dark: 0 116 67;
+  --brand-accent-deep: 0 92 54;
+  --brand-accent-deeper: 0 70 40;
+  --brand-accent-soft: 124 193 66;
+  --brand-accent-muted: 231 246 238;
+  --brand-accent-faint: 186 230 204;
+  --brand-accent-wash: 238 247 242;
+  --brand-accent-end: 0 116 67;
+  --brand-accent-2: 3 151 209;
+  --brand-highlight: 124 193 66;
+  --brand-ink: 22 33 59;
+  --brand-ink-soft: 36 48 78;
+  --brand-body: 53 66 98;
+  --brand-body-soft: 74 88 120;
+  --brand-caption: 91 103 128;
+  --brand-faint: 154 164 184;
+  --brand-muted: 91 103 128;
+  --brand-line-strong: 197 206 221;
+  --brand-line: 220 226 236;
+  --brand-line-soft: 236 240 246;
+  --brand-surface: 241 243 250;
+  --brand-surface-alt: 238 247 242;
+  --brand-slate: 74 88 120;
+  --brand-slate-strong: 45 58 90;
+  --brand-cyan: 1 163 225;
+  --brand-blue-050: 238 246 252;
+  font-family: var(--font-nexo), Montserrat, system-ui, sans-serif;
 }
 
 body {
@@ -74,6 +144,17 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Franja de marca. En Nexo es el degradé verde → lima → celeste. */
+  .brand-gradient-bar {
+    height: 4px;
+    width: 100%;
+    background: rgb(var(--brand-primary));
+  }
+
+  [data-brand="nexo"] .brand-gradient-bar {
+    background: linear-gradient(90deg, #009657 0%, #7cc142 50%, #0397d1 100%);
   }
 }
 

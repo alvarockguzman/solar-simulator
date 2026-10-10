@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useBrand } from "@/app/lib/BrandContext";
 import { useWizard } from "../context/WizardContext";
+import { stepTitleClass } from "./wizardButtons";
 import { TARIFF_LABELS, type TariffId } from "../lib/constants";
 import { WizardNav } from "./WizardNav";
 import { WizardStepBanner } from "./WizardStepBanner";
@@ -22,6 +24,7 @@ export function StepTariff({ stepIndex, onBack, onNext }: StepTariffProps) {
   const [showUnknownInfo, setShowUnknownInfo] = useState(selection === UNKNOWN_TARIFF_VALUE);
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
+  const isNexo = useBrand().id === "nexo";
   const canNext = tariff !== null;
 
   useEffect(() => {
@@ -50,7 +53,7 @@ export function StepTariff({ stepIndex, onBack, onNext }: StepTariffProps) {
       }
     >
       <div className="mb-2 flex items-center gap-2">
-        <h3 className="text-lg font-semibold text-stone-800">
+        <h3 className={stepTitleClass(isNexo)}>
           Seleccioná el tipo de tarifa eléctrica
         </h3>
         <div ref={tooltipRef} className="relative inline-flex">
@@ -59,19 +62,19 @@ export function StepTariff({ stepIndex, onBack, onNext }: StepTariffProps) {
             onClick={() => setTooltipOpen((prev) => !prev)}
             onMouseEnter={() => setTooltipOpen(true)}
             onMouseLeave={() => setTooltipOpen(false)}
-            className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-stone-300 bg-stone-50 text-[11px] text-stone-500 hover:bg-stone-100 hover:text-stone-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+            className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-brand-line-strong bg-brand-surface text-[11px] text-brand-caption hover:bg-brand-line-soft hover:text-brand-body focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2"
             aria-label="Dónde encontrar el tipo de tarifa"
           >
             i
           </button>
           {tooltipOpen && (
-            <div className="absolute left-1/2 top-full z-10 mt-2 w-64 -translate-x-1/2 rounded-lg border border-stone-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-lg">
+            <div className="absolute left-1/2 top-full z-10 mt-2 w-64 -translate-x-1/2 rounded-lg border border-brand-line bg-white px-3 py-2 text-xs text-brand-slate-strong shadow-lg">
               Podés encontrar este dato en la parte superior frontal de tu factura de energía.
             </div>
           )}
         </div>
       </div>
-      <p className="mb-4 text-sm leading-relaxed text-slate-600">
+      <p className="mb-4 text-sm leading-relaxed text-brand-slate">
         Si no estás seguro, seleccioná la opción correspondiente o usá el promedio industrial
         estimado.
       </p>
@@ -96,7 +99,7 @@ export function StepTariff({ stepIndex, onBack, onNext }: StepTariffProps) {
             setShowUnknownInfo(false);
           }
         }}
-        className="w-full max-w-md rounded-xl border-2 border-stone-200 px-4 py-3 text-stone-900 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+        className="w-full max-w-md rounded-xl border-2 border-brand-line px-4 py-3 text-brand-ink focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/20"
         aria-label="Tipo de tarifa"
       >
         <option value="">Elegir tarifa...</option>
@@ -110,7 +113,7 @@ export function StepTariff({ stepIndex, onBack, onNext }: StepTariffProps) {
         </option>
       </select>
       {showUnknownInfo && (
-        <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-600">
+        <p className="mt-2 max-w-md text-sm leading-relaxed text-brand-slate">
           Utilizaremos una tarifa estimada para los cálculos iniciales. Podrás ajustarla más
           adelante con un asesor.
         </p>

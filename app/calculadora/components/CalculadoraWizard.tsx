@@ -1,16 +1,18 @@
 "use client";
 
-import { Suspense, useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { StepIntro } from "./components/StepIntro";
-import { StepAddress } from "./components/StepAddress";
-import { StepSurface } from "./components/StepSurface";
-import { StepTariff } from "./components/StepTariff";
-import { StepConsumption } from "./components/StepConsumption";
-import { StepResults } from "./components/StepResults";
-import { LeadFormAdvanced } from "./components/LeadFormAdvanced";
-import { LoadingOverlay } from "../components/LoadingOverlay";
-import { useWizard } from "./context/WizardContext";
+import { useBrand } from "@/app/lib/BrandContext";
+import { LoadingOverlay } from "../../components/LoadingOverlay";
+import { useWizard } from "../context/WizardContext";
+import { LeadFormAdvanced } from "./LeadFormAdvanced";
+import { StepAddress } from "./StepAddress";
+import { StepConsumption } from "./StepConsumption";
+import { StepIntro } from "./StepIntro";
+import { NexoIntro } from "../nexo/components/NexoIntro";
+import { StepResults } from "./StepResults";
+import { StepSurface } from "./StepSurface";
+import { StepTariff } from "./StepTariff";
 
 const STEPS = ["intro", "address", "surface", "tariff", "consumption", "results"] as const;
 type StepId = (typeof STEPS)[number];
@@ -31,9 +33,10 @@ async function fetchPvgisYield(coords: { lat: number; lng: number }): Promise<nu
   }
 }
 
-function CalculadoraPageContent() {
+export function CalculadoraWizard() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const brand = useBrand();
   const previewLeadSuccess =
     process.env.NODE_ENV === "development" &&
     searchParams.get("preview") === "lead-success";
@@ -49,8 +52,6 @@ function CalculadoraPageContent() {
     }
   }, [previewLeadSuccess]);
 
-  const stepIndex = STEPS.indexOf(currentStep);
-  const isIntro = currentStep === "intro";
   const isResults = currentStep === "results";
 
   const goNext = useCallback(() => {
@@ -83,9 +84,9 @@ function CalculadoraPageContent() {
   const closeLeadForm = useCallback(() => {
     setShowLeadForm(false);
     if (previewLeadSuccess) {
-      router.replace("/calculadora");
+      router.replace(brand.basePath);
     }
-  }, [previewLeadSuccess, router]);
+  }, [previewLeadSuccess, router, brand.basePath]);
 
   const results = isResults ? getResults() : null;
 
@@ -94,8 +95,14 @@ function CalculadoraPageContent() {
       <main
         className={`flex-1 flex flex-col min-h-0 ${isResults ? "overflow-y-auto" : "overflow-hidden"}`}
       >
-        <div key={currentStep} className="fade-slide-in flex-1 flex flex-col min-h-0 overflow-hidden">
-          {currentStep === "intro" && <StepIntro onStart={goNext} />}
+        <div
+          key={currentStep}
+          className={`fade-slide-in flex min-h-0 flex-1 flex-col ${
+            brand.id === "nexo" && currentStep === "intro" ? "overflow-y-auto" : "overflow-hidden"
+          }`}
+        >
+          {currentStep === "intro" &&
+            (brand.id === "nexo" ? <NexoIntro onStart={goNext} /> : <StepIntro onStart={goNext} />)}
           {currentStep === "address" && (
             <StepAddress
               stepIndex={1}
@@ -152,13 +159,5 @@ function CalculadoraPageContent() {
         />
       )}
     </>
-  );
-}
-
-export default function AdvancedPage() {
-  return (
-    <Suspense fallback={null}>
-      <CalculadoraPageContent />
-    </Suspense>
   );
 }
