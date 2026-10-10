@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
+import { useBrand } from "@/app/lib/BrandContext";
 import { useWizard } from "../context/WizardContext";
+import { stepTitleClass } from "./wizardButtons";
 import { WizardNav } from "./WizardNav";
 import { MapStepLayout, MAP_MIN_HEIGHT_CLASS } from "./MapStepLayout";
 import { searchAddress, reverseGeocode, type NominatimResult } from "../lib/geocode";
@@ -13,7 +15,7 @@ const MapAddress = dynamic(
     ssr: false,
     loading: () => (
       <div
-        className={`flex h-full w-full items-center justify-center bg-stone-200 lg:rounded-r-xl ${MAP_MIN_HEIGHT_CLASS}`}
+        className={`flex h-full w-full items-center justify-center bg-brand-line lg:rounded-r-xl ${MAP_MIN_HEIGHT_CLASS}`}
       >
         Cargando mapa…
       </div>
@@ -99,6 +101,7 @@ export function StepAddress({ stepIndex, onBack, onNext }: StepAddressProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const isNexo = useBrand().id === "nexo";
   const canNext = address.trim() !== "" && coordinates !== null;
   const center = coordinates ?? DEFAULT_CENTER;
 
@@ -109,7 +112,7 @@ export function StepAddress({ stepIndex, onBack, onNext }: StepAddressProps) {
       subtitle="¿Dónde está tu empresa?"
       controls={
         <>
-          <h3 className="mb-3 text-lg font-semibold text-stone-800">
+          <h3 className={stepTitleClass(isNexo, "mb-3")}>
             Seleccioná la dirección de tu empresa
           </h3>
           <div ref={wrapperRef} className="relative mb-3 max-w-md">
@@ -119,19 +122,19 @@ export function StepAddress({ stepIndex, onBack, onNext }: StepAddressProps) {
               onChange={onInputChange}
               onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
               placeholder="Escribí la dirección..."
-              className="w-full rounded-xl border-2 border-stone-200 px-4 py-3 text-stone-900 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+              className="w-full rounded-xl border-2 border-brand-line px-4 py-3 text-brand-ink focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/20"
               aria-label="Dirección"
               aria-autocomplete="list"
               aria-expanded={showSuggestions && suggestions.length > 0}
             />
             {loading && (
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-stone-400">
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-brand-faint">
                 Buscando…
               </span>
             )}
             {showSuggestions && suggestions.length > 0 && (
               <ul
-                className="absolute z-20 mt-1 max-h-48 w-full overflow-y-auto rounded-xl border border-stone-200 bg-white shadow-lg"
+                className="absolute z-20 mt-1 max-h-48 w-full overflow-y-auto rounded-xl border border-brand-line bg-white shadow-lg"
                 role="listbox"
               >
                 {suggestions.map((item) => (
@@ -139,7 +142,7 @@ export function StepAddress({ stepIndex, onBack, onNext }: StepAddressProps) {
                     key={item.place_id}
                     role="option"
                     tabIndex={0}
-                    className="cursor-pointer border-b border-stone-100 px-4 py-3 text-sm text-stone-800 last:border-0 hover:bg-amber-50"
+                    className="cursor-pointer border-b border-brand-line-soft px-4 py-3 text-sm text-brand-ink-soft last:border-0 hover:bg-brand-accent-wash"
                     onClick={() => onSelectSuggestion(item)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") onSelectSuggestion(item);
@@ -152,10 +155,10 @@ export function StepAddress({ stepIndex, onBack, onNext }: StepAddressProps) {
             )}
           </div>
           {reverseLoading && (
-            <p className="mb-2 text-sm text-amber-600">Obteniendo dirección…</p>
+            <p className="mb-2 text-sm text-brand-accent-dark">Obteniendo dirección…</p>
           )}
           <WizardNav onBack={onBack} onNext={onNext} canGoNext={canNext} />
-          <p className="mt-3 max-w-md text-sm text-stone-600">
+          <p className="mt-3 max-w-md text-sm text-brand-body-soft">
             Escribí o modificá la dirección; cuando estés listo apretá Siguiente. También podés
             elegir un punto directamente en el mapa.
           </p>

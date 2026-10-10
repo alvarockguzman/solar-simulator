@@ -31,3 +31,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Material de referencia de Nexo (fuentes, no el build de public/brand)
+docs/referencia-nexo/*.png
+docs/referencia-nexo/*.html

@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
+import { useBrand } from "@/app/lib/BrandContext";
+import { nexoBtnPrimary, nexoBtnSecondary } from "./wizardButtons";
 
 interface ManualSurfaceModalProps {
   open: boolean;
@@ -13,6 +15,7 @@ export function ManualSurfaceModal({
   onClose,
   onConfirm,
 }: ManualSurfaceModalProps) {
+  const isNexo = useBrand().id === "nexo";
   const titleId = useId();
   const [value, setValue] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -48,10 +51,10 @@ export function ManualSurfaceModal({
         className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 id={titleId} className="text-lg font-semibold text-stone-900">
+        <h2 id={titleId} className={isNexo ? "text-lg font-bold text-brand-primary" : "text-lg font-semibold text-brand-ink"}>
           Superficie manual
         </h2>
-        <p className="mt-2 text-sm text-stone-600">
+        <p className="mt-2 text-sm text-brand-body-soft">
           Ingresá la superficie disponible en metros cuadrados. Podés estimarla
           con planos o mediciones del techo o terreno.
         </p>
@@ -59,7 +62,7 @@ export function ManualSurfaceModal({
           <div>
             <label
               htmlFor="manual-surface-m2"
-              className="block text-sm font-medium text-stone-700"
+              className="block text-sm font-medium text-brand-body"
             >
               Superficie (m²)
             </label>
@@ -74,7 +77,7 @@ export function ManualSurfaceModal({
                 setValue(e.target.value);
                 setError(null);
               }}
-              className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2.5 text-stone-900 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30"
+              className="mt-1 w-full rounded-lg border border-brand-line-strong px-3 py-2.5 text-brand-ink focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/30"
               placeholder="Ej. 261"
               autoFocus
             />
@@ -88,13 +91,21 @@ export function ManualSurfaceModal({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg border border-stone-300 px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+              className={
+                isNexo
+                  ? nexoBtnSecondary
+                  : "rounded-lg border border-brand-line-strong px-4 py-2.5 text-sm font-medium text-brand-body hover:bg-brand-surface"
+              }
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="rounded-lg bg-amber-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+              className={
+                isNexo
+                  ? nexoBtnPrimary
+                  : "rounded-lg bg-brand-accent px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-accent-dark focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2"
+              }
             >
               Guardar superficie
             </button>

@@ -21,6 +21,18 @@ Herramienta web para captar leads comerciales/industriales mostrando el benefici
 3. Ejecutar: `npm run dev`
 4. Abrir en el navegador: http://localhost:3000
 
+## Multi-marca
+
+La calculadora vive dos veces en la misma app. `/calculadora` es Renovatio y `/calculadora/nexo` es Nexo Energía. Los pasos, las cuentas y las APIs son los mismos. Cambia la marca.
+
+`app/lib/brands.ts` define cada marca: nombre, contacto, WhatsApp, colores en hex (para mapas y gráficos) y el `origen` del lead (`avanzada` en Renovatio, `nexo` en Nexo). `app/lib/BrandContext.tsx` expone esa config con `useBrand()`. El layout de cada ruta envuelve la página en su `BrandProvider`.
+
+Los colores de la interfaz no están fijos en los componentes. `app/globals.css` declara variables `--brand-*` en RGB. `:root` usa los tonos que ya tenía Renovatio. `[data-brand="nexo"]` los reemplaza por la paleta de Nexo. Tailwind los lee como `brand-accent`, `brand-primary`, `brand-ink` y el resto. El layout de Nexo pone `data-brand="nexo"` en su contenedor, así que solo esa ruta cambia.
+
+Un lead de Nexo sale con `brand: "nexo"` y `origen: "nexo"`. Monday recibe la etiqueta **Nexo** en la columna Origen (`create_labels_if_missing` la crea si el tablero no la tiene). La hoja de Google escribe `nexo` en la columna Origen y el resto de las columnas del wizard. Si más adelante Nexo tiene su propia hoja o su propio tablero, se definen `NEXO_LEAD_FORM_URL` y `NEXO_MONDAY_BOARD_ID`. Si no están, se usan `LEAD_FORM_URL` y `MONDAY_BOARD_ID`. El script de `google-apps-script/Code.gs` tiene que estar republicado para que un origen `nexo` guarde las columnas del wizard.
+
+Para sumar una tercera marca: agregar el id en `BrandId`, un objeto en `brands`, un layout con `BrandProvider` y `data-brand`, y los valores de esas variables CSS bajo `[data-brand="nueva"]`. Los componentes que ya leen `useBrand()` y las clases `brand-*` la toman sin copiar el wizard.
+
 ## Despliegue y dominio
 
 Instrucciones paso a paso en [DESPLIEGUE.md](DESPLIEGUE.md): configuración del Google Sheet, script de Apps Script, variables de entorno y despliegue en Vercel con dominio propio.

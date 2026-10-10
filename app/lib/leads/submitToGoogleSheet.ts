@@ -3,17 +3,19 @@ import { serverFetch } from "../serverFetch";
 const LEAD_FORM_URL = process.env.LEAD_FORM_URL;
 
 export async function submitToGoogleSheet(
-  payload: Record<string, unknown>
+  payload: Record<string, unknown>,
+  sheetUrl?: string
 ): Promise<
   | { ok: true }
   | { ok: false; error: string; details?: string }
 > {
-  if (!LEAD_FORM_URL) {
+  const url = sheetUrl?.trim() || LEAD_FORM_URL;
+  if (!url) {
     return { ok: false, error: "LEAD_FORM_URL no configurada" };
   }
 
   try {
-    const res = await serverFetch(LEAD_FORM_URL, {
+    const res = await serverFetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { useBrand } from "@/app/lib/BrandContext";
 import { useWizard } from "../context/WizardContext";
+import { stepTitleClass } from "./wizardButtons";
 import { WizardNav } from "./WizardNav";
 import { WizardStepBanner } from "./WizardStepBanner";
 import { WizardStepLayout } from "./WizardStepLayout";
@@ -29,6 +31,7 @@ export function StepConsumption({
   nextLabel = "Siguiente",
   loadingLabel = "...",
 }: StepConsumptionProps) {
+  const isNexo = useBrand().id === "nexo";
   const { consumptionKwhPerYear, setConsumptionKwhPerYear } = useWizard();
   const [localValue, setLocalValue] = useState(
     consumptionKwhPerYear > 0 ? String(consumptionKwhPerYear) : ""
@@ -59,7 +62,7 @@ export function StepConsumption({
         />
       }
     >
-      <h3 className="mb-4 text-lg font-semibold text-stone-800">
+      <h3 className={stepTitleClass(isNexo, "mb-4")}>
         Ingresá tu consumo anual de energía (kWh)
       </h3>
       <div className="flex max-w-md flex-wrap items-center gap-2">
@@ -69,18 +72,18 @@ export function StepConsumption({
           value={localValue}
           onChange={(e) => setLocalValue(e.target.value)}
           placeholder="Ej. 50000"
-          className="min-w-[140px] flex-1 rounded-xl border-2 border-stone-200 px-4 py-3 text-stone-900 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+          className="min-w-[140px] flex-1 rounded-xl border-2 border-brand-line px-4 py-3 text-brand-ink focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/20"
           aria-label="Consumo anual en kWh"
         />
-        <span className="text-sm text-stone-500">kWh</span>
+        <span className="text-sm text-brand-caption">kWh</span>
       </div>
-      <p className="mt-3 max-w-md text-sm text-stone-600">
+      <p className="mt-3 max-w-md text-sm text-brand-body-soft">
         Si no lo sabés, podés ingresar un número orientativo para obtener una estimación.
       </p>
       <button
         type="button"
         onClick={() => setShowProfiles((prev) => !prev)}
-        className="mt-3 inline-flex items-center rounded-lg px-1 text-sm font-medium text-amber-600 hover:text-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+        className="mt-3 inline-flex items-center rounded-lg px-1 text-sm font-medium text-brand-accent-dark hover:text-brand-accent-deep focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2"
       >
         ¿No conocés tu consumo? Usar un estándar de industria
       </button>
@@ -97,20 +100,20 @@ export function StepConsumption({
                   onClick={() => handlePresetClick(preset.value)}
                   className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
                     isActive
-                      ? "border-amber-500 bg-amber-50 text-amber-700"
-                      : "border-stone-200 bg-white text-stone-700 hover:border-amber-300 hover:bg-amber-50/60"
+                      ? "border-brand-accent bg-brand-accent-wash text-brand-accent-deep"
+                      : "border-brand-line bg-white text-brand-body hover:border-brand-accent-soft hover:bg-brand-accent-wash/60"
                   }`}
                 >
-                  <span className="h-2 w-2 rounded-full bg-amber-500" />
+                  <span className="h-2 w-2 rounded-full bg-brand-accent" />
                   <span>{preset.label}</span>
-                  <span className="text-xs text-stone-500">
+                  <span className="text-xs text-brand-caption">
                     {preset.value.toLocaleString("es-AR")} kWh
                   </span>
                 </button>
               );
             })}
           </div>
-          <p className="max-w-md text-xs leading-relaxed text-slate-600">
+          <p className="max-w-md text-xs leading-relaxed text-brand-slate">
             Valores basados en promedios industriales de consumo anual. Podrás refinar este dato más
             adelante.
           </p>

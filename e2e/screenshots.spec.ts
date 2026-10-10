@@ -49,3 +49,116 @@ test.describe("Cotizador wizard screenshots", () => {
     await expect(electricoHeaders).toHaveCount(1);
   });
 });
+
+const CALCULADORA_VIEWPORTS = [
+  { id: "desktop", width: 1280, height: 800 },
+  { id: "mobile", width: 375, height: 812 },
+] as const;
+
+const CALCULADORAS = [
+  {
+    id: "calculadora",
+    path: "/calculadora",
+    start: "Comenzar simulación",
+    results: "Ahorro anual estimado",
+  },
+  {
+    id: "nexo",
+    path: "/calculadora/nexo",
+    start: "Calcular mi ahorro",
+    results: "La inversión se recupera en",
+  },
+] as const;
+
+async function mockCalculadoraApis(page: import("@playwright/test").Page) {
+  await page.route("https://nominatim.openstreetmap.org/**", async (route) => {
+    const url = route.request().url();
+    if (url.includes("reverse")) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ display_name: "Av. Corrientes 1234, Buenos Aires" }),
+      });
+      return;
+    }
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify([
+        {
+          display_name: "Av. Corrientes 1234, Buenos Aires",
+          lat: "-34.6037",
+          lon: "-58.3816",
+          place_id: 1,
+        },
+      ]),
+    });
+  });
+  await page.route("**/api/pvgis**", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ yieldKwhPerKwpYear: 1500 }),
+    });
+  });
+}
+
+test.describe("Calculadoras Renovatio y Nexo", () => {
+  test.beforeAll(() => {
+    fs.mkdirSync(OUT_DIR, { recursive: true });
+  });
+
+  for (const calc of CALCULADORAS) {
+    for (const viewport of CALCULADORA_VIEWPORTS) {
+      test(`${calc.id} ${viewport.id}: intro, dirección y resultados`, async ({ page }) => {
+        test.setTimeout(120_000);
+        await page.setViewportSize({ width: viewport.width, height: viewport.height });
+        await mockCalculadoraApis(page);
+        await page.goto(calc.path);
+
+        if (calc.id === "nexo") {
+          await expect(page.getByText("Renovatio")).toHaveCount(0);
+          await expect(page.getByText("5491123969892")).toHaveCount(0);
+          await expect(page.locator('img[src*="renovatio"]')).toHaveCount(0);
+        }
+
+        await expect(page.getByRole("button", { name: calc.start })).toBeVisible();
+        await page.screenshot({
+          path: path.join(OUT_DIR, `${calc.id}-intro-${viewport.id}.png`),
+          fullPage: true,
+        });
+
+        await page.getByRole("button", { name: calc.start }).click();
+        await page.getByLabel("Dirección").fill("Corrientes");
+        await page.getByRole("option", { name: /Corrientes 1234/ }).click();
+        await expect(page.getByRole("heading", { name: "Seleccioná la dirección de tu empresa" })).toBeVisible();
+        await page.screenshot({
+          path: path.join(OUT_DIR, `${calc.id}-paso-${viewport.id}.png`),
+          fullPage: true,
+        });
+
+        await page.getByRole("button", { name: "Siguiente" }).click();
+        await page.getByRole("button", { name: /ingresar la superficie manualmente/i }).click();
+        await page.getByLabel("Superficie (m²)").fill("400");
+        await page.getByRole("button", { name: "Guardar superficie" }).click();
+        await page.getByRole("button", { name: "Siguiente" }).click();
+        await page
+          .getByLabel("Tipo de tarifa", { exact: true })
+          .selectOption({ label: "T2 – Mediana Demanda" });
+        await page.getByRole("button", { name: "Siguiente" }).click();
+        await page.getByLabel("Consumo anual en kWh").fill("50000");
+        await page.getByRole("button", { name: "Calcular" }).click();
+        await expect(page.getByText(calc.results)).toBeVisible();
+        await page.waitForFunction(() => {
+          const el = document.querySelector(".renovatio-results-enter");
+          if (!el) return true;
+          return Number.parseFloat(getComputedStyle(el).opacity) > 0.98;
+        });
+        await page.screenshot({
+          path: path.join(OUT_DIR, `${calc.id}-resultados-${viewport.id}.png`),
+          fullPage: true,
+        });
+      });
+    }
+  }
+});

@@ -2,12 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useBrand } from "@/app/lib/BrandContext";
+import { nexoBtnPrimary, nexoBtnSecondary } from "./wizardButtons";
 import { useWizard } from "../context/WizardContext";
 import type { CalculationResult } from "../lib/calculations";
-import {
-  MONDAY_PRESUPUESTO_FORM_URL,
-  WHATSAPP_ADVISOR_URL,
-} from "@/app/lib/renovatioLinks";
 
 interface LeadFormAdvancedProps {
   onClose: () => void;
@@ -56,18 +54,20 @@ function WhatsAppIcon({ className = "h-4 w-4" }: { className?: string }) {
 }
 
 function LeadFormSuccess({ onClose }: { onClose: () => void }) {
+  const brand = useBrand();
+
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/40 p-4 backdrop-blur-[2px] overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-brand-ink/40 p-4 backdrop-blur-[2px] overflow-y-auto"
       role="dialog"
       aria-modal="true"
       aria-labelledby="lead-success-title"
     >
-      <div className="relative my-6 w-full max-w-md rounded-2xl bg-white shadow-2xl shadow-stone-900/10 ring-1 ring-stone-200/80 sm:my-10 sm:max-w-[28rem]">
+      <div className="relative my-6 w-full max-w-md rounded-2xl bg-white shadow-2xl shadow-brand-ink/10 ring-1 ring-brand-line/80 sm:my-10 sm:max-w-[28rem]">
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 z-10 rounded-lg p-1.5 text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 sm:right-5 sm:top-5"
+          className="absolute right-4 top-4 z-10 rounded-lg p-1.5 text-brand-faint transition-colors hover:bg-brand-line-soft hover:text-brand-body-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 sm:right-5 sm:top-5"
           aria-label="Cerrar"
         >
           <svg
@@ -83,6 +83,13 @@ function LeadFormSuccess({ onClose }: { onClose: () => void }) {
         </button>
 
         <div className="px-6 py-9 sm:px-9 sm:py-11">
+          {brand.id === "nexo" && (
+            <img
+              src="/brand/nexo/nexo-logo.png"
+              alt="Nexo Energía"
+              className="mb-6 h-10 w-auto"
+            />
+          )}
           {/* Confirmación — compacta */}
           <div className="flex items-start gap-3.5 pr-8">
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100">
@@ -91,29 +98,31 @@ function LeadFormSuccess({ onClose }: { onClose: () => void }) {
             <div className="min-w-0">
               <h2
                 id="lead-success-title"
-                className="text-lg font-semibold tracking-tight text-stone-900 sm:text-xl"
+                className="text-lg font-semibold tracking-tight text-brand-ink sm:text-xl"
               >
                 Información recibida
               </h2>
-              <p className="mt-1.5 max-w-[26rem] text-sm leading-relaxed text-stone-500">
-                Recibimos correctamente tus datos. Un asesor de Renovatio se
-                pondrá en contacto con vos próximamente.
+              <p className="mt-1.5 max-w-[26rem] text-sm leading-relaxed text-brand-caption">
+                {brand.id === "nexo"
+                  ? "Un asesor de Nexo Energía se va a contactar con vos."
+                  : `Recibimos correctamente tus datos. Un asesor de ${brand.name} se pondrá en contacto con vos próximamente.`}
               </p>
             </div>
           </div>
 
           {/* CTA principal — prioridad visual */}
+          {brand.mondayFormUrl && (
           <section
-            className="mt-9 rounded-xl border border-amber-100/90 bg-gradient-to-b from-amber-50/70 to-stone-50/50 px-5 py-6 sm:mt-10 sm:px-6 sm:py-7"
+            className="mt-9 rounded-xl border border-brand-accent-muted/90 bg-gradient-to-b from-brand-accent-wash/70 to-brand-surface/50 px-5 py-6 sm:mt-10 sm:px-6 sm:py-7"
             aria-labelledby="lead-success-next-step"
           >
             <h3
               id="lead-success-next-step"
-              className="max-w-[24rem] text-[15px] font-semibold leading-snug text-stone-900 sm:text-base"
+              className="max-w-[24rem] text-[15px] font-semibold leading-snug text-brand-ink sm:text-base"
             >
               Avanzar con una propuesta diseñada para tu propiedad.
             </h3>
-            <div className="mt-3 max-w-[24rem] space-y-2.5 text-sm leading-relaxed text-stone-600">
+            <div className="mt-3 max-w-[24rem] space-y-2.5 text-sm leading-relaxed text-brand-body-soft">
               <p>
                 Da un paso más y completá el formulario de relevamiento con
                 información más precisa.
@@ -123,50 +132,59 @@ function LeadFormSuccess({ onClose }: { onClose: () => void }) {
                 desarrollar una propuesta técnica más precisa.
               </p>
             </div>
-            <a
-              href={MONDAY_PRESUPUESTO_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 flex w-full items-center justify-center rounded-xl bg-amber-500 px-6 py-4 text-sm font-bold uppercase tracking-wide text-white shadow-md shadow-amber-500/20 transition-colors hover:bg-amber-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
-            >
-              Completar formulario
-            </a>
-            <p className="mt-3 text-center text-xs text-stone-500">
+            {brand.mondayFormUrl && (
+              <a
+                href={brand.mondayFormUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 flex w-full items-center justify-center rounded-xl bg-brand-accent px-6 py-4 text-sm font-bold uppercase tracking-wide text-white shadow-md shadow-brand-accent/20 transition-colors hover:bg-brand-accent-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2"
+              >
+                Completar formulario
+              </a>
+            )}
+            <p className="mt-3 text-center text-xs text-brand-caption">
               ⏱️ Tiempo estimado: 5–10 minutos.
             </p>
           </section>
+          )}
 
           {/* CTA secundario — menor peso */}
           <section
-            className="mt-8 border-t border-stone-100 pt-7"
+            className="mt-8 border-t border-brand-line-soft pt-7"
             aria-labelledby="lead-success-whatsapp"
           >
             <h3
               id="lead-success-whatsapp"
-              className="text-sm font-semibold text-stone-800"
+              className="text-sm font-semibold text-brand-ink-soft"
             >
               ¿Preferís hablar directamente con un asesor?
             </h3>
-            <p className="mt-1.5 max-w-[24rem] text-sm leading-relaxed text-stone-500">
+            <p className="mt-1.5 max-w-[24rem] text-sm leading-relaxed text-brand-caption">
               Resolvé dudas técnicas y recibí asesoramiento personalizado por
               WhatsApp.
             </p>
             <a
-              href={WHATSAPP_ADVISOR_URL}
+              href={brand.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center gap-1.5 rounded-md py-0.5 text-sm font-medium text-brand-navy transition-colors hover:text-[#128C7E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
+              className={
+                brand.id === "nexo"
+                  ? `${nexoBtnPrimary} mt-4`
+                  : "mt-3 inline-flex items-center gap-1.5 rounded-md py-0.5 text-sm font-medium text-brand-navy transition-colors hover:text-[#128C7E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2"
+              }
             >
-              <WhatsAppIcon className="h-[18px] w-[18px] shrink-0 text-[#25D366]" />
+              <WhatsAppIcon
+                className={`h-[18px] w-[18px] shrink-0 ${brand.id === "nexo" ? "text-white" : "text-[#25D366]"}`}
+              />
               <span>Contactar por WhatsApp</span>
             </a>
           </section>
 
           <div className="mt-10 text-center sm:mt-12">
             <Link
-              href="/"
+              href={brand.homePath}
               onClick={onClose}
-              className="text-xs font-medium text-stone-400 transition-colors hover:text-stone-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 rounded-sm"
+              className="text-xs font-medium text-brand-faint transition-colors hover:text-brand-body-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 rounded-sm"
             >
               Volver al inicio
             </Link>
@@ -182,6 +200,7 @@ export function LeadFormAdvanced({
   results,
   initialSuccess = false,
 }: LeadFormAdvancedProps) {
+  const brand = useBrand();
   const wizard = useWizard();
   const [form, setForm] = useState<FormData>({
     nombre: "",
@@ -204,6 +223,8 @@ export function LeadFormAdvanced({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           source: "advanced",
+          brand: brand.id,
+          origen: brand.leadOrigen,
           contact: {
             nombre: form.nombre,
             apellido: form.apellido,
@@ -262,12 +283,19 @@ export function LeadFormAdvanced({
           onSubmit={handleSubmit}
           className="rounded-2xl bg-white p-6 shadow-xl sm:p-8"
         >
-          <h3 id="lead-form-title" className="mb-4 text-xl font-semibold text-stone-900">
+          {brand.id === "nexo" && (
+            <img
+              src="/brand/nexo/nexo-logo.png"
+              alt="Nexo Energía"
+              className="mb-5 h-10 w-auto"
+            />
+          )}
+          <h3 id="lead-form-title" className="mb-4 text-xl font-semibold text-brand-ink">
             Quiero recibir más información
           </h3>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="nombre" className="mb-1 block text-sm font-medium text-stone-700">
+              <label htmlFor="nombre" className="mb-1 block text-sm font-medium text-brand-body">
                 Nombre *
               </label>
               <input
@@ -276,11 +304,11 @@ export function LeadFormAdvanced({
                 required
                 value={form.nombre}
                 onChange={(e) => setForm((f) => ({ ...f, nombre: e.target.value }))}
-                className="w-full rounded-lg border border-stone-300 px-3 py-2 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="w-full rounded-lg border border-brand-line-strong px-3 py-2 focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
               />
             </div>
             <div>
-              <label htmlFor="apellido" className="mb-1 block text-sm font-medium text-stone-700">
+              <label htmlFor="apellido" className="mb-1 block text-sm font-medium text-brand-body">
                 Apellido *
               </label>
               <input
@@ -289,12 +317,12 @@ export function LeadFormAdvanced({
                 required
                 value={form.apellido}
                 onChange={(e) => setForm((f) => ({ ...f, apellido: e.target.value }))}
-                className="w-full rounded-lg border border-stone-300 px-3 py-2 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="w-full rounded-lg border border-brand-line-strong px-3 py-2 focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
               />
             </div>
           </div>
           <div className="mt-4">
-            <label htmlFor="empresa" className="mb-1 block text-sm font-medium text-stone-700">
+            <label htmlFor="empresa" className="mb-1 block text-sm font-medium text-brand-body">
               Empresa *
             </label>
             <input
@@ -303,11 +331,11 @@ export function LeadFormAdvanced({
               required
               value={form.empresa}
               onChange={(e) => setForm((f) => ({ ...f, empresa: e.target.value }))}
-              className="w-full rounded-lg border border-stone-300 px-3 py-2 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+              className="w-full rounded-lg border border-brand-line-strong px-3 py-2 focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
             />
           </div>
           <div className="mt-4">
-            <label htmlFor="mail" className="mb-1 block text-sm font-medium text-stone-700">
+            <label htmlFor="mail" className="mb-1 block text-sm font-medium text-brand-body">
               Mail *
             </label>
             <input
@@ -316,11 +344,11 @@ export function LeadFormAdvanced({
               required
               value={form.mail}
               onChange={(e) => setForm((f) => ({ ...f, mail: e.target.value }))}
-              className="w-full rounded-lg border border-stone-300 px-3 py-2 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+              className="w-full rounded-lg border border-brand-line-strong px-3 py-2 focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
             />
           </div>
           <div className="mt-4">
-            <label htmlFor="telefono" className="mb-1 block text-sm font-medium text-stone-700">
+            <label htmlFor="telefono" className="mb-1 block text-sm font-medium text-brand-body">
               Teléfono
             </label>
             <input
@@ -328,7 +356,7 @@ export function LeadFormAdvanced({
               type="tel"
               value={form.telefono}
               onChange={(e) => setForm((f) => ({ ...f, telefono: e.target.value }))}
-              className="w-full rounded-lg border border-stone-300 px-3 py-2 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+              className="w-full rounded-lg border border-brand-line-strong px-3 py-2 focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
             />
           </div>
           {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
@@ -336,14 +364,22 @@ export function LeadFormAdvanced({
             <button
               type="submit"
               disabled={sending}
-              className="rounded-lg bg-amber-500 px-5 py-2.5 font-medium text-white hover:bg-amber-600 disabled:opacity-50"
+              className={
+                brand.id === "nexo"
+                  ? nexoBtnPrimary
+                  : "rounded-lg bg-brand-accent px-5 py-2.5 font-medium text-white hover:bg-brand-accent-dark disabled:opacity-50"
+              }
             >
               {sending ? "Enviando…" : "Enviar"}
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg border border-stone-300 px-5 py-2.5 font-medium text-stone-700 hover:bg-stone-50"
+              className={
+                brand.id === "nexo"
+                  ? nexoBtnSecondary
+                  : "rounded-lg border border-brand-line-strong px-5 py-2.5 font-medium text-brand-body hover:bg-brand-surface"
+              }
             >
               Cancelar
             </button>
